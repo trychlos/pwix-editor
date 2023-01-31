@@ -1,0 +1,49 @@
+.teEditor {
+    margin: 1px;
+    
+    .te-edit-container {
+        .te-content-name {
+            color: white;
+            background-color: grey;
+            font-size: 75%;
+            display: flex;
+            p {
+                padding-left: 0.25em;
+                flex-grow: 1;
+            }
+            .te-btn {
+                border: solid 1px white;
+                border-style: outset;
+                border-radius: 0.2em;
+                padding: 0.15em;
+                margin: 0.25em;
+            }
+            .te-btn.active {
+                border-style: inset;
+            }
+            .te-btn:hover {
+                cursor: pointer;
+            }
+        }
+        .te-content-name.te-hidden {
+            display: none;
+        }
+        .te-edit-content {
+            border: solid 1px transparent;
+            border-radius: 4pxm;
+        }
+    }
+    .te-edit-container.HIDDEN {
+        display: none;
+    }
+    .te-edit-container.STANDARD {
+        .te-content-name {
+            display: none;
+        }
+    }
+    .te-edit-container.PREVIEW {
+        .te-edit-content:hover {
+            border-color: gray;
+        }
+    }
+}
