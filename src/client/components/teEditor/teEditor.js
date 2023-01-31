@@ -2,28 +2,29 @@
  * pwix:editor/src/client/components/teEditor/teEditor.js
  */
 
-import { pwiI18n as i18n } from 'meteor/pwix:i18n';
+import { pwixI18n as i18n } from 'meteor/pwix:i18n';
 
 import { v4 as uuidv4 } from 'uuid';
 
 import 'jquery-resizable-dom/dist/jquery-resizable.min.js';
 
 import 'trumbowyg/dist/ui/trumbowyg.min.css';
-import 'trumbowyg/dist/trumbowyg.js';
+import 'trumbowyg/dist/trumbowyg.min.js';
+
 import 'trumbowyg/plugins/colors/trumbowyg.colors.js';
 import 'trumbowyg/plugins/emoji/trumbowyg.emoji.js';
 import 'trumbowyg/plugins/fontfamily/trumbowyg.fontfamily.js';
 import 'trumbowyg/plugins/fontsize/trumbowyg.fontsize.js';
 import 'trumbowyg/plugins/history/trumbowyg.history.js';
 import 'trumbowyg/plugins/pasteimage/trumbowyg.pasteimage.js';
-import 'trumbowyg/plugins/resizimg/trumbowyg.resizimg.js';
+//import 'trumbowyg/plugins/resizimg/trumbowyg.resizimg.js';
+import './trumbowyg.resizimg.js';
 import 'trumbowyg/plugins/upload/trumbowyg.upload.js';
 
 import '../../../common/js/index.js';
 
-import '../../stylesheets/te_editor.less';
-
 import './teEditor.html';
+import './teEditor.less';
 
 Template.teEditor.onCreated( function(){
     const self = this;
@@ -41,8 +42,7 @@ Template.teEditor.onCreated( function(){
         editorInitialized: new ReactiveVar( false ),
         id: uuidv4(),
         uploadUrl: null,
-        editor_buttons: null,
-        mode_set: false,
+        mode_parm: null,
 
         // re-set the html content of the editing area on mode change
         //  + try to minimize the tbwchange message effects when the editing area is changed here
@@ -66,35 +66,47 @@ Template.teEditor.onCreated( function(){
             }
         },
 
+        // get the default buttons
+        editorBtnsDef(){
+            let btns = [];
+            if( self.TE.uploadUrl ){
+                btns.push({
+                    // Create a new dropdown
+                    image: {
+                        dropdown: ['insertImage', 'upload'],
+                        ico: 'insertImage'
+                    }
+                });
+            }
+            return btns;
+        },
+
         // get the buttons
         editorButtons(){
-            if( !self.TE.editor_buttons ){
-                let btns = [];
-                if( self.TE.withHTMLBtn ){
-                    btns.push( ['viewHTML'] );
-                }
-                btns.push(
-                    ['historyUndo', 'historyRedo'],
-                    ['formatting'],
-                    ['fontfamily'],
-                    ['fontsize'],
-                    ['strong', 'em', 'del'],
-                    ['superscript', 'subscript'],
-                    ['foreColor', 'backColor'],
-                    ['justifyLeft', 'justifyCenter', 'justifyRight', 'justifyFull'],
-                    ['unorderedList', 'orderedList'],
-                    ['link'],
-                    ['image'],
-                    ['emoji'],
-                    ['horizontalRule'],
-                    ['removeformat']
-                );
-                if( self.TE.withFullScreenBtn ){
-                    btns.push( ['fullscreen'] );
-                }
-                self.TE.editor_buttons = btns;
+            let btns = [];
+            if( self.TE.withHTMLBtn ){
+                btns.push( ['viewHTML'] );
             }
-            return self.TE.editor_buttons;
+            btns.push(
+                ['historyUndo', 'historyRedo'],
+                ['formatting'],
+                ['fontfamily'],
+                ['fontsize'],
+                ['strong', 'em', 'del'],
+                ['superscript', 'subscript'],
+                ['foreColor', 'backColor'],
+                ['justifyLeft', 'justifyCenter', 'justifyRight', 'justifyFull'],
+                ['unorderedList', 'orderedList'],
+                ['link'],
+                ['image'],
+                ['emoji'],
+                ['horizontalRule'],
+                ['removeformat']
+            );
+            if( self.TE.withFullScreenBtn ){
+                btns.push( ['fullscreen'] );
+            }
+            return btns;
         },
 
         // setup the editor plugins
@@ -110,7 +122,7 @@ Template.teEditor.onCreated( function(){
             return plugins;
         },
 
-        // create the Trumbowyg edtor (starting the EDITION mode)
+        // create the Trumbowyg editor (starting the EDITION mode)
         //  this code run the creation; the initialization itself is made on tbwinit message
         editorCreate(){
             if( self.view.isRendered && !self.TE.editorInitialized.get()){
@@ -118,19 +130,10 @@ Template.teEditor.onCreated( function(){
                     console.debug( 'editorCreate() instanciating a new editor' );
                 }
                 self.$( '.te-edit-content#'+self.TE.id ).trumbowyg({
-                    btnsDef: {
-                        // Create a new dropdown
-                        image: {
-                            dropdown: ['insertImage', 'upload'],
-                            ico: 'insertImage'
-                        }
-                    },
+                    btnsDef: self.TE.editorBtnsDef(),
                     btns: self.TE.editorButtons(),
                     plugins: self.TE.editorPlugins()
                 });
-                if( pwiEditor.conf.verbosity & TE_VERBOSE_CREDEL ){
-                    console.debug( 'editor instanciated' );
-                }
             }
         },
 
@@ -140,7 +143,17 @@ Template.teEditor.onCreated( function(){
                 if( pwiEditor.conf.verbosity & TE_VERBOSE_CREDEL ){
                     console.debug( 'editorDelete() destroying instance' );
                 }
-                self.$( '.te-edit-content#'+self.TE.id ).trumbowyg( 'destroy' );
+                const res = self.$( '.te-edit-content#'+self.TE.id ).trumbowyg( 'destroy' );
+                console.log( 'destroy='+res );
+                // may happen that the encapsulating 'trumbowyg-box' div be correctly detached, but not removed :(
+                    /*
+                if( !res ){
+                    let $div = self.$( '.te-edit-content#'+self.TE.id ).prev( '.trumbowyg-box' );
+                    if( $div ){
+                        $div.remove();
+                    }
+                }
+                */
                 self.TE.editorInitialized.set( false );
             }
         },
@@ -193,38 +206,34 @@ Template.teEditor.onCreated( function(){
     // parm
     //  content (ReactiveVar|null)
     self.autorun(() => {
-        if( !self.TE.content ){
-            const content = Template.currentData().content;
-            if( content ){
-                self.TE.content = content;
-            }
+        const content = Template.currentData().content;
+        if( content ){
+            self.TE.content = content;
+            //console.log( 'parm autorun set content' );
         }
     });
 
     // parm
     //  mode, defaults to STANDARD
-    //  be sure to run only once
     self.autorun(() => {
-        if( !self.TE.mode_set ){
-            const data = Template.currentData();
-            if( Object.keys( data ).includes( 'mode' )){
-                self.TE.mode( data.mode );
-                self.TE.mode_set = true;
-            }
+        const mode = Template.currentData().mode;
+        if( mode !== self.TE.mode_parm ){
+            self.TE.mode( mode );
+            self.TE.mode_parm = mode;
+            //console.log( 'parm autorun set mode' );
         }
     });
 
     // parm
     //  name, defaults to ''
     self.autorun(() => {
-        if( !self.TE.name ){
-            const name = Template.currentData().name;
-            if( name ){
-                self.TE.name = name;
-            } else {
-                self.TE.name = i18n.label( pwiEditor.i18n, 'unnamed' );
-            }
+        const name = Template.currentData().name;
+        if( name ){
+            self.TE.name = name;
+        } else {
+            self.TE.name = i18n.label( pwiEditor.i18n, 'unnamed' );
         }
+        //console.log( 'parm autorun set name' );
     });
 
     // parm
@@ -353,6 +362,13 @@ Template.teEditor.events({
             } else if( pwiEditor.conf.verbosity & TE_VERBOSE_TBWMSG ){
                 console.debug( 'tbwchange html is unchanged' );
             }
+        }
+    },
+
+    // the editor is destroyed
+    'tbwclose .te-edit-content'( event, instance ){
+        if( pwiEditor.conf.verbosity & TE_VERBOSE_TBWMSG ){
+            console.debug( 'tbwclose' );
         }
     },
 

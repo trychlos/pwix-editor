@@ -21,6 +21,7 @@ Package.onUse( function( api ){
         'TE_VERBOSE_UPLOAD'
     ]);
     api.mainModule( 'src/client/js/index.js', 'client' );
+    api.mainModule( 'src/server/js/index.js', 'server' );
 });
 
 Package.onTest( function( api ){
@@ -33,14 +34,12 @@ Package.onTest( function( api ){
 function configure( api ){
     api.versionsFrom( '2.9.0' );
     api.use( 'blaze-html-templates', 'client' );
-    api.use( 'ecmascript', 'client' );
+    api.use( 'ecmascript' );
     api.use( 'less@4.0.0', 'client' );
     api.use( 'pwix:i18n@1.0.0', 'client' );
+    api.use( 'tmeasday:check-npm-versions@1.0.2', 'server' );
     api.addFiles( 'src/client/components/teEditor/teEditor.js', 'client' );
 }
 
-Npm.depends({
-    'bootstrap': '5.2.1',
-    'trumbowyg': '2.25.2',
-    'uuid': '9.0.0'
-});
+// NPM dependencies are checked in /src/server/js/check_npms.js
+// See also https://guide.meteor.com/writing-atmosphere-packages.html#npm-dependencies

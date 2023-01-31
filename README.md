@@ -88,6 +88,12 @@ Known configuration options are:
 - TE_MODE_PREVIEW
 - TE_MODE_EDITOR
 
+- TE_VERBOSE_NONE
+- TE_VERBOSE_TBWMSG
+- TE_VERBOSE_TEMSG
+- TE_VERBOSE_CREDEL
+- TE_VERBOSE_UPLOAD
+
 ### `teEditor` component
 
 The editor component itself.
@@ -168,6 +174,26 @@ Action messages are the way the caller can interact with the component during it
 
     Change the mode to the specified one<br />
     Expects an object `{ mode: <mode> }`.
+
+## NPM peer dependencies
+
+Starting with v 1.0.0, and in accordance with advices from [the Meteor Guide](https://guide.meteor.com/writing-atmosphere-packages.html#npm-dependencies), we no more hardcode NPM dependencies in the `Npm.depends` clause of the `package.js`. 
+
+Instead we check npm versions of installed packages at runtime, on server startup, in development environment.
+
+Dependencies as of v 1.0.0:
+```
+    '@popperjs/core': '^2.11.6',
+    'bootstrap': '^5.2.1',
+    'jquery-resizable-dom': '^0.35.0',
+    'trumbowyg': '^2.25.2',
+    'uuid': '^9.0.0'
+```
+
+Each of these dependencies should be installed at application level:
+```
+    meteor npm install <package> --save
+```
 
 ---
 P. Wieser
