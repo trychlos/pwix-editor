@@ -10,6 +10,7 @@ if( false ){
     require( 'bootstrap/package.json' );
     require( 'jquery-resizable-dom/package.json' );
     require( 'trumbowyg/package.json' );
+    require( 'uuid/package.json' );
 }
 
 checkNpmVersions({
