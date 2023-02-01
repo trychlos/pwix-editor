@@ -17,8 +17,7 @@ import 'trumbowyg/plugins/fontfamily/trumbowyg.fontfamily.js';
 import 'trumbowyg/plugins/fontsize/trumbowyg.fontsize.js';
 import 'trumbowyg/plugins/history/trumbowyg.history.js';
 import 'trumbowyg/plugins/pasteimage/trumbowyg.pasteimage.js';
-//import 'trumbowyg/plugins/resizimg/trumbowyg.resizimg.js';
-import './trumbowyg.resizimg.js';
+import 'trumbowyg/plugins/resizimg/trumbowyg.resizimg.js';
 import 'trumbowyg/plugins/upload/trumbowyg.upload.js';
 
 import '../../../common/js/index.js';
