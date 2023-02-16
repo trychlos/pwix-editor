@@ -1,6 +1,6 @@
 Package.describe({
     name: 'pwix:editor',
-    version: '1.0.0',
+    version: '0.90.0', // before first release
     summary: 'An encapsulation of "trumbowyg" for Meteor',
     git: '',
     documentation: 'README.md'
@@ -13,7 +13,7 @@ Package.onUse( function( api ){
         'TE_MODE_HIDDEN',
         'TE_MODE_STANDARD',
         'TE_MODE_PREVIEW',
-        'TE_MODE_EDITOR',
+        'TE_MODE_EDITION',
         'TE_VERBOSE_NONE',
         'TE_VERBOSE_TBWMSG',
         'TE_VERBOSE_TEMSG',

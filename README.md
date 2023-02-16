@@ -86,7 +86,7 @@ Known configuration options are:
 - TE_MODE_HIDDEN
 - TE_MODE_STANDARD
 - TE_MODE_PREVIEW
-- TE_MODE_EDITOR
+- TE_MODE_EDITION
 
 - TE_VERBOSE_NONE
 - TE_VERBOSE_TBWMSG
@@ -119,6 +119,12 @@ If the package doesn't manage any configuration, this component does. And it doe
     Opt. <br />
     The document's name as a string.<br />
     Defaults to the empty string.
+
+- displayName
+
+    Opt.<br />
+    Whether to display the name in the topmost panel.<br />
+    Defaults to true.
 
 - withNamePanel
 
@@ -153,8 +159,8 @@ Informational messages are sent by the component on itself. The caller can take 
 
 - te-content-changed
 
-    Triggered on the `teEditor` element when the content has been changed (EDITION mode)
-    Provides an object `{ html: <html> }`
+    Triggered on the `teEditor` element when the content has been changed (EDITION mode)<br />
+    Provides an object `{ html: <html> }` or `{ html: <html>, name: <name> }` depending whether a `name` has been provided or not.
 
 - te-initialized
 

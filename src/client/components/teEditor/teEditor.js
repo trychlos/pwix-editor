@@ -33,6 +33,7 @@ Template.teEditor.onCreated( function(){
         content: null,
         name: '',
         currentMode: new ReactiveVar( TE_MODE_STANDARD ),
+        displayName: true,
         withNamePanel: true,
         withHTMLBtn: true,
         withFullScreenBtn: true,
@@ -143,7 +144,7 @@ Template.teEditor.onCreated( function(){
                     console.debug( 'editorDelete() destroying instance' );
                 }
                 const res = self.$( '.te-edit-content#'+self.TE.id ).trumbowyg( 'destroy' );
-                console.log( 'destroy='+res );
+                //console.log( 'destroy='+res );
                 // may happen that the encapsulating 'trumbowyg-box' div be correctly detached, but not removed :(
                     /*
                 if( !res ){
@@ -236,6 +237,15 @@ Template.teEditor.onCreated( function(){
     });
 
     // parm
+    //  displayName, defaults to true
+    self.autorun(() => {
+        const data = Template.currentData();
+        if( Object.keys( data ).includes( 'displayName' ) && ( data.displayName === true || data.displayName === false )){
+            self.TE.displayName = data.displayName;
+        }
+    });
+
+    // parm
     //  withNamePanel, defaults to true
     self.autorun(() => {
         const data = Template.currentData();
@@ -310,7 +320,8 @@ Template.teEditor.onRendered( function(){
 Template.teEditor.helpers({
     // give the name of the object, provided by the caller or the default
     name(){
-        return Template.instance().TE.name || '';
+        const TE = Template.instance().TE;
+        return TE.displayName ? TE.name : '';
     },
     // give an id to the div
     id(){
@@ -347,7 +358,11 @@ Template.teEditor.events({
             if( html !== instance.TE.tbwchange_last ){
                 // send a change message if allowed to
                 if( tbwchange_sendmsg ){
-                    instance.$( '.teEditor' ).trigger( 'te-content-changed', { html: html });
+                    let o = { html: html };
+                    if( Template.currentData().name ){
+                        o.name = Template.currentData().name;
+                    }
+                    instance.$( '.teEditor' ).trigger( 'te-content-changed', o );
                 } else if( pwiEditor.conf.verbosity & TE_VERBOSE_TBWMSG ){
                     console.debug( 'tbwchange tbwchange_sendmsg is false' );
                 }
