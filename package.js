@@ -1,6 +1,6 @@
 Package.describe({
     name: 'pwix:editor',
-    version: '0.90.0', // before first release
+    version: '0.91.0', // before first release
     summary: 'An encapsulation of "trumbowyg" for Meteor',
     git: '',
     documentation: 'README.md'
@@ -15,10 +15,16 @@ Package.onUse( function( api ){
         'TE_MODE_PREVIEW',
         'TE_MODE_EDITION',
         'TE_VERBOSE_NONE',
+        'TE_VERBOSE_COLLECTIONS',
+        'TE_VERBOSE_CONFIGURE',
+        'TE_VERBOSE_EDITOR',
         'TE_VERBOSE_TBWMSG',
         'TE_VERBOSE_TEMSG',
-        'TE_VERBOSE_CREDEL',
-        'TE_VERBOSE_UPLOAD'
+        'TE_VERBOSE_UPLOAD',
+        'TE_VERBOSE_WARN_CREATE',
+        'TE_VERBOSE_WARN_DELETE',
+        'TE_VERBOSE_WARN_READ',
+        'TE_VERBOSE_WARN_UPDATE'
     ]);
     api.mainModule( 'src/client/js/index.js', 'client' );
     api.mainModule( 'src/server/js/index.js', 'server' );
@@ -33,11 +39,13 @@ Package.onTest( function( api ){
 
 function configure( api ){
     api.versionsFrom( '2.9.0' );
+    api.use( 'aldeed:collection2@3.5.0' );
     api.use( 'blaze-html-templates', 'client' );
     api.use( 'ecmascript' );
     api.use( 'less@4.0.0', 'client' );
-    api.use( 'pwix:i18n@1.0.0', 'client' );
+    api.use( 'pwix:i18n@1.0.0' );
     api.use( 'tmeasday:check-npm-versions@1.0.2', 'server' );
+    api.addFiles( 'src/client/components/teContent/teContent.js', 'client' );
     api.addFiles( 'src/client/components/teEditor/teEditor.js', 'client' );
 }
 

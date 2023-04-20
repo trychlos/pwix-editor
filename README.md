@@ -16,169 +16,194 @@ But it expects that these unknown and unmanaged _documents_ have two main proper
 
 `pwix:editor` is able to manage four edition modes:
 
-- TE_MODE_HIDDEN
+- `TE_MODE_HIDDEN`
 
     Build the component, but do not display in the DOM.
 
-- TE_MODE_STANDARD
+- `TE_MODE_STANDARD`
 
     The document's content is displayed as standard HTML: this is the default startup mode.<br />
     In this mode, all the document's content is just displayed as if they were no editor at all.
-    This way, you can safely directly integrates `teEditor` in your pages without your standard user is not conscious of anything.
+    This way, you can safely directly integrates `teEditor` component in your pages without your standard user being conscious of anything.
 
-- TE_MODE_PREVIEW
+- `TE_MODE_PREVIEW`
 
     The document's content is displayed inside of a thin panel.<br />
-    The header of this panel displays the document's name, along with two 'Preview' and 'Edit' buttons.
+    The header of this panel displays the document's name, along with two `Preview` and `Edit` buttons.
     The document's content is displayed as standard HTML.
 
-- TE_MODE_EDITION
+- `TE_MODE_EDITION`
 
-    This mode is an extension of the TE_MODE_PREVIEW, where the user is able to actually edit the document's content.
+    This mode is an extension of the `TE_MODE_PREVIEW`, where the user is able to actually edit the document's content.
     A buttons panel with different edition options (font size, color, etc.) along with a WYSIWYG HTML editor is available.
 
 ## Configuration
 
-The package can be configured by calling `pwiEditor.configure()` function, with just a single object as parameters, which should only contains the options you want override.
+The package's behavior can be configured through a call to the `pwiEditor.configure()` method, with just a single javascript object argument, which itself should only contains the options you want override.
 
 Known configuration options are:
 
-- uploadUrl
+- `uploadUrl`
 
     The URL to which the images should be uploaded.<br />
     No default.
 
-- verbosity
+- `verbosity`
 
     Define the expected verbosity level.
 
     The accepted value can be any or-ed combination of following:
 
-    - TE_VERBOSE_NONE
+    - `TE_VERBOSE_NONE`
 
         Do not display anything to the console
 
-    - TE_VERBOSE_TBWMSG
+    - `TE_VERBOSE_COLLECTIONS`
+
+        Trace collections events
+
+    - `TE_VERBOSE_CONFIGURE`
+
+        Trace `pwiEditor.configure()` calls
+
+    - `TE_VERBOSE_EDITOR`
+
+        Trace the instanciation and the deletion of the 'trumbowyg' editor
+
+    - `TE_VERBOSE_TBWMSG`
 
         Trace 'tbwxxx' messages
 
-    - TE_VERBOSE_TEMSG
+    - `TE_VERBOSE_TEMSG`
 
-        Trace 'te-xxx' messages
+        Trace `te-xxx` messages
 
-    - TE_VERBOSE_CREDEL
-
-        Trace creation and deletion functions
-
-    - TE_VERBOSE_UPLOAD
+    - `TE_VERBOSE_UPLOAD`
 
         Trace upload configuration and operations
 
+    - `TE_VERBOSE_WARN_CREATE`
+
+        Warns when trying to create a new document while user is not allowed to
+
+    - `TE_VERBOSE_WARN_DELETE`
+
+        Warns when trying to delete a document while user is not allowed to
+
+    - `TE_VERBOSE_WARN_READ`
+
+        Warns when trying to display an existing document while user is not allowed to
+
+    - `TE_VERBOSE_WARN_UPDATE`
+
+        Warns when trying to update an existing document while user is not allowed to
+
+Please note that `pwixI18n.configure()` method SHOULD be called made in exactly the same terms both in client and server sides.
 
 ## Provides
 
-### Global object
+### A global object
 
 `pwiEditor`
 
-### Exported constants
+This object is allocated at package level: there is only one instance in your application. It gathers the avilable methods (see below).
 
-- TE_MODE_HIDDEN
-- TE_MODE_STANDARD
-- TE_MODE_PREVIEW
-- TE_MODE_EDITION
+### Constants
 
-- TE_VERBOSE_NONE
-- TE_VERBOSE_TBWMSG
-- TE_VERBOSE_TEMSG
-- TE_VERBOSE_CREDEL
-- TE_VERBOSE_UPLOAD
+- `TE_MODE_HIDDEN`
+- `TE_MODE_STANDARD`
+- `TE_MODE_PREVIEW`
+- `TE_MODE_EDITION`
 
-### `teEditor` component
+- `TE_VERBOSE_NONE`
+- `TE_VERBOSE_CONFIGURE`
+- `TE_VERBOSE_EDITOR`
+- `TE_VERBOSE_TBWMSG`
+- `TE_VERBOSE_TEMSG`
+- `TE_VERBOSE_UPLOAD`
+- `TE_VERBOSE_WARN_CREATE`
+- `TE_VERBOSE_WARN_DELETE`
+- `TE_VERBOSE_WARN_READ`
+- `TE_VERBOSE_WARN_UPDATE`
+
+### Blaze components
+
+#### `teEditor`
 
 The editor component itself.
 
-#### Parameters
+The component is configurable with an object passed as an argument, and may contain:
 
-If the package doesn't manage any configuration, this component does. And it does reactively. Accepted parameters are:
+- `content`
 
-- content
+    An optional input/output ReactiveVar which is expected to contain the ... document's content (by the way), interpreted as a HTML string.
 
-    Opt.<br />
-    An input/output ReactiveVar which is expected to contain the ... document's content (by the way), interpreted as a HTML string.<br />
     It not provided, the component just displays an empty editing area.
 
-- mode
+- `mode`
 
-    Opt.<br />
-    The edition mode as a string.<br />
-    Defaults to TE_MODE_STANDARD.
+    The edition mode as a string, defaulting to `TE_MODE_STANDARD`.
 
-- name
+- `name`
 
-    Opt. <br />
-    The document's name as a string.<br />
-    Defaults to the empty string.
+    The document's name as a string, defaulting to the empty string.
 
-- displayName
+- `displayName`
 
-    Opt.<br />
-    Whether to display the name in the topmost panel.<br />
-    Defaults to true.
+    Whether to display the name in the topmost panel, defaulting to `true`.
 
-- withNamePanel
+- `withNamePanel`
 
-    Opt.<br />
-    Whether to display the topmost panel, which would include the document's name and the preview/edit buttons.<br />
-    Defaults to true.
+    Whether to display the topmost panel, which would include the document's name and the preview/edit buttons, defaulting to `true`.
 
-- withHTMLBtn
+- `withHTMLBtn`
 
-    Opt.<br />
-    Whether to authorize the HTML button, which should be reserved to advanced users.<br />
-    Defaults to true.
+    Whether to authorize the HTML button, which should be reserved to advanced users, defaulting to `true`.
 
-- withFullScreenBtn
+- `withFullScreenBtn`
 
-    Opt.<br />
-    Whether to authorize the FullScreen button, which should be reserved to edit full articles.<br />
-    Defaults to true.
+    Whether to authorize the FullScreen button, which should be reserved to edit full articles, defaulting to `true`.
 
 The `teEditor` component doesn't provide any save way. Instead, it provides two ways for the caller be informed of the changes:
-- the 'content' ReactiveVar is continuously updated,
-- a `te-content-changed` message is sent on the component at each change.
+- the `content` ReactiveVar, if provided, is continuously updated,
+- a `te-content-changed` message is sent on the component on each change.
 
 #### Informational messages
 
 Informational messages are sent by the component on itself. The caller can take advantage of them to be kept informed about the various changes.
 
-- te-mode-changed
+- `te-mode-changed`
 
-    Triggered on the `teEditor` element when the edition mode changes<br />
+    Triggered on the `teEditor` element when the edition mode changes.
+
     Provides an object `{ prev: <previous_mode>, new: <new_mode> }`
 
-- te-content-changed
+- `te-content-changed`
 
-    Triggered on the `teEditor` element when the content has been changed (EDITION mode)<br />
-    Provides an object `{ html: <html> }` or `{ html: <html>, name: <name> }` depending whether a `name` has been provided or not.
+    Triggered on the `teEditor` element when the content has been changed (in `TE_MODE_EDITION` mode only).
 
-- te-initialized
+    Provides an object `{ html: <html> }` or `{ html: <html>, name: <name> }`, depending whether a `name` has been provided or not.
 
-    Triggered on the `teEditor` element when the editor has been initialized (EDITION/PREVIEW mode)
+- `te-initialized`
+
+    Triggered on the `teEditor` element when the editor has been initialized (in `TE_MODE_PREVIEW` or `TE_MODE_EDITION` modes).
 
 #### Action messages
 
 Action messages are the way the caller can interact with the component during its lifetime. They must be sent to the `teEditor` component.
 
-- te-content-reset
+- `te-content-reset`
 
-    Force the editor to take into account the current 'content'.<br />
-    May be useful when the caller has to cancel the done edition, and restore a previous value.<br />
-    The 'te-content-changed' message is not sent when this action is requested.
+    Force the editor to take into account the current content of the provided ReactiveVar.
 
-- te-mode-set
+    May be useful when the caller has to cancel a done edition, and restore a previous value.
 
-    Change the mode to the specified one<br />
+    The `te-content-changed` message is not sent when this action is requested.
+
+- `te-mode-set`
+
+    Change the mode to the specified one.
+
     Expects an object `{ mode: <mode> }`.
 
 ## NPM peer dependencies
@@ -192,6 +217,7 @@ Dependencies as of v 1.0.0:
     '@popperjs/core': '^2.11.6',
     'bootstrap': '^5.2.1',
     'jquery-resizable-dom': '^0.35.0',
+    'merge': '^2.1.1',
     'trumbowyg': '^2.25.2',
     'uuid': '^9.0.0'
 ```
@@ -203,4 +229,4 @@ Each of these dependencies should be installed at application level:
 
 ---
 P. Wieser
-- Last updated on 2023, Jan. 31st
+- Last updated on 2023, Apr. 20th

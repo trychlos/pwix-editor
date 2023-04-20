@@ -126,7 +126,7 @@ Template.teEditor.onCreated( function(){
         //  this code run the creation; the initialization itself is made on tbwinit message
         editorCreate(){
             if( self.view.isRendered && !self.TE.editorInitialized.get()){
-                if( pwiEditor.conf.verbosity & TE_VERBOSE_CREDEL ){
+                if( pwiEditor.conf.verbosity & TE_VERBOSE_EDITOR ){
                     console.debug( 'editorCreate() instanciating a new editor' );
                 }
                 self.$( '.te-edit-content#'+self.TE.id ).trumbowyg({
@@ -140,7 +140,7 @@ Template.teEditor.onCreated( function(){
         // delete the Trumbowyg edtor (quitting the EDITION mode)
         editorDelete(){
             if( self.TE.editorInitialized.get()){
-                if( pwiEditor.conf.verbosity & TE_VERBOSE_CREDEL ){
+                if( pwiEditor.conf.verbosity & TE_VERBOSE_EDITOR ){
                     console.debug( 'editorDelete() destroying instance' );
                 }
                 const res = self.$( '.te-edit-content#'+self.TE.id ).trumbowyg( 'destroy' );
