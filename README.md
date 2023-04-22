@@ -56,27 +56,42 @@ Known configuration options are:
 
     - `TE_VERBOSE_NONE`
 
-        Do not display anything to the console
+        Do not display any trace log to the console
 
     - `TE_VERBOSE_COLLECTIONS`
 
-        Trace collections events
+        Trace collections events.
+
+        This includes on each and every collection:
+
+        - declarations and definitions
+        - methods calls and results 
+
+    - `TE_VERBOSE_COMPONENTS`
+
+        Trace Blaze components life:
+
+        - creation
+        - destruction
 
     - `TE_VERBOSE_CONFIGURE`
 
-        Trace `pwiEditor.configure()` calls
+        Trace `pwiEditor.configure()` calls and their result
 
-    - `TE_VERBOSE_EDITOR`
+    - `TE_VERBOSE_MODE`
 
-        Trace the instanciation and the deletion of the 'trumbowyg' editor
-
-    - `TE_VERBOSE_TBWMSG`
-
-        Trace 'tbwxxx' messages
+        Trace edition mode changes
 
     - `TE_VERBOSE_TEMSG`
 
         Trace `te-xxx` messages
+
+    - `TE_VERBOSE_TRUMBOWYG`
+
+        Trace the 'trumbowyg' editor life:
+
+        - instanciation and deletion
+        - internal messaging events
 
     - `TE_VERBOSE_UPLOAD`
 
@@ -98,7 +113,7 @@ Known configuration options are:
 
         Warns when trying to update an existing document while user is not allowed to
 
-Please note that `pwixI18n.configure()` method SHOULD be called made in exactly the same terms both in client and server sides.
+Please note that `pwixI18n.configure()` method SHOULD be called in the same terms both in client and server sides.
 
 ## Provides
 
@@ -116,10 +131,12 @@ This object is allocated at package level: there is only one instance in your ap
 - `TE_MODE_EDITION`
 
 - `TE_VERBOSE_NONE`
+- `TE_VERBOSE_COLLECTIONS`
+- `TE_VERBOSE_COMPONENTS`
 - `TE_VERBOSE_CONFIGURE`
-- `TE_VERBOSE_EDITOR`
-- `TE_VERBOSE_TBWMSG`
+- `TE_VERBOSE_MODE`
 - `TE_VERBOSE_TEMSG`
+- `TE_VERBOSE_TRUMBOWYG`
 - `TE_VERBOSE_UPLOAD`
 - `TE_VERBOSE_WARN_CREATE`
 - `TE_VERBOSE_WARN_DELETE`
@@ -128,11 +145,57 @@ This object is allocated at package level: there is only one instance in your ap
 
 ### Blaze components
 
+#### `teContent`
+
+This is an encapsulation of the teEditor component, which manages serialized documents.
+
+The component is configurable with an object passed as an argument, which may contain:
+
+- `name`
+
+    The content name in the database.
+
+    This is mandatory.
+
+- `createAllowed`
+
+    Whether the creation of the content is allowed.
+
+    This is only considered if `name` doesn't yet exists in the database.
+
+    Defaults to `false`.
+
+- `readAllowed`
+
+    Whether the display of the existing content is allowed.
+
+    This is only considered if `name` exists in the database.
+
+    Defaults to `false`.
+
+- `updateAllowed`
+
+    Whether edition of the existing content is allowed.
+
+    This is only considered if `name` exists in the database.
+
+    Defaults to `false`.
+
+- `deleteAllowed`
+
+    Whether deletion of the existing content is allowed.
+
+    This is only considered if `name` exists in the database.
+
+    Defaults to `false`.
+
+Because `teContent` is an encapsulation of `teEditor`, then `teEditor` needed arguments may also be passed through the argument object. Only `content` and `mode` are managed directly by the `teContent` component.
+
 #### `teEditor`
 
 The editor component itself.
 
-The component is configurable with an object passed as an argument, and may contain:
+The component is configurable with an object passed as an argument, which may contain:
 
 - `content`
 
@@ -168,6 +231,48 @@ The `teEditor` component doesn't provide any save way. Instead, it provides two 
 - the `content` ReactiveVar, if provided, is continuously updated,
 - a `te-content-changed` message is sent on the component on each change.
 
+#### `teSwitch`
+
+A switch which let the user toggle the edition mode.
+
+Use case: particularly in development mode, it happens that the `TE_MODE_PREVIEW` may slightly disturb the display. This switch let the editor run in `TE_MODE_STANDARD` even when the user is allowed to edit, while the toggle switch is off.
+
+The component is configurable with an object passed as an argument, which may contain:
+
+ - `labelTop`
+ 
+    A (HTML) string to be displayed above the switch, defaulting to none
+
+ - `labelRight`
+ 
+    A (HTML) string to be displayed on the right of the switch, defaulting to none
+
+ - `labelBottom`
+ 
+    A (HTML) string to be displayed below the switch, defaulting to none
+
+ - `labelLeft`
+ 
+    A (HTML) string to be displayed on the left of the switch, defaulting to none
+
+ - `title`
+ 
+    A string label as the button title, defaulting to none
+
+ - `initialState`
+ 
+    Whether the switch is initially on or off, defaulting to off
+
+The `teSwitch` component maintains its state through two `pwiEditor` reaactive variables:
+
+- `pwiEditor.switch.exists`
+
+    Whether the application makes use of the `teSwitch` component
+
+- `pwiEditor.switch.state`
+
+    When used, the state of the `teSwitch` component
+
 #### Informational messages
 
 Informational messages are sent by the component on itself. The caller can take advantage of them to be kept informed about the various changes.
@@ -187,6 +292,11 @@ Informational messages are sent by the component on itself. The caller can take 
 - `te-initialized`
 
     Triggered on the `teEditor` element when the editor has been initialized (in `TE_MODE_PREVIEW` or `TE_MODE_EDITION` modes).
+
+- `te-switch-on`
+- `te-switch-off`
+
+    Triggered on the `teSwitch` component when the switch state changes. The message advertises of the new state of the switch.
 
 #### Action messages
 

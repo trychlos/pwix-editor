@@ -68,6 +68,11 @@ Template.teContent.onCreated( function(){
         self.TE.boolArg( 'updateAllowed' );
         self.TE.boolArg( 'deleteAllowed' );
     });
+
+    // be verbose
+    if( pwiEditor.conf.verbosity & TE_VERBOSE_COMPONENTS ){
+        console.debug( 'pwix:editor teContent onCreated()', self.TE.name.get());
+    }
 });
 
 Template.teContent.onRendered( function(){
@@ -90,7 +95,7 @@ Template.teContent.onRendered( function(){
                             self.TE.docContent.set( res.content );
 
                         } else if( pwiEditor.conf.verbosity & TE_VERBOSE_WARN_READ ){
-                            console.warn( 'teContent name=\''+name+'\' exists, but readAllowed=false' );
+                            console.warn( 'pwix:editor teContent name=\''+name+'\' exists, but readAllowed=false' );
                             self.TE.docObject = { name: name, content: '' };
                             self.TE.lastSavedContent = '';
                             self.TE.docContent.set( '' );
@@ -101,7 +106,7 @@ Template.teContent.onRendered( function(){
                         self.TE.docContent.set( '' );
                     
                     } else if( pwiEditor.conf.verbosity & TE_VERBOSE_WARN_CREATE ){
-                        console.warn( 'teContent name=\''+name+'\' doesn\'t exist, but createAllowed=false' );
+                        console.warn( 'pwix:editor teContent name=\''+name+'\' doesn\'t exist, but createAllowed=false' );
                         self.TE.docObject = { name: name, content: '' };
                         self.TE.lastSavedContent = '';
                         self.TE.docContent.set( '' );
@@ -119,6 +124,9 @@ Template.teContent.helpers({
         const TE = Template.instance().TE;
         let o = Template.currentData();
         o.mode = TE.updateAllowed.get() ? TE_MODE_PREVIEW : ( TE.readAllowed.get() ? TE_MODE_STANDARD : TE_MODE_NONE );
+        if( pwiEditor.conf.verbosity & TE_VERBOSE_MODE ){
+            console.debug( 'pwix:editor teContent editParms readAllowed='+TE.readAllowed.get(), 'updateAllowed='+ TE.updateAllowed.get(), 'asking for', o.mode );
+        }
         o.content = TE.docContent;
         return o;
     }
@@ -140,9 +148,16 @@ Template.teContent.events({
                         }
                     });
                 } else if( pwiEditor.conf.verbosity & TE_VERBOSE_WARN_UPDATE ){
-                    console.warn( 'teContent name=\''+name+'\' changed, but updateAllowed=false' );
+                    console.warn( 'pwix:editor teContent name=\''+name+'\' changed, but updateAllowed=false' );
                 }
             }
         }
+    }
+});
+
+Template.teContent.onDestroyed( function(){
+    // be verbose
+    if( pwiEditor.conf.verbosity & TE_VERBOSE_COMPONENTS ){
+        console.debug( 'pwix:editor teContent onDestroyed()' );
     }
 });

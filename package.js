@@ -16,10 +16,11 @@ Package.onUse( function( api ){
         'TE_MODE_EDITION',
         'TE_VERBOSE_NONE',
         'TE_VERBOSE_COLLECTIONS',
+        'TE_VERBOSE_COMPONENTS',
         'TE_VERBOSE_CONFIGURE',
-        'TE_VERBOSE_EDITOR',
-        'TE_VERBOSE_TBWMSG',
+        'TE_VERBOSE_MODE',
         'TE_VERBOSE_TEMSG',
+        'TE_VERBOSE_TRUMBOWYG',
         'TE_VERBOSE_UPLOAD',
         'TE_VERBOSE_WARN_CREATE',
         'TE_VERBOSE_WARN_DELETE',
@@ -47,6 +48,7 @@ function configure( api ){
     api.use( 'tmeasday:check-npm-versions@1.0.2', 'server' );
     api.addFiles( 'src/client/components/teContent/teContent.js', 'client' );
     api.addFiles( 'src/client/components/teEditor/teEditor.js', 'client' );
+    api.addFiles( 'src/client/components/teSwitch/teSwitch.js', 'client' );
 }
 
 // NPM dependencies are checked in /src/server/js/check_npms.js

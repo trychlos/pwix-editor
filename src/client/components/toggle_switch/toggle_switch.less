@@ -1,0 +1,69 @@
+/*
+ * A CSS toggle switch
+ * from https://www.w3schools.com/howto/howto_css_switch.asp
+ */
+
+.te-toggle-switch {
+    font-size: 90%;
+
+    // The switch - the box around the slider
+    label.switch {
+        --toggle-switch-slider: 1em;
+        --toggle-switch-margin: 4px;
+        --toggle-switch-height: calc( var( --toggle-switch-slider ) + calc( 2 * var( --toggle-switch-margin )));
+        --toggle-switch-width: calc( calc( var( --toggle-switch-slider ) + var( --toggle-switch-margin )) * 2 );
+
+        position: relative;
+        display: inline-block;
+        width: var( --toggle-switch-width );
+        height: var( --toggle-switch-height );
+
+        // Hide default HTML checkbox
+        input {
+            opacity: 0;
+            width: 0;
+            height: 0;
+        }
+        // The slider
+        .slider {
+            position: absolute;
+            cursor: pointer;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-color: #ccc;
+            -webkit-transition: .4s;
+            transition: .4s;
+        }
+        .slider:before {
+            position: absolute;
+            content: "";
+            height: var( --toggle-switch-slider );
+            width: var( --toggle-switch-slider );
+            left: var( --toggle-switch-margin );
+            bottom: var( --toggle-switch-margin );
+            background-color: white;
+            -webkit-transition: .4s;
+            transition: .4s;
+        }
+        input:checked + .slider {
+            background-color: #2196F3;
+        }
+        input:focus + .slider {
+            box-shadow: 0 0 1px #2196F3;
+        }
+        input:checked + .slider:before {
+            -webkit-transform: translateX( var( --toggle-switch-slider ));
+            -ms-transform: translateX( var( --toggle-switch-slider ));
+            transform: translateX( var( --toggle-switch-slider ));
+        }
+        // Rounded sliders
+        .slider.round {
+            border-radius: var( --toggle-switch-height );
+        }
+        .slider.round:before {
+            border-radius: 50%;
+        }
+    }
+}
