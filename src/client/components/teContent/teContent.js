@@ -78,6 +78,11 @@ Template.teContent.onCreated( function(){
 Template.teContent.onRendered( function(){
     const self = this;
 
+    // be verbose
+    if( pwiEditor.conf.verbosity & TE_VERBOSE_COMPONENTS ){
+        console.debug( 'pwix:editor teContent onRendered()' );
+    }
+
     // get the editable content from the database
     self.autorun(() => {
         const name = self.TE.name.get();

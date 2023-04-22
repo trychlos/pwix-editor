@@ -4,6 +4,6 @@
 
 import '../../common/js/index.js';
 
-import './defaults.js';
 import './icons.js';
 import './startup.js';
+import './switch.js';

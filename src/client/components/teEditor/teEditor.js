@@ -44,14 +44,26 @@ Template.teEditor.onCreated( function(){
         uploadUrl: null,
         mode_parm: null,
 
+        // get a bool arg if present
+        argBool( name ){
+            if( Object.keys( Template.currentData()).includes( name )){
+                const b = Template.currentData()[name];
+                if( b === true || b === false ){
+                    self.TE[name] = b;
+                } else {
+                    console.warn( 'teEditor expects \''+name+'\' be a boolean, found', b );
+                }
+            }
+        },
+
         // check the asked mode vs the current state of the edition toggle switch
         // returns the mode to be considered
         checkSwitch( mode ){
             const _input = mode;
-            const _hasSwitch = pwiEditor.client.hasTeSwitch.get();
+            const _hasSwitch = pwiEditor.switch.exists.get();
             let _switchState;
             if( _hasSwitch ){
-                _switchState = pwiEditor.teSwitch.get();
+                _switchState = pwiEditor.switch.state.get();
                 if( !_switchState ){
                     switch( mode ){
                         case TE_MODE_PREVIEW:
@@ -63,7 +75,7 @@ Template.teEditor.onCreated( function(){
 
             }
             if( pwiEditor.conf.verbosity & TE_VERBOSE_MODE ){
-                console.debug( 'pwix:editor teEditor checkSwitch() asked='+_input, 'hasTeSwitch='+ _hasSwitch, 'switchState='+_switchState, 'returning', mode );
+                console.debug( 'pwix:editor teEditor checkSwitch() asked='+_input, 'switchExists='+ _hasSwitch, 'switchState='+_switchState, 'returning', mode );
             }
             return mode;
         },
@@ -272,40 +284,12 @@ Template.teEditor.onCreated( function(){
         //console.log( 'parm autorun set name' );
     });
 
-    // parm
-    //  displayName, defaults to true
+    // boolean parms
     self.autorun(() => {
-        const data = Template.currentData();
-        if( Object.keys( data ).includes( 'displayName' ) && ( data.displayName === true || data.displayName === false )){
-            self.TE.displayName = data.displayName;
-        }
-    });
-
-    // parm
-    //  withNamePanel, defaults to true
-    self.autorun(() => {
-        const data = Template.currentData();
-        if( Object.keys( data ).includes( 'withNamePanel' ) && ( data.withNamePanel === true || data.withNamePanel === false )){
-            self.TE.withNamePanel = data.withNamePanel;
-        }
-    });
-
-    // parm
-    //  withHTMLBtn, defaults to true
-    self.autorun(() => {
-        const data = Template.currentData();
-        if( Object.keys( data ).includes( 'withHTMLBtn' ) && ( data.withHTMLBtn === true || data.withHTMLBtn === false )){
-            self.TE.withHTMLBtn = data.withHTMLBtn;
-        }
-    });
-
-    // parm
-    //  withFullScreenBtn, defaults to true
-    self.autorun(() => {
-        const data = Template.currentData();
-        if( Object.keys( data ).includes( 'withFullScreenBtn' ) && ( data.withFullScreenBtn === true || data.withFullScreenBtn === false )){
-            self.TE.withFullScreenBtn = data.withFullScreenBtn;
-        }
+        self.TE.argBool( 'displayName' );
+        self.TE.argBool( 'withNamePanel' );
+        self.TE.argBool( 'withHTMLBtn' );
+        self.TE.argBool( 'withFullScreenBtn' );
     });
 
     // upload url for the images
@@ -313,6 +297,16 @@ Template.teEditor.onCreated( function(){
         self.TE.uploadUrl = pwiEditor.conf.uploadUrl;
         if( pwiEditor.conf.verbosity & TE_VERBOSE_UPLOAD ){
             console.debug( 'pwix:editor teEditor uploadUrl', self.TE.uploadUrl );
+        }
+    });
+
+    // follow the state of the teSwitch if it us used by the application
+    //  we do not used here the switch state, but have to read it in order to be reactive when it changes
+    self.autorun(() => {
+        const _hasSwitch = pwiEditor.switch.exists.get();
+        if( _hasSwitch ){
+            const _state = pwiEditor.switch.state.get();
+            self.TE.mode( self.TE.mode_parm );
         }
     });
 
@@ -324,6 +318,11 @@ Template.teEditor.onCreated( function(){
 
 Template.teEditor.onRendered( function(){
     const self = this;
+
+    // be verbose
+    if( pwiEditor.conf.verbosity & TE_VERBOSE_COMPONENTS ){
+        console.debug( 'pwix:editor teEditor onRendered()' );
+    }
 
     // display the topmost panel
     if( self.TE.withNamePanel ){

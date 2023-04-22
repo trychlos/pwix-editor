@@ -19,6 +19,7 @@ Package.onUse( function( api ){
         'TE_VERBOSE_COMPONENTS',
         'TE_VERBOSE_CONFIGURE',
         'TE_VERBOSE_MODE',
+        'TE_VERBOSE_SWITCH',
         'TE_VERBOSE_TEMSG',
         'TE_VERBOSE_TRUMBOWYG',
         'TE_VERBOSE_UPLOAD',

@@ -23,7 +23,6 @@ import { ReactiveVar } from 'meteor/reactive-var';
 import '../toggle_switch/toggle_switch.js';
 
 import './teSwitch.html';
-import './teSwitch.less';
 
 Template.teSwitch.onCreated( function(){
     const self = this;
@@ -51,10 +50,15 @@ Template.teSwitch.onCreated( function(){
     });
 
     // advertise we have a switch
-    pwiEditor.client.hasTeSwitch.set( true );
+    pwiEditor.switch.exists.set( true );
+
+    // set the initial state
+    self.autorun(() => {
+        pwiEditor.switch.state.set( self.TE.initialState.get());
+    });
 
     // be verbose
-    if( pwiEditor.conf.verbosity & TE_VERBOSE_COMPONENTS ){
+    if( pwiEditor.conf.verbosity & TE_VERBOSE_COMPONENTS || pwiEditor.conf.verbosity & TE_VERBOSE_SWITCH ){
         console.debug( 'pwix:editor teSwitch onCreated()' );
     }
 });
@@ -62,27 +66,27 @@ Template.teSwitch.onCreated( function(){
 Template.teSwitch.onRendered( function(){
     const self = this;
 
-    // set the initial state
-    self.autorun(() => {
-        pwiEditor.teSwitch.set( self.TE.initialState.get());
-    });
+    // be verbose
+    if( pwiEditor.conf.verbosity & TE_VERBOSE_COMPONENTS || pwiEditor.conf.verbosity & TE_VERBOSE_SWITCH ){
+        console.debug( 'pwix:editor teSwitch onRendered()' );
+    }
 });
 
 Template.teSwitch.events({
     'change .teSwitch'( event, instance ){
         const checked = instance.$( '.te-toggle-switch input' ).is( ':checked' );
-        pwiEditor.teSwitch.set( checked );
+        pwiEditor.switch.state.set( checked );
         instance.$( '.teSwitch' ).trigger( checked ? 'te-switch-on' : 'te-switch-off' );
     },
 
     'te-switch-off .teSwitch'(){
-        if( pwiEditor.conf.verbosity & TE_VERBOSE_TEMSG ){
+        if( pwiEditor.conf.verbosity & TE_VERBOSE_TEMSG || pwiEditor.conf.verbosity & TE_VERBOSE_SWITCH  ){
             console.debug( 'pwix:editor teSwitch te-switch-off' );
         }
     },
 
     'te-switch-on .teSwitch'(){
-        if( pwiEditor.conf.verbosity & TE_VERBOSE_TEMSG ){
+        if( pwiEditor.conf.verbosity & TE_VERBOSE_TEMSG || pwiEditor.conf.verbosity & TE_VERBOSE_SWITCH  ){
             console.debug( 'pwix:editor teSwitch te-switch-on' );
         }
     }
@@ -90,10 +94,10 @@ Template.teSwitch.events({
 
 Template.teSwitch.onDestroyed( function(){
     // advertise we no more have a switch
-    pwiEditor.client.hasTeSwitch.set( false );
+    pwiEditor.switch.exists.set( false );
 
     // be verbose
-    if( pwiEditor.conf.verbosity & TE_VERBOSE_COMPONENTS ){
+    if( pwiEditor.conf.verbosity & TE_VERBOSE_COMPONENTS || pwiEditor.conf.verbosity & TE_VERBOSE_SWITCH  ){
         console.debug( 'pwix:editor teSwitch onDestroyed()' );
     }
 });

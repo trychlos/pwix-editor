@@ -82,6 +82,10 @@ Known configuration options are:
 
         Trace edition mode changes
 
+    - `TE_VERBOSE_SWITCH`
+
+        Trace the internal behavior of the `teSwitch` component
+
     - `TE_VERBOSE_TEMSG`
 
         Trace `te-xxx` messages
@@ -135,6 +139,7 @@ This object is allocated at package level: there is only one instance in your ap
 - `TE_VERBOSE_COMPONENTS`
 - `TE_VERBOSE_CONFIGURE`
 - `TE_VERBOSE_MODE`
+- `TE_VERBOSE_SWITCH`
 - `TE_VERBOSE_TEMSG`
 - `TE_VERBOSE_TRUMBOWYG`
 - `TE_VERBOSE_UPLOAD`
