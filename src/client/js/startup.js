@@ -5,20 +5,20 @@
 import { Mongo } from 'meteor/mongo';
 
 Meteor.startup( function(){
-    //console.log( pwiEditor );
+    //console.log( teEditor );
     // define the cient-side collections
-    if( pwiEditor.conf.verbosity & TE_VERBOSE_COLLECTIONS ){
+    if( teEditor.conf.verbosity & TE_VERBOSE_COLLECTIONS ){
         console.debug( 'pwix:editor defining client-side collections...' );
     }
-    Object.keys( pwiEditor.collections ).every(( c ) => {
+    Object.keys( teEditor.collections ).every(( c ) => {
         //console.log( c );
-        //console.log( pwiEditor );
-        const _name = pwiEditor.conf.collections.prefix + pwiEditor.collections[c].name;
-        if( pwiEditor.conf.verbosity & TE_VERBOSE_COLLECTIONS ){
+        //console.log( teEditor );
+        const _name = teEditor.conf.collections.prefix + teEditor.collections[c].name;
+        if( teEditor.conf.verbosity & TE_VERBOSE_COLLECTIONS ){
             console.debug( '   '+c+' -> '+_name );
         }
-        pwiEditor.collections[c].client = new Mongo.Collection( _name );
-        pwiEditor.collections[c].client.attachSchema( pwiEditor.collections[c].schema );
+        teEditor.collections[c].client = new Mongo.Collection( _name );
+        teEditor.collections[c].client.attachSchema( teEditor.collections[c].schema );
         return true;
     });
 });

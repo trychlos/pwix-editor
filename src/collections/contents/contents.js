@@ -8,7 +8,7 @@
 
 import SimpleSchema from 'simpl-schema';
 
-pwiEditor.collections.Contents = {
+teEditor.collections.Contents = {
 
     // name radical
     name: 'contents',
@@ -61,7 +61,7 @@ pwiEditor.collections.Contents = {
     // cf. https://guide.meteor.com/security.html#allow-deny
     // @locus Server
     deny(){
-        pwiEditor.collections.Contents.server.deny({
+        teEditor.collections.Contents.server.deny({
             insert(){ return true; },
             update(){ return true; },
             remove(){ return true; },

@@ -3,11 +3,11 @@ import { Contents } from '../contents.js';
 Meteor.methods({
     // empty the collection
     'te_contents.empty'(){
-        if( pwiEditor.conf.verbosity & TE_VERBOSE_COLLECTIONS ){
+        if( teEditor.conf.verbosity & TE_VERBOSE_COLLECTIONS ){
             console.debug( 'pwix:editor te_contents.empty() call' );
         }
-        const res = pwiEditor.collections.Contents.server.remove({});
-        if( pwiEditor.conf.verbosity & TE_VERBOSE_COLLECTIONS ){
+        const res = teEditor.collections.Contents.server.remove({});
+        if( teEditor.conf.verbosity & TE_VERBOSE_COLLECTIONS ){
             console.debug( 'pwix:editor te_contents.empty() returns with', res );
         }
         return res;
@@ -15,11 +15,11 @@ Meteor.methods({
 
     // get some content from the database
     'te_contents.byName'( name ){
-        if( pwiEditor.conf.verbosity & TE_VERBOSE_COLLECTIONS ){
+        if( teEditor.conf.verbosity & TE_VERBOSE_COLLECTIONS ){
             console.debug( 'pwix:editor te_contents.byName() call with name=', name );
         }
-        const res = pwiEditor.collections.Contents.server.findOne({ name: name });
-        if( pwiEditor.conf.verbosity & TE_VERBOSE_COLLECTIONS ){
+        const res = teEditor.collections.Contents.server.findOne({ name: name });
+        if( teEditor.conf.verbosity & TE_VERBOSE_COLLECTIONS ){
             console.debug( 'pwix:editor te_contents.byName() returns with', res );
         }
         return res;
@@ -27,11 +27,11 @@ Meteor.methods({
 
     // import an element (so do not modify any data) 
     'te_contents.import'( elt ){
-        if( pwiEditor.conf.verbosity & TE_VERBOSE_COLLECTIONS ){
+        if( teEditor.conf.verbosity & TE_VERBOSE_COLLECTIONS ){
             console.debug( 'pwix:editor te_contents.import() call with elt=', elt );
         }
-        const res = pwiEditor.collections.Contents.server.insert( elt );
-        if( pwiEditor.conf.verbosity & TE_VERBOSE_COLLECTIONS ){
+        const res = teEditor.collections.Contents.server.insert( elt );
+        if( teEditor.conf.verbosity & TE_VERBOSE_COLLECTIONS ){
             console.debug( 'pwix:editor te_contents.import() returns with', res );
         }
         return res;
@@ -40,7 +40,7 @@ Meteor.methods({
     // set some content into the database
     // name is mandatory
     'te_contents.set'( name, content ){
-        if( pwiEditor.conf.verbosity & TE_VERBOSE_COLLECTIONS ){
+        if( teEditor.conf.verbosity & TE_VERBOSE_COLLECTIONS ){
             console.debug( 'pwix:editor te_contents.set() call with name=', name, 'content=', content );
         }
         if( !name ){
@@ -48,7 +48,7 @@ Meteor.methods({
                 'content.set',
                 'Empty name' );
         }
-        let orig = pwiEditor.collections.Contents.server.findOne({ name: name });
+        let orig = teEditor.collections.Contents.server.findOne({ name: name });
         //console.log( 'content.set orig=', orig );
         let o = {
             content: content
@@ -62,11 +62,11 @@ Meteor.methods({
             o.createdAt = new Date();
             o.createdBy = this.userId;
         }
-        let res = pwiEditor.collections.Contents.server.upsert({ name: name }, { $set: o });
+        let res = teEditor.collections.Contents.server.upsert({ name: name }, { $set: o });
         if( res.numberAffected > 0 ){
-            res.written = pwiEditor.collections.Contents.server.findOne({ name: name });
+            res.written = teEditor.collections.Contents.server.findOne({ name: name });
         }
-        if( pwiEditor.conf.verbosity & TE_VERBOSE_COLLECTIONS ){
+        if( teEditor.conf.verbosity & TE_VERBOSE_COLLECTIONS ){
             console.debug( 'pwix:editor te_contents.set() returns with', res );
         }
         return res;

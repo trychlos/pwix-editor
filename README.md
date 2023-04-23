@@ -39,7 +39,7 @@ But it expects that these unknown and unmanaged _documents_ have two main proper
 
 ## Configuration
 
-The package's behavior can be configured through a call to the `pwiEditor.configure()` method, with just a single javascript object argument, which itself should only contains the options you want override.
+The package's behavior can be configured through a call to the `teEditor.configure()` method, with just a single javascript object argument, which itself should only contains the options you want override.
 
 Known configuration options are:
 
@@ -76,7 +76,7 @@ Known configuration options are:
 
     - `TE_VERBOSE_CONFIGURE`
 
-        Trace `pwiEditor.configure()` calls and their result
+        Trace `teEditor.configure()` calls and their result
 
     - `TE_VERBOSE_MODE`
 
@@ -123,7 +123,7 @@ Please note that `pwixI18n.configure()` method SHOULD be called in the same term
 
 ### A global object
 
-`pwiEditor`
+`teEditor`
 
 This object is allocated at package level: there is only one instance in your application. It gathers the avilable methods (see below).
 
@@ -268,13 +268,13 @@ The component is configurable with an object passed as an argument, which may co
  
     Whether the switch is initially on or off, defaulting to off
 
-The `teSwitch` component maintains its state through two `pwiEditor` reaactive variables:
+The `teSwitch` component maintains its state through two `teEditor` reaactive variables:
 
-- `pwiEditor.switch.used`
+- `teEditor.switch.used`
 
     Whether the application makes use of the `teSwitch` component
 
-- `pwiEditor.switch.state`
+- `teEditor.switch.state`
 
     When used, the state of the `teSwitch` component
 

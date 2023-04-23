@@ -69,10 +69,10 @@ Template.teEditor.onCreated( function(){
         // returns the mode to be considered
         checkSwitch( mode ){
             const _input = mode;
-            const _hasSwitch = pwiEditor.switch.used.get();
+            const _hasSwitch = teEditor.switch.used.get();
             let _switchState;
             if( _hasSwitch ){
-                _switchState = pwiEditor.switch.state.get();
+                _switchState = teEditor.switch.state.get();
                 if( !_switchState ){
                     switch( mode ){
                         case TE_MODE_PREVIEW:
@@ -84,7 +84,7 @@ Template.teEditor.onCreated( function(){
                 }
 
             }
-            if( pwiEditor.conf.verbosity & TE_VERBOSE_MODE ){
+            if( teEditor.conf.verbosity & TE_VERBOSE_MODE ){
                 console.debug( 'pwix:editor teEditor checkSwitch() asked='+_input, 'switchExists='+ _hasSwitch, 'switchState='+_switchState, 'returning', mode );
             }
             return mode;
@@ -159,7 +159,7 @@ Template.teEditor.onCreated( function(){
         //  this code run the creation; the initialization itself is made on tbwinit message
         editorCreate(){
             if( self.view.isRendered && !self.TE.editorInitialized.get()){
-                if( pwiEditor.conf.verbosity & TE_VERBOSE_TRUMBOWYG ){
+                if( teEditor.conf.verbosity & TE_VERBOSE_TRUMBOWYG ){
                     console.debug( 'pwi:editor teEditor editorCreate() instanciating...' );
                 }
                 self.TE.editorDiv.trumbowyg({
@@ -173,7 +173,7 @@ Template.teEditor.onCreated( function(){
         // delete the Trumbowyg edtor (quitting the EDITION mode)
         editorDelete(){
             if( self.TE.editorInitialized.get()){
-                if( pwiEditor.conf.verbosity & TE_VERBOSE_TRUMBOWYG ){
+                if( teEditor.conf.verbosity & TE_VERBOSE_TRUMBOWYG ){
                     console.debug( 'pwix:editor teEditor editorDelete() destroying instance' );
                 }
                 /*
@@ -227,14 +227,14 @@ Template.teEditor.onCreated( function(){
         // get/set the edit mode
         mode( mode=null ){
             if( mode ){
-                if( pwiEditor.conf.verbosity & TE_VERBOSE_MODE ){
+                if( teEditor.conf.verbosity & TE_VERBOSE_MODE ){
                     console.debug( 'pwix:editor teEditor mode() asked='+mode );
                 }
                 self.TE.mode_asked = mode;
-                if( pwiEditor.Modes.includes( mode )){
+                if( teEditor.Modes.includes( mode )){
                     mode = self.TE.checkSwitch( mode );
                     const prev = self.TE.currentMode.get();
-                    if( pwiEditor.conf.verbosity & TE_VERBOSE_MODE ){
+                    if( teEditor.conf.verbosity & TE_VERBOSE_MODE ){
                         console.debug( 'pwix:editor teEditor mode() previous was', prev );
                     }
                     if( prev !== mode ){
@@ -242,7 +242,7 @@ Template.teEditor.onCreated( function(){
                             self.$( '.teEditor' ).trigger( 'te-mode-changed', { prev: prev, new: mode });
                         }
                         self.TE.currentMode.set( mode );
-                    } else if( pwiEditor.conf.verbosity & TE_VERBOSE_MODE ){
+                    } else if( teEditor.conf.verbosity & TE_VERBOSE_MODE ){
                         console.debug( 'pwix:editor teEditor mode() mode is unchanged' );
                     }
                 } else {
@@ -266,7 +266,7 @@ Template.teEditor.onCreated( function(){
 
     // see https://alex-d.github.io/Trumbowyg/documentation/#svg-icons
     //  actually explicitely load the icons on package startup
-    //$.trumbowyg.svgPath = pwiEditor.conf.svgPath;
+    //$.trumbowyg.svgPath = teEditor.conf.svgPath;
     //$.trumbowyg.svgPath = '/packages/pwi_editor/icons.svg';
     //$.trumbowyg.svgPsvgAbsoluteUsePath = true;
 
@@ -285,7 +285,7 @@ Template.teEditor.onCreated( function(){
     self.autorun(() => {
         const mode = Template.currentData().mode;
         if( mode !== self.TE.mode_parm ){
-            if( pwiEditor.conf.verbosity & TE_VERBOSE_MODE ){
+            if( teEditor.conf.verbosity & TE_VERBOSE_MODE ){
                 console.debug( 'pwix:editor teEditor currentData() asking mode='+mode );
             }
             self.TE.mode_parm = mode;
@@ -300,7 +300,7 @@ Template.teEditor.onCreated( function(){
         if( name ){
             self.TE.name = name;
         } else {
-            self.TE.name = i18n.label( pwiEditor.i18n, 'unnamed' );
+            self.TE.name = i18n.label( teEditor.i18n, 'unnamed' );
         }
         //console.log( 'parm autorun set name' );
     });
@@ -315,8 +315,8 @@ Template.teEditor.onCreated( function(){
 
     // upload url for the images
     self.autorun(() => {
-        self.TE.uploadUrl = pwiEditor.conf.uploadUrl;
-        if( pwiEditor.conf.verbosity & TE_VERBOSE_UPLOAD ){
+        self.TE.uploadUrl = teEditor.conf.uploadUrl;
+        if( teEditor.conf.verbosity & TE_VERBOSE_UPLOAD ){
             console.debug( 'pwix:editor teEditor uploadUrl', self.TE.uploadUrl );
         }
     });
@@ -324,10 +324,10 @@ Template.teEditor.onCreated( function(){
     // follow the state of the teSwitch if it us used by the application
     //  we do not used here the switch state, but have to read it in order to be reactive when it changes
     self.autorun(() => {
-        const _hasSwitch = pwiEditor.switch.used.get();
+        const _hasSwitch = teEditor.switch.used.get();
         if( _hasSwitch ){
-            const _state = pwiEditor.switch.state.get();
-            if( pwiEditor.conf.verbosity & TE_VERBOSE_MODE ){
+            const _state = teEditor.switch.state.get();
+            if( teEditor.conf.verbosity & TE_VERBOSE_MODE ){
                 console.debug( 'pwix:editor teEditor auto follow teSwitch for', self.TE.mode_asked );
             }
             self.TE.mode( self.TE.mode_asked );
@@ -335,7 +335,7 @@ Template.teEditor.onCreated( function(){
     });
 
     // be verbose
-    if( pwiEditor.conf.verbosity & TE_VERBOSE_COMPONENTS ){
+    if( teEditor.conf.verbosity & TE_VERBOSE_COMPONENTS ){
         console.debug( 'pwix:editor teEditor onCreated()', self.TE.name );
     }
 });
@@ -344,7 +344,7 @@ Template.teEditor.onRendered( function(){
     const self = this;
 
     // be verbose
-    if( pwiEditor.conf.verbosity & TE_VERBOSE_COMPONENTS ){
+    if( teEditor.conf.verbosity & TE_VERBOSE_COMPONENTS ){
         console.debug( 'pwix:editor teEditor onRendered()' );
     }
 
@@ -361,7 +361,7 @@ Template.teEditor.onRendered( function(){
     // honor the ask mode
     self.autorun(() => {
         const mode = self.TE.mode();
-        if( pwiEditor.conf.verbosity & TE_VERBOSE_MODE ){
+        if( teEditor.conf.verbosity & TE_VERBOSE_MODE ){
             console.debug( 'pwix:editor teEditor autorun() honoring', mode );
         }
         self.$( '.te-edit-container' ).removeClass().addClass( 'te-edit-container '+mode );
@@ -418,7 +418,7 @@ Template.teEditor.events({
         const editorInitialized = instance.TE.editorInitialized.get();
         const tbwchange_update = instance.TE.tbwchange_update;
         const tbwchange_sendmsg = instance.TE.tbwchange_sendmsg;
-        if( pwiEditor.conf.verbosity & TE_VERBOSE_TRUMBOWYG ){
+        if( teEditor.conf.verbosity & TE_VERBOSE_TRUMBOWYG ){
             console.debug( 'pwix:editor teEditor tbwchange editorInitialized='+editorInitialized, 'tbwchange_update='+tbwchange_update, 'tbwchange_sendmsg='+tbwchange_sendmsg );
         }
         if( editorInitialized ){
@@ -431,17 +431,17 @@ Template.teEditor.events({
                         o.name = Template.currentData().name;
                     }
                     instance.$( '.teEditor' ).trigger( 'te-content-changed', o );
-                } else if( pwiEditor.conf.verbosity & TE_VERBOSE_TRUMBOWYG ){
+                } else if( teEditor.conf.verbosity & TE_VERBOSE_TRUMBOWYG ){
                     console.debug( 'pwix:editor teEditor tbwchange tbwchange_sendmsg is false' );
                 }
                 // update the input/output ReactiveVar if allowed to
                 if( tbwchange_update && instance.TE.content ){
                     instance.TE.content.set( html );
-                } else if( pwiEditor.conf.verbosity & TE_VERBOSE_TRUMBOWYG ){
+                } else if( teEditor.conf.verbosity & TE_VERBOSE_TRUMBOWYG ){
                     console.debug( 'pwix:editor teEditor tbwchange tbwchange_update is false' );
                 }
                 instance.TE.tbwchange_last = html;
-            } else if( pwiEditor.conf.verbosity & TE_VERBOSE_TRUMBOWYG ){
+            } else if( teEditor.conf.verbosity & TE_VERBOSE_TRUMBOWYG ){
                 console.debug( 'pwix:editor teEditor tbwchange html is unchanged' );
             }
         }
@@ -449,14 +449,14 @@ Template.teEditor.events({
 
     // the editor is destroyed
     'tbwclose .te-edit-content'( event, instance ){
-        if( pwiEditor.conf.verbosity & TE_VERBOSE_TRUMBOWYG ){
+        if( teEditor.conf.verbosity & TE_VERBOSE_TRUMBOWYG ){
             console.debug( 'pwix:editor teEditor tbwclose' );
         }
     },
 
     // the editor is initialized
     'tbwinit .te-edit-content'( event, instance ){
-        if( pwiEditor.conf.verbosity & TE_VERBOSE_TRUMBOWYG ){
+        if( teEditor.conf.verbosity & TE_VERBOSE_TRUMBOWYG ){
             console.debug( 'pwix:editor teEditor tbwinit' );
         }
         instance.TE.editorInitialized.set( true );
@@ -469,14 +469,14 @@ Template.teEditor.events({
 
     // html content has changed
     'te-content-changed .teEditor'( event, instance, data ){
-        if( pwiEditor.conf.verbosity & TE_VERBOSE_TEMSG ){
+        if( teEditor.conf.verbosity & TE_VERBOSE_TEMSG ){
             console.debug( 'pwix:editor teEditor te-content-changed', data );
         }
     },
 
     // re-set the html content of the editing area
     'te-content-reset .teEditor'( event, instance ){
-        if( pwiEditor.conf.verbosity & TE_VERBOSE_TEMSG ){
+        if( teEditor.conf.verbosity & TE_VERBOSE_TEMSG ){
             console.debug( 'pwix:editor teEditor te-content-reset' );
         }
         instance.TE.contentReset();
@@ -486,14 +486,14 @@ Template.teEditor.events({
     // debug the te-initialized message
     //  let event bubble up
     'te-initialized .teEditor'( event, instance ){
-        if( pwiEditor.conf.verbosity & TE_VERBOSE_TEMSG ){
+        if( teEditor.conf.verbosity & TE_VERBOSE_TEMSG ){
             console.debug( 'pwix:editor teEditor te-initialized' );
         }
     },
 
     // request to change the edition mode
     'te-mode-set .teEditor'( event, instance, data ){
-        if( pwiEditor.conf.verbosity & TE_VERBOSE_TEMSG ){
+        if( teEditor.conf.verbosity & TE_VERBOSE_TEMSG ){
             console.debug( 'pwix:editor teEditor te-mode-set', data );
         }
         instance.TE.mode( data.mode );
@@ -503,7 +503,7 @@ Template.teEditor.events({
     // the edition mode has changed
     //  let the event bubble up
     'te-mode-changed .teEditor'( event, instance, data ){
-        if( pwiEditor.conf.verbosity & TE_VERBOSE_TEMSG ){
+        if( teEditor.conf.verbosity & TE_VERBOSE_TEMSG ){
             console.debug( 'pwix:editor teEditor te-mode-changed', data );
         }
     }
@@ -513,7 +513,7 @@ Template.teEditor.onDestroyed( function(){
     this.TE.editorDelete();
 
     // be verbose
-    if( pwiEditor.conf.verbosity & TE_VERBOSE_COMPONENTS ){
+    if( teEditor.conf.verbosity & TE_VERBOSE_COMPONENTS ){
         console.debug( 'pwix:editor teEditor onDestroyed()' );
     }
 });

@@ -14,4 +14,4 @@ defaults = {
     }
 };
 
-pwiEditor.conf = merge.recursive( true, pwiEditor.conf, defaults.conf );
+teEditor.conf = merge.recursive( true, teEditor.conf, defaults.conf );

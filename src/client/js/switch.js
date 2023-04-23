@@ -5,21 +5,21 @@
 import { ReactiveVar } from 'meteor/reactive-var';
 import { Tracker } from 'meteor/tracker';
 
-pwiEditor.switch = {
+teEditor.switch = {
     used: new ReactiveVar( false ),
     state: new ReactiveVar( false )
 };
 
 Tracker.autorun(() => {
-    const b = pwiEditor.switch.used.get();
-    if( pwiEditor.conf.verbosity & TE_VERBOSE_SWITCH  ){
+    const b = teEditor.switch.used.get();
+    if( teEditor.conf.verbosity & TE_VERBOSE_SWITCH  ){
         console.debug( 'pwix:editor switch.used', b );
     }
 });
 
 Tracker.autorun(() => {
-    const b = pwiEditor.switch.state.get();
-    if( pwiEditor.conf.verbosity & TE_VERBOSE_SWITCH  ){
+    const b = teEditor.switch.state.get();
+    if( teEditor.conf.verbosity & TE_VERBOSE_SWITCH  ){
         console.debug( 'pwix:editor switch.state', b );
     }
 });

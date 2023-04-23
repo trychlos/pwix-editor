@@ -2,7 +2,7 @@
  * pwix:editor/src/common/js/i18n.js
  */
 
-pwiEditor.i18n = {
+teEditor.i18n = {
     en_US: {
         unnamed: '<unnamed>'
     },

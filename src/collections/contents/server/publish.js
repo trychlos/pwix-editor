@@ -2,5 +2,5 @@ import { Contents } from '../contents.js';
 
 // returns the list of known contents
 Meteor.publish( 'te_contents.listAll', function(){
-    return pwiEditor.collections.Contents.server.find();
+    return teEditor.collections.Contents.server.find();
 });

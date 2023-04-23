@@ -9,7 +9,7 @@ Package.describe({
 Package.onUse( function( api ){
     configure( api );
     api.export([
-        'pwiEditor',
+        'teEditor',
         'TE_MODE_HIDDEN',
         'TE_MODE_STANDARD',
         'TE_MODE_PREVIEW',

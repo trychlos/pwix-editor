@@ -4,7 +4,7 @@
 
 import merge from 'merge';
 
-pwiEditor = {
+teEditor = {
 
     // collections
     collections: {},
@@ -14,9 +14,9 @@ pwiEditor = {
 
     // should be *in same terms* called both by the client and the server
     configure: function( o ){
-        pwiEditor.conf = merge.recursive( true, pwiEditor.conf, o );
-        if( pwiEditor.conf.verbosity & TE_VERBOSE_CONFIGURE ){
-            console.debug( 'pwix:editor configure() with', o, 'building', pwiEditor.conf );
+        teEditor.conf = merge.recursive( true, teEditor.conf, o );
+        if( teEditor.conf.verbosity & TE_VERBOSE_CONFIGURE ){
+            console.debug( 'pwix:editor configure() with', o, 'building', teEditor.conf );
         }
     }
 };
