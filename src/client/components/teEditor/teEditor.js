@@ -16,7 +16,7 @@ import 'jquery-resizable-dom/dist/jquery-resizable.min.js';
 
 import 'trumbowyg/dist/ui/trumbowyg.min.css';
 //import 'trumbowyg/dist/trumbowyg.min.js';
-import 'trumbowyg/dist/trumbowyg.js';
+import 'trumbowyg/dist/trumbowyg.js'; // keep this modified version until https://github.com/Alex-D/Trumbowyg/issues/1396 is fixed
 
 import 'trumbowyg/plugins/colors/trumbowyg.colors.js';
 import 'trumbowyg/plugins/emoji/trumbowyg.emoji.js';
@@ -78,6 +78,7 @@ Template.teEditor.onCreated( function(){
                         case TE_MODE_PREVIEW:
                         case TE_MODE_EDITION:
                             mode =  TE_MODE_STANDARD;
+                            self.TE.mode_asked = TE_MODE_PREVIEW;
                             break;
                     }
                 }
