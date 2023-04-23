@@ -1,5 +1,11 @@
 /*
  * pwix:editor/src/client/components/teEditor/teEditor.js
+ *
+ * Edition mode can be set or modified by:
+ * 
+ * - the 'mode' argument passed in by the caller (parent) component
+ * - clicking on 'view'/'edit' buttons
+ * - switching the 'Edit' toggle switch
  */
 
 import { pwixI18n as i18n } from 'meteor/pwix:i18n';
@@ -9,7 +15,8 @@ import { v4 as uuidv4 } from 'uuid';
 import 'jquery-resizable-dom/dist/jquery-resizable.min.js';
 
 import 'trumbowyg/dist/ui/trumbowyg.min.css';
-import 'trumbowyg/dist/trumbowyg.min.js';
+//import 'trumbowyg/dist/trumbowyg.min.js';
+import 'trumbowyg/dist/trumbowyg.js';
 
 import 'trumbowyg/plugins/colors/trumbowyg.colors.js';
 import 'trumbowyg/plugins/emoji/trumbowyg.emoji.js';
@@ -42,7 +49,9 @@ Template.teEditor.onCreated( function(){
         editorInitialized: new ReactiveVar( false ),
         id: uuidv4(),
         uploadUrl: null,
-        mode_parm: null,
+        mode_parm: null,    // the mode asked for by the component parent
+        mode_asked: null,   // the mode asked for internally
+        editorDiv: null,
 
         // get a bool arg if present
         argBool( name ){
@@ -60,7 +69,7 @@ Template.teEditor.onCreated( function(){
         // returns the mode to be considered
         checkSwitch( mode ){
             const _input = mode;
-            const _hasSwitch = pwiEditor.switch.exists.get();
+            const _hasSwitch = pwiEditor.switch.used.get();
             let _switchState;
             if( _hasSwitch ){
                 _switchState = pwiEditor.switch.state.get();
@@ -88,7 +97,7 @@ Template.teEditor.onCreated( function(){
 
         contentHtml(){
             if( self.view.isRendered && !self.TE.editorInitialized.get()){
-                self.$( '.te-edit-content#'+self.TE.id ).html( self.TE.content.get());
+                self.TE.editorDiv.html( self.TE.content.get());
             }
         },
 
@@ -96,7 +105,7 @@ Template.teEditor.onCreated( function(){
             if( self.view.isRendered && self.TE.editorInitialized.get()){
                 self.TE.tbwchange_update = false;
                 if( self.TE.content ){
-                    self.$( '.te-edit-content#'+self.TE.id ).trumbowyg( 'html', self.TE.content.get());
+                    self.TE.editorDiv.trumbowyg( 'html', self.TE.content.get());
                 }
                 self.TE.tbwchange_update = true;
             }
@@ -145,19 +154,6 @@ Template.teEditor.onCreated( function(){
             return btns;
         },
 
-        // setup the editor plugins
-        editorPlugins(){
-            let plugins = {};
-            if( self.TE.uploadUrl ){
-                plugins.upload = {
-                    serverPath: self.TE.uploadUrl,
-                    fileFieldName: 'image',
-                    urlPropertyName: 'data.link'
-                };
-            }
-            return plugins;
-        },
-
         // create the Trumbowyg editor (starting the EDITION mode)
         //  this code run the creation; the initialization itself is made on tbwinit message
         editorCreate(){
@@ -165,7 +161,7 @@ Template.teEditor.onCreated( function(){
                 if( pwiEditor.conf.verbosity & TE_VERBOSE_TRUMBOWYG ){
                     console.debug( 'pwi:editor teEditor editorCreate() instanciating...' );
                 }
-                self.$( '.te-edit-content#'+self.TE.id ).trumbowyg({
+                self.TE.editorDiv.trumbowyg({
                     btnsDef: self.TE.editorBtnsDef(),
                     btns: self.TE.editorButtons(),
                     plugins: self.TE.editorPlugins()
@@ -179,19 +175,47 @@ Template.teEditor.onCreated( function(){
                 if( pwiEditor.conf.verbosity & TE_VERBOSE_TRUMBOWYG ){
                     console.debug( 'pwix:editor teEditor editorDelete() destroying instance' );
                 }
-                const res = self.$( '.te-edit-content#'+self.TE.id ).trumbowyg( 'destroy' );
-                //console.log( 'destroy='+res );
+                /*
+                const clone = self.TE.editorDiv.clone();
+                let $div;
+                $div = self.TE.editorDiv.closest( '.trumbowyg-box' );
+                if( $div ){
+                    $div.replaceWith( clone );
+                }
+                */
+
+                const res = self.TE.editorDiv.trumbowyg( 'destroy' );
+                console.log( 'destroy='+res );
+
+                // may happen than the 'trumbowyg-editor-box' parent be still here
+                /*
+                $div = self.TE.editorDiv.closest( '.trumbowyg-editor-box' );
+                if( $div ){
+                    self.TE.editorDiv.unwrap();
+                }
+                */
                 // may happen that the encapsulating 'trumbowyg-box' div be correctly detached, but not removed :(
-                    /*
-                if( !res ){
-                    let $div = self.$( '.te-edit-content#'+self.TE.id ).prev( '.trumbowyg-box' );
-                    if( $div ){
-                        $div.remove();
-                    }
+                /*
+                $div = self.TE.editorDiv.closest( '.trumbowyg-box' );
+                if( $div ){
+                    $div.remove();
                 }
                 */
                 self.TE.editorInitialized.set( false );
             }
+        },
+
+        // setup the editor plugins
+        editorPlugins(){
+            let plugins = {};
+            if( self.TE.uploadUrl ){
+                plugins.upload = {
+                    serverPath: self.TE.uploadUrl,
+                    fileFieldName: 'image',
+                    urlPropertyName: 'data.link'
+                };
+            }
+            return plugins;
         },
 
         // set the focus
@@ -205,11 +229,9 @@ Template.teEditor.onCreated( function(){
                 if( pwiEditor.conf.verbosity & TE_VERBOSE_MODE ){
                     console.debug( 'pwix:editor teEditor mode() asked='+mode );
                 }
+                self.TE.mode_asked = mode;
                 if( pwiEditor.Modes.includes( mode )){
                     mode = self.TE.checkSwitch( mode );
-                    if( pwiEditor.conf.verbosity & TE_VERBOSE_MODE ){
-                        console.debug( 'pwix:editor teEditor mode() maybe corrected by editSwitch state', mode );
-                    }
                     const prev = self.TE.currentMode.get();
                     if( pwiEditor.conf.verbosity & TE_VERBOSE_MODE ){
                         console.debug( 'pwix:editor teEditor mode() previous was', prev );
@@ -219,26 +241,24 @@ Template.teEditor.onCreated( function(){
                             self.$( '.teEditor' ).trigger( 'te-mode-changed', { prev: prev, new: mode });
                         }
                         self.TE.currentMode.set( mode );
+                    } else if( pwiEditor.conf.verbosity & TE_VERBOSE_MODE ){
+                        console.debug( 'pwix:editor teEditor mode() mode is unchanged' );
                     }
                 } else {
-                    console.error( 'teEditor: invalid edition mode', mode );
+                    console.error( 'pwix:editor teEditor: invalid edition mode', mode );
                 }
             }
-            //console.log( 'mode returns', self.TE.currentMode.get());
             return self.TE.currentMode.get();
         },
 
         // toggle the edit/preview buttons
-        toggle( event ){
-            self.TE.toggleOff();
-            self.TE.toggleOn( $( event.currentTarget ))
-        },
 
         toggleOff(){
             self.$( '.te-btn' ).removeClass( 'active' ).prop( 'active', false ).prop( 'aria-pressed', false );
         },
 
         toggleOn( buttonSelector ){
+            self.TE.toggleOff();
             self.$( buttonSelector ).addClass( 'active' ).prop( 'active', true ).prop( 'aria-pressed', true );
         }
     };
@@ -265,10 +285,10 @@ Template.teEditor.onCreated( function(){
         const mode = Template.currentData().mode;
         if( mode !== self.TE.mode_parm ){
             if( pwiEditor.conf.verbosity & TE_VERBOSE_MODE ){
-                console.debug( 'pwix:editor teEditor asked mode='+mode );
+                console.debug( 'pwix:editor teEditor currentData() asking mode='+mode );
             }
-            self.TE.mode( mode );
             self.TE.mode_parm = mode;
+            self.TE.mode( mode );
         }
     });
 
@@ -303,10 +323,13 @@ Template.teEditor.onCreated( function(){
     // follow the state of the teSwitch if it us used by the application
     //  we do not used here the switch state, but have to read it in order to be reactive when it changes
     self.autorun(() => {
-        const _hasSwitch = pwiEditor.switch.exists.get();
+        const _hasSwitch = pwiEditor.switch.used.get();
         if( _hasSwitch ){
             const _state = pwiEditor.switch.state.get();
-            self.TE.mode( self.TE.mode_parm );
+            if( pwiEditor.conf.verbosity & TE_VERBOSE_MODE ){
+                console.debug( 'pwix:editor teEditor auto follow teSwitch for', self.TE.mode_asked );
+            }
+            self.TE.mode( self.TE.mode_asked );
         }
     });
 
@@ -330,6 +353,9 @@ Template.teEditor.onRendered( function(){
     } else {
         self.$( '.te-content-name' ).addClass( 'te-hidden' );
     }
+
+    // gathers the editor div
+    self.TE.editorDiv = self.$( '.te-edit-content#'+self.TE.id );
 
     // honor the ask mode
     self.autorun(() => {
@@ -375,14 +401,12 @@ Template.teEditor.helpers({
 Template.teEditor.events({
     // change the edition mode
     'click .te-edit-btn'( event, instance ){
-        instance.TE.toggle( event );
         instance.TE.mode( TE_MODE_EDITION );
         // doesn't propagate the event
         return false;
     },
 
     'click .te-view-btn'( event, instance ){
-        instance.TE.toggle( event );
         instance.TE.mode( TE_MODE_PREVIEW );
         // doesn't propagate the event
         return false;

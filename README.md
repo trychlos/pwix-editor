@@ -270,7 +270,7 @@ The component is configurable with an object passed as an argument, which may co
 
 The `teSwitch` component maintains its state through two `pwiEditor` reaactive variables:
 
-- `pwiEditor.switch.exists`
+- `pwiEditor.switch.used`
 
     Whether the application makes use of the `teSwitch` component
 

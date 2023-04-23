@@ -6,14 +6,14 @@ import { ReactiveVar } from 'meteor/reactive-var';
 import { Tracker } from 'meteor/tracker';
 
 pwiEditor.switch = {
-    exists: new ReactiveVar( false ),
+    used: new ReactiveVar( false ),
     state: new ReactiveVar( false )
 };
 
 Tracker.autorun(() => {
-    const b = pwiEditor.switch.exists.get();
+    const b = pwiEditor.switch.used.get();
     if( pwiEditor.conf.verbosity & TE_VERBOSE_SWITCH  ){
-        console.debug( 'pwix:editor switch.exists', b );
+        console.debug( 'pwix:editor switch.used', b );
     }
 });
 

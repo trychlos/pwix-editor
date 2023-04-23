@@ -50,7 +50,7 @@ Template.teSwitch.onCreated( function(){
     });
 
     // advertise we have a switch
-    pwiEditor.switch.exists.set( true );
+    pwiEditor.switch.used.set( true );
 
     // set the initial state
     self.autorun(() => {
@@ -94,7 +94,7 @@ Template.teSwitch.events({
 
 Template.teSwitch.onDestroyed( function(){
     // advertise we no more have a switch
-    pwiEditor.switch.exists.set( false );
+    pwiEditor.switch.used.set( false );
 
     // be verbose
     if( pwiEditor.conf.verbosity & TE_VERBOSE_COMPONENTS || pwiEditor.conf.verbosity & TE_VERBOSE_SWITCH  ){
