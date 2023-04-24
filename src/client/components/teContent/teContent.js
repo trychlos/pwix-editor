@@ -6,18 +6,6 @@
  * 
  * Parms:
  *  - name: mandatory - the content name in the database
- *  - createAllowed: whether creation of the content is allowed
- *      only considered if name doesn't yet exists
- *      default to false
- *  - readAllowed: whether display of the existing content is allowed
- *      only considered if name exists
- *      default to false
- *  - updateAllowed: whether edition is allowed
- *      only considered if name exists
- *      default to false
- *  - deleteAllowed: whether deletion is allowed
- *      only considered if name exists
- *      default to false
  * 
  * Apart from 'content' and 'mode' which are managed here, other arguments passed to this component are all also passed to underlying teEditor.
  */
@@ -32,27 +20,12 @@ Template.teContent.onCreated( function(){
     self.TE = {
         // component parameters
         name: new ReactiveVar( null ),
-        createAllowed: new ReactiveVar( false ),
-        readAllowed: new ReactiveVar( false ),
-        updateAllowed: new ReactiveVar( false ),
-        deleteAllowed: new ReactiveVar( false ),
 
         // runtime data
         docObject: null,
         lastSavedContent: null,
         docContent: new ReactiveVar( null ),
         exists: false,
-
-        boolArg( name ){
-            if( Object.keys( Template.currentData()).includes( name )){
-                const b = Template.currentData()[name];
-                if( b === true || b === false ){
-                    self.TE[name].set( b );
-                } else {
-                    console.warn( 'teContent expects \''+name+'\' be a boolean, found \''+b+'\', ignored' );
-                }
-            }
-        }
     };
 
     // get runtime parameters of the component
@@ -63,10 +36,6 @@ Template.teContent.onCreated( function(){
         if( !self.TE.name.get()){
             console.error( 'teContent expects a \'name\' argument, not found' );
         }
-        self.TE.boolArg( 'createAllowed' );
-        self.TE.boolArg( 'readAllowed' );
-        self.TE.boolArg( 'updateAllowed' );
-        self.TE.boolArg( 'deleteAllowed' );
     });
 
     // be verbose
@@ -94,24 +63,10 @@ Template.teContent.onRendered( function(){
                     //console.log( 'content.byName', name, res );
                     //console.log( 'content.byName', self.TE.name, ( res && res.content ? res.content.length : 0 ), 'char(s)' );
                     if( res ){
-                        if( self.TE.readAllowed.get()){
-                            self.TE.docObject = res;
-                            self.TE.lastSavedContent = res.content;
-                            self.TE.docContent.set( res.content );
-
-                        } else if( teEditor.conf.verbosity & TE_VERBOSE_WARN_READ ){
-                            console.warn( 'pwix:editor teContent name=\''+name+'\' exists, but readAllowed=false' );
-                            self.TE.docObject = { name: name, content: '' };
-                            self.TE.lastSavedContent = '';
-                            self.TE.docContent.set( '' );
-                        }
-                    } else if( self.TE.createAllowed.get()){
-                        self.TE.docObject = { name: name, content: '' };
-                        self.TE.lastSavedContent = '';
-                        self.TE.docContent.set( '' );
-                    
-                    } else if( teEditor.conf.verbosity & TE_VERBOSE_WARN_CREATE ){
-                        console.warn( 'pwix:editor teContent name=\''+name+'\' doesn\'t exist, but createAllowed=false' );
+                        self.TE.docObject = res;
+                        self.TE.lastSavedContent = res.content;
+                        self.TE.docContent.set( res.content );
+                    } else {
                         self.TE.docObject = { name: name, content: '' };
                         self.TE.lastSavedContent = '';
                         self.TE.docContent.set( '' );
@@ -128,9 +83,10 @@ Template.teContent.helpers({
     editParms(){
         const TE = Template.instance().TE;
         let o = Template.currentData();
-        o.mode = TE.updateAllowed.get() ? TE_MODE_PREVIEW : ( TE.readAllowed.get() ? TE_MODE_STANDARD : TE_MODE_NONE );
+        o.mode = TE_MODE_PREVIEW; //TE.updateAllowed.get() ? TE_MODE_PREVIEW : ( TE.readAllowed.get() ? TE_MODE_STANDARD : TE_MODE_NONE );
         if( teEditor.conf.verbosity & TE_VERBOSE_MODE ){
-            console.debug( 'pwix:editor teContent editParms readAllowed='+TE.readAllowed.get(), 'updateAllowed='+ TE.updateAllowed.get(), 'asking for', o.mode );
+            //console.debug( 'pwix:editor teContent editParms readAllowed='+TE.readAllowed.get(), 'updateAllowed='+ TE.updateAllowed.get(), 'asking for', o.mode );
+            console.debug( 'pwix:editor teContent editParms asks for', o.mode );
         }
         o.content = TE.docContent;
         return o;
@@ -143,18 +99,14 @@ Template.teContent.events({
         if( data.html !== instance.TE.lastSavedContent ){
             const name = instance.TE.name.get();
             if( name ){
-                if( instance.TE.updateAllowed.get()){
-                    Meteor.call( 'te_contents.set', name, data.html, ( err, res ) => {
-                        if( err ){
-                            console.error( err );
-                        } else {
-                            console.log( 'te_contents.set', name, res );
-                            instance.TE.lastSavedContent = data.html;
-                        }
-                    });
-                } else if( teEditor.conf.verbosity & TE_VERBOSE_WARN_UPDATE ){
-                    console.warn( 'pwix:editor teContent name=\''+name+'\' changed, but updateAllowed=false' );
-                }
+                Meteor.call( 'te_contents.set', name, data.html, ( err, res ) => {
+                    if( err ){
+                        console.error( err );
+                    } else {
+                        console.log( 'te_contents.set', name, res );
+                        instance.TE.lastSavedContent = data.html;
+                    }
+                });
             }
         }
     }

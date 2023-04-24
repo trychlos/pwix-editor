@@ -22,11 +22,7 @@ Package.onUse( function( api ){
         'TE_VERBOSE_SWITCH',
         'TE_VERBOSE_TEMSG',
         'TE_VERBOSE_TRUMBOWYG',
-        'TE_VERBOSE_UPLOAD',
-        'TE_VERBOSE_WARN_CREATE',
-        'TE_VERBOSE_WARN_DELETE',
-        'TE_VERBOSE_WARN_READ',
-        'TE_VERBOSE_WARN_UPDATE'
+        'TE_VERBOSE_UPLOAD'
     ]);
     api.mainModule( 'src/client/js/index.js', 'client' );
     api.mainModule( 'src/server/js/index.js', 'server' );

@@ -101,22 +101,6 @@ Known configuration options are:
 
         Trace upload configuration and operations
 
-    - `TE_VERBOSE_WARN_CREATE`
-
-        Warns when trying to create a new document while user is not allowed to
-
-    - `TE_VERBOSE_WARN_DELETE`
-
-        Warns when trying to delete a document while user is not allowed to
-
-    - `TE_VERBOSE_WARN_READ`
-
-        Warns when trying to display an existing document while user is not allowed to
-
-    - `TE_VERBOSE_WARN_UPDATE`
-
-        Warns when trying to update an existing document while user is not allowed to
-
 Please note that `pwixI18n.configure()` method SHOULD be called in the same terms both in client and server sides.
 
 ## Provides
@@ -143,10 +127,6 @@ This object is allocated at package level: there is only one instance in your ap
 - `TE_VERBOSE_TEMSG`
 - `TE_VERBOSE_TRUMBOWYG`
 - `TE_VERBOSE_UPLOAD`
-- `TE_VERBOSE_WARN_CREATE`
-- `TE_VERBOSE_WARN_DELETE`
-- `TE_VERBOSE_WARN_READ`
-- `TE_VERBOSE_WARN_UPDATE`
 
 ### Blaze components
 
@@ -161,38 +141,6 @@ The component is configurable with an object passed as an argument, which may co
     The content name in the database.
 
     This is mandatory.
-
-- `createAllowed`
-
-    Whether the creation of the content is allowed.
-
-    This is only considered if `name` doesn't yet exists in the database.
-
-    Defaults to `false`.
-
-- `readAllowed`
-
-    Whether the display of the existing content is allowed.
-
-    This is only considered if `name` exists in the database.
-
-    Defaults to `false`.
-
-- `updateAllowed`
-
-    Whether edition of the existing content is allowed.
-
-    This is only considered if `name` exists in the database.
-
-    Defaults to `false`.
-
-- `deleteAllowed`
-
-    Whether deletion of the existing content is allowed.
-
-    This is only considered if `name` exists in the database.
-
-    Defaults to `false`.
 
 Because `teContent` is an encapsulation of `teEditor`, then `teEditor` needed arguments may also be passed through the argument object. Only `content` and `mode` are managed directly by the `teContent` component.
 
