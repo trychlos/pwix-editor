@@ -111,6 +111,12 @@ Please note that `pwixI18n.configure()` method SHOULD be called in the same term
 
 This object is allocated at package level: there is only one instance in your application. It gathers the avilable methods (see below).
 
+This global object contains:
+
+- `teEditor.Modes`
+
+    An array of allowed edition modes.
+
 ### Constants
 
 - `TE_MODE_HIDDEN`
@@ -192,23 +198,23 @@ Use case: particularly in development mode, it happens that the `TE_MODE_PREVIEW
 
 The component is configurable with an object passed as an argument, which may contain:
 
- - `labelTop`
+- `labelTop`
  
     A (HTML) string to be displayed above the switch, defaulting to none
 
- - `labelRight`
+- `labelRight`
  
     A (HTML) string to be displayed on the right of the switch, defaulting to none
 
- - `labelBottom`
+- `labelBottom`
  
     A (HTML) string to be displayed below the switch, defaulting to none
 
- - `labelLeft`
+- `labelLeft`
  
     A (HTML) string to be displayed on the left of the switch, defaulting to none
 
- - `title`
+- `title`
  
     A string label as the button title, defaulting to none
 
