@@ -9,8 +9,8 @@ This is an encapsulation of 'trumbowyg' Javascript editor for Meteor, so a clien
 `pwix:editor` talks a lot of _documents_ though, actually, `pwix:editor` doesn't know anything about them.
 But it expects that these unknown and unmanaged _documents_ have two main properties:
 
-- a HTML content, says _document's content_ here
-- a name which identifies the document, says _document's name_ here.
+- a HTML content, said _document's content_ here
+- an optional name which identifies the document, said _document's name_ here.
 
 ### Edition mode
 
@@ -24,7 +24,7 @@ But it expects that these unknown and unmanaged _documents_ have two main proper
 
     The document's content is displayed as standard HTML: this is the default startup mode.<br />
     In this mode, all the document's content is just displayed as if they were no editor at all.
-    This way, you can safely directly integrates `teEditor` component in your pages without your standard user being conscious of anything.
+    This way, you can safely directly integrates `teScriber` component in your pages without your standard user being conscious of anything.
 
 - `TE_MODE_PREVIEW`
 
@@ -72,6 +72,7 @@ Known configuration options are:
         Trace Blaze components life:
 
         - creation
+        - rendering
         - destruction
 
     - `TE_VERBOSE_CONFIGURE`
@@ -101,7 +102,7 @@ Known configuration options are:
 
         Trace upload configuration and operations
 
-Please note that `pwixI18n.configure()` method SHOULD be called in the same terms both in client and server sides.
+Please note that `teEditor.configure()` method SHOULD be called in the same terms both in client and server sides.
 
 ## Provides
 
@@ -136,7 +137,7 @@ This global object contains:
 
 ### Blaze components
 
-#### `teContent`
+#### `teSerializer`
 
 This is an encapsulation of the teEditor component, which manages serialized documents.
 
@@ -148,9 +149,9 @@ The component is configurable with an object passed as an argument, which may co
 
     This is mandatory.
 
-Because `teContent` is an encapsulation of `teEditor`, then `teEditor` needed arguments may also be passed through the argument object. Only `content` and `mode` are managed directly by the `teContent` component.
+Because `teSerializer` is an encapsulation of `teScriber`, then `teScriber` needed arguments may also be passed through the argument object. Only `content` and `mode` are managed directly by the `teSerializer` component.
 
-#### `teEditor`
+#### `teScriber`
 
 The editor component itself.
 
@@ -186,7 +187,7 @@ The component is configurable with an object passed as an argument, which may co
 
     Whether to authorize the FullScreen button, which should be reserved to edit full articles, defaulting to `true`.
 
-The `teEditor` component doesn't provide any save way. Instead, it provides two ways for the caller be informed of the changes:
+The `teScriber` component doesn't provide any save way. Instead, it provides two ways for the caller be informed of the changes:
 - the `content` ReactiveVar, if provided, is continuously updated,
 - a `te-content-changed` message is sent on the component on each change.
 
@@ -238,19 +239,19 @@ Informational messages are sent by the component on itself. The caller can take 
 
 - `te-mode-changed`
 
-    Triggered on the `teEditor` element when the edition mode changes.
+    Triggered on the `teScriber` element when the edition mode changes.
 
     Provides an object `{ prev: <previous_mode>, new: <new_mode> }`
 
 - `te-content-changed`
 
-    Triggered on the `teEditor` element when the content has been changed (in `TE_MODE_EDITION` mode only).
+    Triggered on the `teScriber` element when the content has been changed (in `TE_MODE_EDITION` mode only).
 
     Provides an object `{ html: <html> }` or `{ html: <html>, name: <name> }`, depending whether a `name` has been provided or not.
 
 - `te-initialized`
 
-    Triggered on the `teEditor` element when the editor has been initialized (in `TE_MODE_PREVIEW` or `TE_MODE_EDITION` modes).
+    Triggered on the `teScriber` element when the editor has been initialized (in `TE_MODE_PREVIEW` or `TE_MODE_EDITION` modes).
 
 - `te-switch-on`
 - `te-switch-off`
@@ -259,7 +260,7 @@ Informational messages are sent by the component on itself. The caller can take 
 
 #### Action messages
 
-Action messages are the way the caller can interact with the component during its lifetime. They must be sent to the `teEditor` component.
+Action messages are the way the caller can interact with the component during its lifetime. They must be sent to the `teScriber` component.
 
 - `te-content-reset`
 
@@ -287,7 +288,7 @@ Dependencies as of v 1.0.0:
     'bootstrap': '^5.2.1',
     'jquery-resizable-dom': '^0.35.0',
     'merge': '^2.1.1',
-    'trumbowyg': '^2.25.2',
+    'trumbowyg': '^2.26.0',
     'uuid': '^9.0.0'
 ```
 

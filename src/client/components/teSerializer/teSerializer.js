@@ -1,20 +1,20 @@
 /*
- * /src/client/components/teContent/teContent.js
+ * /src/client/components/teSerializer/teSerializer.js
  *
  * Get the named content from the database and let it be displayed/edited.
- * If the user is allowed to edition, then the teEditor is initialized in PREVIEW mode.
+ * If the user is allowed to edition, then the teScriber is initialized in PREVIEW mode.
  * 
  * Parms:
  *  - name: mandatory - the content name in the database
  * 
- * Apart from 'content' and 'mode' which are managed here, other arguments passed to this component are all also passed to underlying teEditor.
+ * Apart from 'content' and 'mode' which are managed here, other arguments passed to this component are all also passed to underlying teScriber.
  */
 
 import { ReactiveVar } from 'meteor/reactive-var';
 
-import './teContent.html';
+import './teSerializer.html';
 
-Template.teContent.onCreated( function(){
+Template.teSerializer.onCreated( function(){
     const self = this;
 
     self.TE = {
@@ -34,22 +34,22 @@ Template.teContent.onCreated( function(){
             self.TE.name.set( Template.currentData().name );
         }
         if( !self.TE.name.get()){
-            console.error( 'teContent expects a \'name\' argument, not found' );
+            console.error( 'teSerializer expects a \'name\' argument, not found' );
         }
     });
 
     // be verbose
     if( teEditor.conf.verbosity & TE_VERBOSE_COMPONENTS ){
-        console.debug( 'pwix:editor teContent onCreated()', self.TE.name.get());
+        console.debug( 'pwix:editor teSerializer onCreated()', self.TE.name.get());
     }
 });
 
-Template.teContent.onRendered( function(){
+Template.teSerializer.onRendered( function(){
     const self = this;
 
     // be verbose
     if( teEditor.conf.verbosity & TE_VERBOSE_COMPONENTS ){
-        console.debug( 'pwix:editor teContent onRendered()' );
+        console.debug( 'pwix:editor teSerializer onRendered()' );
     }
 
     // get the editable content from the database
@@ -58,7 +58,7 @@ Template.teContent.onRendered( function(){
         if( name ){
             Meteor.call( 'te_contents.byName', name, ( err, res ) => {
                 if( err ){
-                    console.error( 'teContent te_contents.byName({ name:'+name+' })', err );
+                    console.error( 'teSerializer te_contents.byName({ name:'+name+' })', err );
                 } else {
                     //console.log( 'content.byName', name, res );
                     //console.log( 'content.byName', self.TE.name, ( res && res.content ? res.content.length : 0 ), 'char(s)' );
@@ -71,31 +71,31 @@ Template.teContent.onRendered( function(){
                         self.TE.lastSavedContent = '';
                         self.TE.docContent.set( '' );
                     }
-                    self.$( '.teEditor' ).trigger( 'te-content-reset' );
+                    self.$( '.teScriber' ).trigger( 'te-content-reset' );
                 }
             });
         }
     });
 });
 
-Template.teContent.helpers({
-    // provide parms to teEditor
+Template.teSerializer.helpers({
+    // provide parms to teScriber
     editParms(){
         const TE = Template.instance().TE;
         let o = Template.currentData();
         o.mode = TE_MODE_PREVIEW; //TE.updateAllowed.get() ? TE_MODE_PREVIEW : ( TE.readAllowed.get() ? TE_MODE_STANDARD : TE_MODE_NONE );
         if( teEditor.conf.verbosity & TE_VERBOSE_MODE ){
-            //console.debug( 'pwix:editor teContent editParms readAllowed='+TE.readAllowed.get(), 'updateAllowed='+ TE.updateAllowed.get(), 'asking for', o.mode );
-            console.debug( 'pwix:editor teContent editParms asks for', o.mode );
+            //console.debug( 'pwix:editor teSerializer editParms readAllowed='+TE.readAllowed.get(), 'updateAllowed='+ TE.updateAllowed.get(), 'asking for', o.mode );
+            console.debug( 'pwix:editor teSerializer editParms asks for', o.mode );
         }
         o.content = TE.docContent;
         return o;
     }
 });
 
-Template.teContent.events({
+Template.teSerializer.events({
     // autosave on each change
-    'te-content-changed .teContent'( event, instance, data ){
+    'te-content-changed .teSerializer'( event, instance, data ){
         if( data.html !== instance.TE.lastSavedContent ){
             const name = instance.TE.name.get();
             if( name ){
@@ -103,7 +103,7 @@ Template.teContent.events({
                     if( err ){
                         console.error( err );
                     } else {
-                        console.log( 'te_contents.set', name, res );
+                        //console.log( 'te_contents.set', name, res );
                         instance.TE.lastSavedContent = data.html;
                     }
                 });
@@ -112,9 +112,9 @@ Template.teContent.events({
     }
 });
 
-Template.teContent.onDestroyed( function(){
+Template.teSerializer.onDestroyed( function(){
     // be verbose
     if( teEditor.conf.verbosity & TE_VERBOSE_COMPONENTS ){
-        console.debug( 'pwix:editor teContent onDestroyed()' );
+        console.debug( 'pwix:editor teSerializer onDestroyed()' );
     }
 });

@@ -43,8 +43,8 @@ function configure( api ){
     api.use( 'less@4.0.0', 'client' );
     api.use( 'pwix:i18n@1.0.0' );
     api.use( 'tmeasday:check-npm-versions@1.0.2', 'server' );
-    api.addFiles( 'src/client/components/teContent/teContent.js', 'client' );
-    api.addFiles( 'src/client/components/teEditor/teEditor.js', 'client' );
+    api.addFiles( 'src/client/components/teSerializer/teSerializer.js', 'client' );
+    api.addFiles( 'src/client/components/teScriber/teScriber.js', 'client' );
     api.addFiles( 'src/client/components/teSwitch/teSwitch.js', 'client' );
 }
 
