@@ -10,7 +10,7 @@
 
 |   Id | Date       | Description and comment(s) |
 | ---: | :---       | :---                       |
-|    1 | 2023- 4-20 | export all trumbowyg configuration parms to teEditor component |
+|    1 | 2023- 4-20 | export all trumbowyg configuration parms to teScriber component |
 |    2 |  |  |
 
 ---
