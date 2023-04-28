@@ -1,4 +1,4 @@
-# pwix:editor
+# pwix:editor - ChangeLog
 
 ## ChangeLog
 
