@@ -253,6 +253,12 @@ Informational messages are sent by the component on itself. The caller can take 
 
     Triggered on the `teScriber` element when the editor has been initialized (in `TE_MODE_PREVIEW` or `TE_MODE_EDITION` modes).
 
+- `te-serialized`
+
+    Triggered on the `teSerializer` element when the content has been serialized.
+
+    Provides an object `{ result: <result> }`.
+
 - `te-switch-on`
 - `te-switch-off`
 
