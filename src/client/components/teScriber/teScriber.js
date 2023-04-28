@@ -165,7 +165,10 @@ Template.teScriber.onCreated( function(){
                 self.TE.editorDiv.trumbowyg({
                     btnsDef: self.TE.editorBtnsDef(),
                     btns: self.TE.editorButtons(),
-                    plugins: self.TE.editorPlugins()
+                    plugins: self.TE.editorPlugins(),
+                    semantic: {
+                        'div': 'div'
+                    }
                 });
             }
         },
@@ -438,6 +441,10 @@ Template.teScriber.events({
         instance.TE.editorInitialized.set( true );
         instance.TE.focus();
         instance.$( '.teScriber' ).trigger( 'te-initialized' );
+        // trumbowyg editor creates a textarea and set an height on it
+        //  propagates this height to trumbowyg-box parent
+        //const height = instance.$( '.teScriber textarea.trumbowyg-textarea' ).css( 'height' );
+        //console.log( 'height', height );  // 1 px
         // set the editable content from the passed-in object
         //  do not do that during edition as this would be an infinite loop of reinit
         instance.TE.contentReset();
