@@ -103,11 +103,18 @@ Template.teSerializer.events({
                     if( err ){
                         console.error( err );
                     } else {
-                        //console.log( 'te_contents.set', name, res );
                         instance.TE.lastSavedContent = data.html;
+                        instance.$( '.teSerializer' ).trigger( 'te-serialized', { result: res });
                     }
                 });
             }
+        }
+    },
+
+    // verbose
+    'te-serialized .teSerializer'( event, instance, data ){
+        if( teEditor.conf.verbosity & TE_VERBOSE_TEMSG ){
+            console.debug( 'pwix:editor teSerializer te-serialized', data );
         }
     }
 });
