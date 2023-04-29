@@ -55,8 +55,10 @@ Template.teSwitch.onCreated( function(){
         //  - if this has not been disabled by the user if a cookieMaager is present
         storeGet(){
             let _state = self.TE.state.get();
+            //console.log( 'init state', _state );
             if( self.TE.useStore()){
                 _state = localStorage.getItem( self.TE.stateKey );
+                //console.log( 'got state', _state );
             }
             return _state;
         },
@@ -73,12 +75,13 @@ Template.teSwitch.onCreated( function(){
             if( use && Meteor.cookieManager ){
                 use = Meteor.cookieManager.isEnabled( self.TE.stateKey );
             }
+            //console.log( 'useStore', use );
             return use;
         }
     };
 
-    // maybe get last state from local store
-    self.TE.storeGet();
+    // maybe get last state from local store before following autorun
+    self.TE.state.set( self.TE.storeGet());
 
     // get arguments
     self.autorun(() => {
@@ -106,6 +109,14 @@ Template.teSwitch.onRendered( function(){
     self.autorun(() => {
         self.TE.storeSet();
     });
+});
+
+Template.teSwitch.helpers({
+    parms(){
+        let o = Template.currentData();
+        o.state = Template.instance().TE.state.get();
+        return o;
+    }
 });
 
 Template.teSwitch.events({

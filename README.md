@@ -45,7 +45,7 @@ Known configuration options are:
 
 - `storeSwitchState`
 
-    Whether the application plans to use the `teSwitch` component **and** wishes to record its last state.
+    Whether the application plans to use the `teSwitch` component and wishes to record its last state.
 
     When enabled, this option will create a _cookie_, that the user may refuse.
 
@@ -110,7 +110,9 @@ Known configuration options are:
 
         Trace upload configuration and operations
 
-Please note that `teEditor.configure()` method SHOULD be called in the same terms both in client and server sides.
+Please note that `teEditor.configure()` methmethod should be called in the same terms both in client and server sides.
+
+Also note, as an explicit reminder for the fools, that, because the Meteor packages are instanciated at application level, they can be configured once at most, and only once at most. Each addtionnal call to `teEditor.configure()` will just override the previous one. You have been warned: **only the application should configure a package**.
 
 ## Provides
 

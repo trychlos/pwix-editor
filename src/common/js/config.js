@@ -14,7 +14,7 @@ teEditor = {
 
     // should be *in same terms* called both by the client and the server
     configure: function( o ){
-        teEditor.conf = merge.recursive( true, teEditor.conf, o );
+        teEditor.conf = merge.recursive( true, teEditor._defaults, o );
         if( teEditor.conf.verbosity & TE_VERBOSE_CONFIGURE ){
             console.debug( 'pwix:editor configure() with', o, 'building', teEditor.conf );
         }
