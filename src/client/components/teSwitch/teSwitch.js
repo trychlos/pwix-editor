@@ -34,6 +34,8 @@ Template.teSwitch.onCreated( function(){
     self.TE = {
         // arguments dealt with here
         state: new ReactiveVar( true ),
+
+        // internal vars
         stateKey: COOKIE_SWITCH_STATE,
 
         // get a bool arg if present
@@ -52,7 +54,7 @@ Template.teSwitch.onCreated( function(){
         //  - if feature has been asked for in the configuration
         //  - if this has not been disabled by the user if a cookieMaager is present
         storeGet(){
-            let _state = true;
+            let _state = self.TE.state.get();
             if( self.TE.useStore()){
                 _state = localStorage.getItem( self.TE.stateKey );
             }
