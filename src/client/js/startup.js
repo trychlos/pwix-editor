@@ -3,6 +3,7 @@
  */
 
 import { Mongo } from 'meteor/mongo';
+import { pwixI18n } from 'meteor/pwix:i18n';
 
 Meteor.startup( function(){
     //console.log( teEditor );
@@ -21,4 +22,17 @@ Meteor.startup( function(){
         teEditor.collections[c].client.attachSchema( teEditor.collections[c].schema );
         return true;
     });
+});
+
+Meteor.startup(() => {
+    if( Meteor.cookieManager && teEditor.conf.storeSwitchState ){
+        Meteor.cookieManager.publish({
+            name: COOKIE_SWITCH_STATE,
+            responsible: 'pwix:teEditor',
+            description: pwixI18n.label( teEditor.i18n, 'cookies.switch_state' ),
+            category: 'CM_CAT_FUNCTIONALS',
+            lifetime: pwixI18n.label( teEditor.i18n, 'cookies.illimited' ),
+            disableable: true
+        });
+    }
 });

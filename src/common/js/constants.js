@@ -2,6 +2,15 @@
  * pwix:editor/src/common/js/constants.js
  */
 
+// internal constants
+//
+
+// the cookie name for the switch state, defined here to be available anywhere
+COOKIE_SWITCH_STATE = 'pwix:teEditor/switch_state';
+
+// exported constants
+//
+
 TE_MODE_HIDDEN = 'TE_MODE_HIDDEN';
 TE_MODE_STANDARD = 'TE_MODE_STANDARD';
 TE_MODE_PREVIEW = 'TE_MODE_PREVIEW';

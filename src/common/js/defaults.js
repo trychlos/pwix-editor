@@ -9,6 +9,7 @@ defaults = {
         collections: {
             prefix: 'te_'
         },
+        storeSwitchState: false,
         uploadUrl: '',
         verbosity: TE_VERBOSE_NONE
     }

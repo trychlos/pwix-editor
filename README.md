@@ -43,6 +43,14 @@ The package's behavior can be configured through a call to the `teEditor.configu
 
 Known configuration options are:
 
+- `storeSwitchState`
+
+    Whether the application plans to use the `teSwitch` component **and** wishes to record its last state.
+
+    When enabled, this option will create a _cookie_, that the user may refuse.
+
+    Default to `false`.
+
 - `uploadUrl`
 
     The URL to which the images should be uploaded.<br />
@@ -302,6 +310,16 @@ Each of these dependencies should be installed at application level:
 ```
     meteor npm install <package> --save
 ```
+
+## Translations
+
+New and updated translations are willingly accepted, and more than welcome. Just be kind enough to submit a PR on the [Github repository](https://github.com/trychlos/pwix-editor/pulls).
+
+## Cookies and comparable technologies
+
+`pwix:editor` may use `localStorage` to record the last `teSwitch` state, but only if asked so through the `storeSwitchState` configuration parameter.
+
+This is considered a disableable functional _cookie_, and is advertised as such to the cookieManager if present.
 
 ---
 P. Wieser

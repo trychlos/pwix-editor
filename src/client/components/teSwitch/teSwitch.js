@@ -12,7 +12,8 @@
  * - labelBottom: a (HTML) string to be displayed below the switch, defaulting to none
  * - labelLeft: a (HTML) string to be displayed on the left of the switch, defaulting to none
  * - title: a label as the button title, defaulting to none
- * - initialState: whether the switch is initially on or off, defaulting to off
+ * - state: whether the switch is initially on or off, defaulting to on
+ * - enabled: whether the switch is enabled, defaulting to on
  * 
  * The state of the button is available via the teEditor.switch.state reactive var, whose value is true for switch on (false else).
  * The switches are advertised via te-switch-on / te-switch-off events.
@@ -20,16 +21,20 @@
 
 import { ReactiveVar } from 'meteor/reactive-var';
 
-import '../toggle_switch/toggle_switch.js';
-
 import './teSwitch.html';
 
 Template.teSwitch.onCreated( function(){
     const self = this;
 
+    // be verbose
+    if( teEditor.conf.verbosity & TE_VERBOSE_COMPONENTS || teEditor.conf.verbosity & TE_VERBOSE_SWITCH ){
+        console.debug( 'pwix:editor teSwitch onCreated()' );
+    }
+
     self.TE = {
         // arguments dealt with here
-        initialState: new ReactiveVar( false ),
+        state: new ReactiveVar( true ),
+        stateKey: COOKIE_SWITCH_STATE,
 
         // get a bool arg if present
         argBool( name ){
@@ -41,12 +46,41 @@ Template.teSwitch.onCreated( function(){
                     console.warn( 'teSwitch expects \''+name+'\' be a boolean, found', b );
                 }
             }
+        },
+
+        // get the last switch state from local store
+        //  - if feature has been asked for in the configuration
+        //  - if this has not been disabled by the user if a cookieMaager is present
+        storeGet(){
+            let _state = true;
+            if( self.TE.useStore()){
+                _state = localStorage.getItem( self.TE.stateKey );
+            }
+            return _state;
+        },
+
+        storeSet(){
+            if( self.TE.useStore()){
+                localStorage.setItem( self.TE.stateKey, teEditor.switch.state.get());
+            }
+        },
+
+        // whether to use the local store
+        useStore(){
+            let use = teEditor.conf.storeSwitchState;
+            if( use && Meteor.cookieManager ){
+                use = Meteor.cookieManager.isEnabled( self.TE.stateKey );
+            }
+            return use;
         }
     };
 
+    // maybe get last state from local store
+    self.TE.storeGet();
+
     // get arguments
     self.autorun(() => {
-        self.TE.argBool( 'initialState' );
+        self.TE.argBool( 'state' );
     });
 
     // advertise we have a switch
@@ -54,13 +88,8 @@ Template.teSwitch.onCreated( function(){
 
     // set the initial state
     self.autorun(() => {
-        teEditor.switch.state.set( self.TE.initialState.get());
+        teEditor.switch.state.set( self.TE.state.get());
     });
-
-    // be verbose
-    if( teEditor.conf.verbosity & TE_VERBOSE_COMPONENTS || teEditor.conf.verbosity & TE_VERBOSE_SWITCH ){
-        console.debug( 'pwix:editor teSwitch onCreated()' );
-    }
 });
 
 Template.teSwitch.onRendered( function(){
@@ -70,13 +99,17 @@ Template.teSwitch.onRendered( function(){
     if( teEditor.conf.verbosity & TE_VERBOSE_COMPONENTS || teEditor.conf.verbosity & TE_VERBOSE_SWITCH ){
         console.debug( 'pwix:editor teSwitch onRendered()' );
     }
+
+    // store the switch state (if asked for)
+    self.autorun(() => {
+        self.TE.storeSet();
+    });
 });
 
 Template.teSwitch.events({
-    'change .teSwitch'( event, instance ){
-        const checked = instance.$( '.te-toggle-switch input' ).is( ':checked' );
-        teEditor.switch.state.set( checked );
-        instance.$( '.teSwitch' ).trigger( checked ? 'te-switch-on' : 'te-switch-off' );
+    'ts-state .teSwitch'( event, instance, data ){
+        teEditor.switch.state.set( data.state );
+        instance.$( '.teSwitch' ).trigger( data.state ? 'te-switch-on' : 'te-switch-off' );
     },
 
     'te-switch-off .teSwitch'(){
