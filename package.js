@@ -1,6 +1,6 @@
 Package.describe({
     name: 'pwix:editor',
-    version: '0.91.0', // before first release
+    version: '1.0.0',
     summary: 'An encapsulation of "trumbowyg" for Meteor',
     git: 'https://github.com/trychlos/pwix-editor',
     documentation: 'README.md'
