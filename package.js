@@ -1,6 +1,6 @@
 Package.describe({
     name: 'pwix:editor',
-    version: '1.0.0',
+    version: '1.0.1',
     summary: 'An encapsulation of "trumbowyg" for Meteor',
     git: 'https://github.com/trychlos/pwix-editor',
     documentation: 'README.md'
@@ -38,7 +38,7 @@ Package.onTest( function( api ){
 function configure( api ){
     api.versionsFrom( '2.9.0' );
     api.use( 'aldeed:collection2@3.5.0' );
-    api.use( 'blaze-html-templates', 'client' );
+    api.use( 'blaze-html-templates@2.0.0', 'client' );
     api.use( 'ecmascript' );
     api.use( 'less@4.0.0', 'client' );
     api.use( 'pwix:i18n@1.0.0' );

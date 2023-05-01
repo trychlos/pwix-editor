@@ -4,6 +4,7 @@
 
 | Version | Release    | Content |
 | ---:    | :---       | :---    |
+| 1.0.1   | 2023- 5- 1 | Fix Meteor packaging |
 | 1.0.0   | 2023- 5- 1 | Initial release |
 
 ---
