@@ -28,6 +28,8 @@ Template.teSerializer.onCreated( function(){
         exists: false,
     };
 
+    //console.debug( 'teSerializer data', Template.currentData());
+
     // get runtime parameters of the component
     self.autorun(() => {
         if( Object.keys( Template.currentData()).includes( 'name' )){
@@ -83,7 +85,9 @@ Template.teSerializer.helpers({
     editParms(){
         const TE = Template.instance().TE;
         let o = Template.currentData();
-        o.mode = TE_MODE_PREVIEW; //TE.updateAllowed.get() ? TE_MODE_PREVIEW : ( TE.readAllowed.get() ? TE_MODE_STANDARD : TE_MODE_NONE );
+        //o.mode = TE.updateAllowed.get() ? TE_MODE_PREVIEW : ( TE.readAllowed.get() ? TE_MODE_STANDARD : TE_MODE_NONE );
+        //o.mode = TE_MODE_PREVIEW;
+        o.mode = o.mode || TE_MODE_PREVIEW;
         if( teEditor.conf.verbosity & TE_VERBOSE_MODE ){
             //console.debug( 'pwix:editor teSerializer editParms readAllowed='+TE.readAllowed.get(), 'updateAllowed='+ TE.updateAllowed.get(), 'asking for', o.mode );
             console.debug( 'pwix:editor teSerializer editParms asks for', o.mode );
