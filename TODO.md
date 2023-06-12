@@ -14,7 +14,8 @@
 |    2 | 2023- 5- 8 | is the storeSwitchState config really needed !? |
 |    3 | 2023- 5- 8 | verbosity: dump component parms |
 |    4 | 2023- 5- 8 | review images upload and resizing |
-|    4 |  |  |
+|    5 | 2023- 6-12 | Have teEditor.i18n.namespace() to let another package add a translation to this one |
+|    6 |  |  |
 
 ---
 ## Done
