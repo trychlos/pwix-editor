@@ -23,6 +23,7 @@ teEditor = {
 
     /**
      * @summary Get/set the package configuration
+     *  Should be called *in same terms* both in the client and the server
      * @locus Anywhere
      * @param {Object} o Options object
      * @returns {Object} Configuration object
@@ -34,6 +35,8 @@ teEditor = {
         if( teEditor._conf.verbosity & TE_VERBOSE_CONFIGURE ){
             console.debug( 'pwix:editor configure() with', o, 'building', teEditor._conf );
         }
+        // also acts as a getter
+        return teEditor._conf
     }
 };
 

@@ -6,7 +6,7 @@
 
     Release date: 
 
-    - 
+    - Fix configure() actually acts as a getter
 
 ### 1.1.0
 
