@@ -2,10 +2,11 @@
 
 ## ChangeLog
 
-### 1.0.2-rc
+### 1.1.0-rc
 
     Release date: 
 
+    - Define teEditor.i18n.namespace() to let another package add a translation to this one (todo #5)
     - Replace merge dependency with lodash
     - Rename the conf object to _conf, making clearer it is private
     - configure() now acts explicitely both as a getter and a setter

@@ -8,7 +8,7 @@
  * - switching the 'Edit' toggle switch
  */
 
-import { pwixI18n as i18n } from 'meteor/pwix:i18n';
+import { pwixI18n } from 'meteor/pwix:i18n';
 
 import { v4 as uuidv4 } from 'uuid';
 
@@ -281,7 +281,7 @@ Template.teScriber.onCreated( function(){
         if( name ){
             self.TE.name = name;
         } else {
-            self.TE.name = i18n.label( teEditor.i18n, 'unnamed' );
+            self.TE.name = pwixI18n.label( I18N, 'unnamed' );
         }
         //console.log( 'parm autorun set name' );
     });

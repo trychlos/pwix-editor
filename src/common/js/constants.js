@@ -32,3 +32,7 @@ TE_VERBOSE_CONFIGURE   = 0x01 <<  4;
 TE_VERBOSE_COLLECTIONS = 0x01 <<  5;
 TE_VERBOSE_COMPONENTS  = 0x01 <<  6;
 TE_VERBOSE_SWITCH      = 0x01 <<  7;
+
+// non exported
+
+I18N = 'pwix:editor:i18n';

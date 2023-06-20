@@ -18,3 +18,13 @@ teEditor.i18n = {
         unnamed: '<non nommé>'
     }
 };
+
+pwixI18n.namespace( I18N, teEditor.i18n );
+
+/**
+ * @locus Anywhere
+ * @returns {String} the i18n namespace of this package
+ */
+teEditor.i18n.namespace = function(){
+    return I18N;
+};

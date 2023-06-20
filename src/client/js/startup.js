@@ -29,9 +29,9 @@ Meteor.startup(() => {
         Meteor.cookieManager.publish({
             name: COOKIE_SWITCH_STATE,
             responsible: 'pwix:teEditor',
-            description: pwixI18n.label( teEditor.i18n, 'cookies.switch_state' ),
+            description: pwixI18n.label( I18N, 'cookies.switch_state' ),
             category: 'CM_CAT_FUNCTIONALS',
-            lifetime: pwixI18n.label( teEditor.i18n, 'cookies.illimited' ),
+            lifetime: pwixI18n.label( I18N, 'cookies.illimited' ),
             disableable: true
         });
     }
