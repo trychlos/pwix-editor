@@ -27,7 +27,7 @@ Template.teSwitch.onCreated( function(){
     const self = this;
 
     // be verbose
-    if( teEditor.conf.verbosity & TE_VERBOSE_COMPONENTS || teEditor.conf.verbosity & TE_VERBOSE_SWITCH ){
+    if( teEditor._conf.verbosity & TE_VERBOSE_COMPONENTS || teEditor._conf.verbosity & TE_VERBOSE_SWITCH ){
         console.debug( 'pwix:editor teSwitch onCreated()' );
     }
 
@@ -71,7 +71,7 @@ Template.teSwitch.onCreated( function(){
 
         // whether to use the local store
         useStore(){
-            let use = teEditor.conf.storeSwitchState;
+            let use = teEditor._conf.storeSwitchState;
             if( use && Meteor.cookieManager ){
                 use = Meteor.cookieManager.isEnabled( self.TE.stateKey );
             }
@@ -101,7 +101,7 @@ Template.teSwitch.onRendered( function(){
     const self = this;
 
     // be verbose
-    if( teEditor.conf.verbosity & TE_VERBOSE_COMPONENTS || teEditor.conf.verbosity & TE_VERBOSE_SWITCH ){
+    if( teEditor._conf.verbosity & TE_VERBOSE_COMPONENTS || teEditor._conf.verbosity & TE_VERBOSE_SWITCH ){
         console.debug( 'pwix:editor teSwitch onRendered()' );
     }
 
@@ -126,13 +126,13 @@ Template.teSwitch.events({
     },
 
     'te-switch-off .teSwitch'(){
-        if( teEditor.conf.verbosity & TE_VERBOSE_TEMSG || teEditor.conf.verbosity & TE_VERBOSE_SWITCH  ){
+        if( teEditor._conf.verbosity & TE_VERBOSE_TEMSG || teEditor._conf.verbosity & TE_VERBOSE_SWITCH  ){
             console.debug( 'pwix:editor teSwitch te-switch-off' );
         }
     },
 
     'te-switch-on .teSwitch'(){
-        if( teEditor.conf.verbosity & TE_VERBOSE_TEMSG || teEditor.conf.verbosity & TE_VERBOSE_SWITCH  ){
+        if( teEditor._conf.verbosity & TE_VERBOSE_TEMSG || teEditor._conf.verbosity & TE_VERBOSE_SWITCH  ){
             console.debug( 'pwix:editor teSwitch te-switch-on' );
         }
     }
@@ -143,7 +143,7 @@ Template.teSwitch.onDestroyed( function(){
     teEditor.switch.used.set( false );
 
     // be verbose
-    if( teEditor.conf.verbosity & TE_VERBOSE_COMPONENTS || teEditor.conf.verbosity & TE_VERBOSE_SWITCH  ){
+    if( teEditor._conf.verbosity & TE_VERBOSE_COMPONENTS || teEditor._conf.verbosity & TE_VERBOSE_SWITCH  ){
         console.debug( 'pwix:editor teSwitch onDestroyed()' );
     }
 });

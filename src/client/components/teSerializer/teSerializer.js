@@ -41,7 +41,7 @@ Template.teSerializer.onCreated( function(){
     });
 
     // be verbose
-    if( teEditor.conf.verbosity & TE_VERBOSE_COMPONENTS ){
+    if( teEditor._conf.verbosity & TE_VERBOSE_COMPONENTS ){
         console.debug( 'pwix:editor teSerializer onCreated()', self.TE.name.get());
     }
 });
@@ -50,7 +50,7 @@ Template.teSerializer.onRendered( function(){
     const self = this;
 
     // be verbose
-    if( teEditor.conf.verbosity & TE_VERBOSE_COMPONENTS ){
+    if( teEditor._conf.verbosity & TE_VERBOSE_COMPONENTS ){
         console.debug( 'pwix:editor teSerializer onRendered()' );
     }
 
@@ -88,7 +88,7 @@ Template.teSerializer.helpers({
         //o.mode = TE.updateAllowed.get() ? TE_MODE_PREVIEW : ( TE.readAllowed.get() ? TE_MODE_STANDARD : TE_MODE_NONE );
         //o.mode = TE_MODE_PREVIEW;
         o.mode = o.mode || TE_MODE_PREVIEW;
-        if( teEditor.conf.verbosity & TE_VERBOSE_MODE ){
+        if( teEditor._conf.verbosity & TE_VERBOSE_MODE ){
             //console.debug( 'pwix:editor teSerializer editParms readAllowed='+TE.readAllowed.get(), 'updateAllowed='+ TE.updateAllowed.get(), 'asking for', o.mode );
             console.debug( 'pwix:editor teSerializer editParms asks for', o.mode );
         }
@@ -117,7 +117,7 @@ Template.teSerializer.events({
 
     // verbose
     'te-serialized .teSerializer'( event, instance, data ){
-        if( teEditor.conf.verbosity & TE_VERBOSE_TEMSG ){
+        if( teEditor._conf.verbosity & TE_VERBOSE_TEMSG ){
             console.debug( 'pwix:editor teSerializer te-serialized', data );
         }
     }
@@ -125,7 +125,7 @@ Template.teSerializer.events({
 
 Template.teSerializer.onDestroyed( function(){
     // be verbose
-    if( teEditor.conf.verbosity & TE_VERBOSE_COMPONENTS ){
+    if( teEditor._conf.verbosity & TE_VERBOSE_COMPONENTS ){
         console.debug( 'pwix:editor teSerializer onDestroyed()' );
     }
 });

@@ -8,14 +8,14 @@ import { pwixI18n } from 'meteor/pwix:i18n';
 Meteor.startup( function(){
     //console.log( teEditor );
     // define the cient-side collections
-    if( teEditor.conf.verbosity & TE_VERBOSE_COLLECTIONS ){
+    if( teEditor._conf.verbosity & TE_VERBOSE_COLLECTIONS ){
         console.debug( 'pwix:editor defining client-side collections...' );
     }
     Object.keys( teEditor.collections ).every(( c ) => {
         //console.log( c );
         //console.log( teEditor );
-        const _name = teEditor.conf.collections.prefix + teEditor.collections[c].name;
-        if( teEditor.conf.verbosity & TE_VERBOSE_COLLECTIONS ){
+        const _name = teEditor._conf.collections.prefix + teEditor.collections[c].name;
+        if( teEditor._conf.verbosity & TE_VERBOSE_COLLECTIONS ){
             console.debug( '   '+c+' -> '+_name );
         }
         teEditor.collections[c].client = new Mongo.Collection( _name );
@@ -25,7 +25,7 @@ Meteor.startup( function(){
 });
 
 Meteor.startup(() => {
-    if( Meteor.cookieManager && teEditor.conf.storeSwitchState ){
+    if( Meteor.cookieManager && teEditor._conf.storeSwitchState ){
         Meteor.cookieManager.publish({
             name: COOKIE_SWITCH_STATE,
             responsible: 'pwix:teEditor',

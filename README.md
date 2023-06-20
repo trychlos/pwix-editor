@@ -303,7 +303,7 @@ Dependencies as of v 1.0.0:
     '@popperjs/core': '^2.11.6',
     'bootstrap': '^5.2.1',
     'jquery-resizable-dom': '^0.35.0',
-    'merge': '^2.1.1',
+    'lodash': '^4.17.0',
     'trumbowyg': '^2.26.0',
     'uuid': '^9.0.0'
 ```
