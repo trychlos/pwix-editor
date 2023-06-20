@@ -26,4 +26,4 @@
 
 ---
 P. Wieser
-- Last updated on 2023, May 1st
+- Last updated on 2023, June 20th

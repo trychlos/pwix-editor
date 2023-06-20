@@ -2,9 +2,9 @@
 
 ## ChangeLog
 
-### 1.1.0-rc
+### 1.1.0
 
-    Release date: 
+    Release date: 2023- 6-20
 
     - Define teEditor.i18n.namespace() to let another package add a translation to this one (todo #5)
     - Replace merge dependency with lodash
@@ -25,4 +25,4 @@
 
 ---
 P. Wieser
-- Last updated on 2023, May 1st
+- Last updated on 2023, June 20th
