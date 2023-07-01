@@ -2,9 +2,9 @@
 
 ## ChangeLog
 
-### 1.1.1-rc
+### 1.1.1
 
-    Release date: 
+    Release date: 2023- 7- 1
 
     - Fix configure() actually acts as a getter
     - Introduce global.js to define the global object
@@ -32,4 +32,4 @@
 
 ---
 P. Wieser
-- Last updated on 2023, June 20th
+- Last updated on 2023, July 1st

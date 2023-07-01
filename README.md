@@ -325,4 +325,4 @@ This is considered a disableable functional _cookie_, and is advertised as such 
 
 ---
 P. Wieser
-- Last updated on 2023, June 20th
+- Last updated on 2023, July 1st
