@@ -7,6 +7,7 @@
     Release date: 
 
     - Fix configure() actually acts as a getter
+    - Introduce global.js to define the global object
 
 ### 1.1.0
 
