@@ -6,7 +6,7 @@
 
     Release date: 
 
-    - 
+    - Remove (unused at the moment) jquery-resizable-dom dependency
 
 ### 1.1.1
 
