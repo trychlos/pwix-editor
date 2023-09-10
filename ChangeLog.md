@@ -2,9 +2,9 @@
 
 ## ChangeLog
 
-### 1.2.0-rc
+### 1.2.0
 
-    Release date: 
+    Release date: 2023- 9-10
 
     - Remove (unused at the moment) jquery-resizable-dom dependency
     - Rename Editor as Editor (bumping candidate version number)
