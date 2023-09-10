@@ -6,7 +6,7 @@
 
     Release date: 
 
-    - 
+    - Add pwix:toggle-switch dependency
 
 ### 1.2.0
 
