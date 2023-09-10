@@ -35,9 +35,6 @@ Template.teSwitch.onCreated( function(){
         // arguments dealt with here
         state: new ReactiveVar( true ),
 
-        // internal vars
-        stateKey: COOKIE_SWITCH_STATE,
-
         // get a bool arg if present
         argBool( name ){
             if( Object.keys( Template.currentData()).includes( name )){
@@ -57,7 +54,7 @@ Template.teSwitch.onCreated( function(){
             let _state = self.TE.state.get();
             //console.log( 'init state', _state );
             if( self.TE.useStore()){
-                _state = localStorage.getItem( self.TE.stateKey );
+                _state = localStorage.getItem( COOKIE_SWITCH_STATE_IDENTIFIER );
                 //console.log( 'got state', _state );
             }
             return _state;
@@ -65,15 +62,15 @@ Template.teSwitch.onCreated( function(){
 
         storeSet(){
             if( self.TE.useStore()){
-                localStorage.setItem( self.TE.stateKey, Editor.switch.state.get());
+                localStorage.setItem( COOKIE_SWITCH_STATE_IDENTIFIER, Editor.switch.state.get());
             }
         },
 
         // whether to use the local store
         useStore(){
             let use = Editor._conf.storeSwitchState;
-            if( use && Meteor.cookieManager ){
-                use = Meteor.cookieManager.isEnabled( self.TE.stateKey );
+            if( use && Meteor.CookieManager ){
+                use = Meteor.CookieManager.isEnabled( COOKIE_SWITCH_STATE_IDENTIFIER );
             }
             //console.log( 'useStore', use );
             return use;

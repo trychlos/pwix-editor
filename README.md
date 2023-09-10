@@ -318,9 +318,15 @@ New and updated translations are willingly accepted, and more than welcome. Just
 
 ## Cookies and comparable technologies
 
-`pwix:editor` may use `localStorage` to record the last `teSwitch` state, but only if asked so through the `storeSwitchState` configuration parameter.
+`pwix:editor` may use `localStorage` to record some valuable data.
 
-This is considered a disableable functional _cookie_, and is advertised as such to the cookieManager if present.
+### `pwix:editor/switch_state`
+
+The last `teSwitch` state.
+
+Allowed/disallowed through the `storeSwitchState` configuration parameter.
+
+This is considered a disableable functional _cookie_, and is advertised as such to the CookieManager if present.
 
 ---
 P. Wieser

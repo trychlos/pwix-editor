@@ -25,12 +25,12 @@ Meteor.startup( function(){
 });
 
 Meteor.startup(() => {
-    if( Meteor.cookieManager && Editor._conf.storeSwitchState ){
-        Meteor.cookieManager.publish({
+    if( Meteor.CookieManager ){
+        Meteor.CookieManager.publish({
+            responsible: COOKIE_RESPONSIBLE,
             name: COOKIE_SWITCH_STATE,
-            responsible: 'pwix:Editor',
             description: pwixI18n.label( I18N, 'cookies.switch_state' ),
-            category: 'CM_CAT_FUNCTIONALS',
+            category: CookieManager.C.Category.FUNCTIONALS,
             lifetime: pwixI18n.label( I18N, 'cookies.illimited' ),
             disableable: true
         });

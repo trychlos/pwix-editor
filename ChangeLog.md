@@ -10,6 +10,7 @@
     - Rename Editor as Editor (bumping candidate version number)
     - Replace exported constants with Editor.C structure
     - Bump Meteor version requirement to 2.13.2
+    - Adapt to CookieManager v 1.3.0 and confirm the role of configuration parm (todo #2)
 
 ### 1.1.1
 
