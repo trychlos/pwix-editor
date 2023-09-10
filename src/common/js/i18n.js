@@ -2,7 +2,7 @@
  * pwix:editor/src/common/js/i18n.js
  */
 
-teEditor.i18n = {
+Editor.i18n = {
     en: {
         cookies: {
             illimited: 'Illimited',
@@ -19,12 +19,12 @@ teEditor.i18n = {
     }
 };
 
-pwixI18n.namespace( I18N, teEditor.i18n );
+pwixI18n.namespace( I18N, Editor.i18n );
 
 /**
  * @locus Anywhere
  * @returns {String} the i18n namespace of this package
  */
-teEditor.i18n.namespace = function(){
+Editor.i18n.namespace = function(){
     return I18N;
 };

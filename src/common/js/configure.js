@@ -4,7 +4,7 @@
 
 import _ from 'lodash';
 
-teEditor._defaults = {
+Editor._defaults = {
     collections: {
         prefix: 'te_'
     },
@@ -20,15 +20,15 @@ teEditor._defaults = {
  * @param {Object} o Options object
  * @returns {Object} Configuration object
  */
-teEditor.configure = function( o ){
+Editor.configure = function( o ){
     if( o && _.isObject( o )){
-        _.merge( teEditor._conf, teEditor._defaults, o );
+        _.merge( Editor._conf, Editor._defaults, o );
     }
-    if( teEditor._conf.verbosity & TE_VERBOSE_CONFIGURE ){
-        console.debug( 'pwix:editor configure() with', o, 'building', teEditor._conf );
+    if( Editor._conf.verbosity & TE_VERBOSE_CONFIGURE ){
+        console.debug( 'pwix:editor configure() with', o, 'building', Editor._conf );
     }
     // also acts as a getter
-    return teEditor._conf
+    return Editor._conf
 };
 
-_.merge( teEditor._conf, teEditor._defaults );
+_.merge( Editor._conf, Editor._defaults );

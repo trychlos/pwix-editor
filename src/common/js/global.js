@@ -2,7 +2,7 @@
  * pwix:editor/src/common/js/global.js
  */
 
-teEditor = {
+Editor = {
 
     // collections
     collections: {},

@@ -39,7 +39,7 @@ But it expects that these unknown and unmanaged _documents_ have two main proper
 
 ## Configuration
 
-The package's behavior can be configured through a call to the `teEditor.configure()` method, with just a single javascript object argument, which itself should only contains the options you want override.
+The package's behavior can be configured through a call to the `Editor.configure()` method, with just a single javascript object argument, which itself should only contains the options you want override.
 
 Known configuration options are:
 
@@ -85,7 +85,7 @@ Known configuration options are:
 
     - `TE_VERBOSE_CONFIGURE`
 
-        Trace `teEditor.configure()` calls and their result
+        Trace `Editor.configure()` calls and their result
 
     - `TE_VERBOSE_MODE`
 
@@ -110,21 +110,21 @@ Known configuration options are:
 
         Trace upload configuration and operations
 
-Please note that `teEditor.configure()` methmethod should be called in the same terms both in client and server sides.
+Please note that `Editor.configure()` methmethod should be called in the same terms both in client and server sides.
 
-Also note, as an explicit reminder for the fools, that, because the Meteor packages are instanciated at application level, they can be configured once at most, and only once at most. Each addtionnal call to `teEditor.configure()` will just override the previous one. You have been warned: **only the application should configure a package**.
+Also note, as an explicit reminder for the fools, that, because the Meteor packages are instanciated at application level, they can be configured once at most, and only once at most. Each addtionnal call to `Editor.configure()` will just override the previous one. You have been warned: **only the application should configure a package**.
 
 ## Provides
 
 ### A global object
 
-`teEditor`
+`Editor`
 
 This object is allocated at package level: there is only one instance in your application. It gathers the avilable methods (see below).
 
 This global object contains:
 
-- `teEditor.Modes`
+- `Editor.Modes`
 
     An array of allowed edition modes.
 
@@ -149,7 +149,7 @@ This global object contains:
 
 #### `teSerializer`
 
-This is an encapsulation of the teEditor component, which manages serialized documents.
+This is an encapsulation of the Editor component, which manages serialized documents.
 
 The component is configurable with an object passed as an argument, which may contain:
 
@@ -233,13 +233,13 @@ The component is configurable with an object passed as an argument, which may co
  
     Whether the switch is initially on or off, defaulting to off
 
-The `teSwitch` component maintains its state through two `teEditor` reaactive variables:
+The `teSwitch` component maintains its state through two `Editor` reaactive variables:
 
-- `teEditor.switch.used`
+- `Editor.switch.used`
 
     Whether the application makes use of the `teSwitch` component
 
-- `teEditor.switch.state`
+- `Editor.switch.state`
 
     When used, the state of the `teSwitch` component
 

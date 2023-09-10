@@ -15,7 +15,7 @@
  * - state: whether the switch is initially on or off, defaulting to on
  * - enabled: whether the switch is enabled, defaulting to on
  * 
- * The state of the button is available via the teEditor.switch.state reactive var, whose value is true for switch on (false else).
+ * The state of the button is available via the Editor.switch.state reactive var, whose value is true for switch on (false else).
  * The switches are advertised via te-switch-on / te-switch-off events.
  */
 
@@ -27,7 +27,7 @@ Template.teSwitch.onCreated( function(){
     const self = this;
 
     // be verbose
-    if( teEditor._conf.verbosity & TE_VERBOSE_COMPONENTS || teEditor._conf.verbosity & TE_VERBOSE_SWITCH ){
+    if( Editor._conf.verbosity & TE_VERBOSE_COMPONENTS || Editor._conf.verbosity & TE_VERBOSE_SWITCH ){
         console.debug( 'pwix:editor teSwitch onCreated()' );
     }
 
@@ -65,13 +65,13 @@ Template.teSwitch.onCreated( function(){
 
         storeSet(){
             if( self.TE.useStore()){
-                localStorage.setItem( self.TE.stateKey, teEditor.switch.state.get());
+                localStorage.setItem( self.TE.stateKey, Editor.switch.state.get());
             }
         },
 
         // whether to use the local store
         useStore(){
-            let use = teEditor._conf.storeSwitchState;
+            let use = Editor._conf.storeSwitchState;
             if( use && Meteor.cookieManager ){
                 use = Meteor.cookieManager.isEnabled( self.TE.stateKey );
             }
@@ -89,11 +89,11 @@ Template.teSwitch.onCreated( function(){
     });
 
     // advertise we have a switch
-    teEditor.switch.used.set( true );
+    Editor.switch.used.set( true );
 
     // set the initial state
     self.autorun(() => {
-        teEditor.switch.state.set( self.TE.state.get());
+        Editor.switch.state.set( self.TE.state.get());
     });
 });
 
@@ -101,7 +101,7 @@ Template.teSwitch.onRendered( function(){
     const self = this;
 
     // be verbose
-    if( teEditor._conf.verbosity & TE_VERBOSE_COMPONENTS || teEditor._conf.verbosity & TE_VERBOSE_SWITCH ){
+    if( Editor._conf.verbosity & TE_VERBOSE_COMPONENTS || Editor._conf.verbosity & TE_VERBOSE_SWITCH ){
         console.debug( 'pwix:editor teSwitch onRendered()' );
     }
 
@@ -121,18 +121,18 @@ Template.teSwitch.helpers({
 
 Template.teSwitch.events({
     'ts-state .teSwitch'( event, instance, data ){
-        teEditor.switch.state.set( data.state );
+        Editor.switch.state.set( data.state );
         instance.$( '.teSwitch' ).trigger( data.state ? 'te-switch-on' : 'te-switch-off' );
     },
 
     'te-switch-off .teSwitch'(){
-        if( teEditor._conf.verbosity & TE_VERBOSE_TEMSG || teEditor._conf.verbosity & TE_VERBOSE_SWITCH  ){
+        if( Editor._conf.verbosity & TE_VERBOSE_TEMSG || Editor._conf.verbosity & TE_VERBOSE_SWITCH  ){
             console.debug( 'pwix:editor teSwitch te-switch-off' );
         }
     },
 
     'te-switch-on .teSwitch'(){
-        if( teEditor._conf.verbosity & TE_VERBOSE_TEMSG || teEditor._conf.verbosity & TE_VERBOSE_SWITCH  ){
+        if( Editor._conf.verbosity & TE_VERBOSE_TEMSG || Editor._conf.verbosity & TE_VERBOSE_SWITCH  ){
             console.debug( 'pwix:editor teSwitch te-switch-on' );
         }
     }
@@ -140,10 +140,10 @@ Template.teSwitch.events({
 
 Template.teSwitch.onDestroyed( function(){
     // advertise we no more have a switch
-    teEditor.switch.used.set( false );
+    Editor.switch.used.set( false );
 
     // be verbose
-    if( teEditor._conf.verbosity & TE_VERBOSE_COMPONENTS || teEditor._conf.verbosity & TE_VERBOSE_SWITCH  ){
+    if( Editor._conf.verbosity & TE_VERBOSE_COMPONENTS || Editor._conf.verbosity & TE_VERBOSE_SWITCH  ){
         console.debug( 'pwix:editor teSwitch onDestroyed()' );
     }
 });

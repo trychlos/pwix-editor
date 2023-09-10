@@ -21,7 +21,7 @@
 
 |   Id | Date       | Description and comment(s) |
 | ---: | :---       | :---                       |
-|    5 | 2023- 6-12 | Have teEditor.i18n.namespace() to let another package add a translation to this one |
+|    5 | 2023- 6-12 | Have Editor.i18n.namespace() to let another package add a translation to this one |
 |      | 2023- 6-20 | done |
 
 ---

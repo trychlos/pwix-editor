@@ -6,7 +6,7 @@
 //
 
 // the cookie name for the switch state, defined here to be available anywhere
-COOKIE_SWITCH_STATE = 'pwix:teEditor/switch_state';
+COOKIE_SWITCH_STATE = 'pwix:Editor/switch_state';
 
 // exported constants
 //
@@ -16,7 +16,7 @@ TE_MODE_STANDARD = 'TE_MODE_STANDARD';
 TE_MODE_PREVIEW = 'TE_MODE_PREVIEW';
 TE_MODE_EDITION = 'TE_MODE_EDITION';
 
-teEditor.Modes = [
+Editor.Modes = [
     TE_MODE_HIDDEN,
     TE_MODE_STANDARD,
     TE_MODE_PREVIEW,
