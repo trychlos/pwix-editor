@@ -41,7 +41,7 @@ Template.teSerializer.onCreated( function(){
     });
 
     // be verbose
-    if( Editor._conf.verbosity & TE_VERBOSE_COMPONENTS ){
+    if( Editor._conf.verbosity & Editor.C.Verbose.COMPONENTS ){
         console.debug( 'pwix:editor teSerializer onCreated()', self.TE.name.get());
     }
 });
@@ -50,7 +50,7 @@ Template.teSerializer.onRendered( function(){
     const self = this;
 
     // be verbose
-    if( Editor._conf.verbosity & TE_VERBOSE_COMPONENTS ){
+    if( Editor._conf.verbosity & Editor.C.Verbose.COMPONENTS ){
         console.debug( 'pwix:editor teSerializer onRendered()' );
     }
 
@@ -85,10 +85,10 @@ Template.teSerializer.helpers({
     editParms(){
         const TE = Template.instance().TE;
         let o = Template.currentData();
-        //o.mode = TE.updateAllowed.get() ? TE_MODE_PREVIEW : ( TE.readAllowed.get() ? TE_MODE_STANDARD : TE_MODE_NONE );
-        //o.mode = TE_MODE_PREVIEW;
-        o.mode = o.mode || TE_MODE_PREVIEW;
-        if( Editor._conf.verbosity & TE_VERBOSE_MODE ){
+        //o.mode = TE.updateAllowed.get() ? Editor.C.Mode.PREVIEW : ( TE.readAllowed.get() ? Editor.C.Mode.STANDARD : Editor.C.Mode.NONE );
+        //o.mode = Editor.C.Mode.PREVIEW;
+        o.mode = o.mode || Editor.C.Mode.PREVIEW;
+        if( Editor._conf.verbosity & Editor.C.Verbose.MODE ){
             //console.debug( 'pwix:editor teSerializer editParms readAllowed='+TE.readAllowed.get(), 'updateAllowed='+ TE.updateAllowed.get(), 'asking for', o.mode );
             console.debug( 'pwix:editor teSerializer editParms asks for', o.mode );
         }
@@ -117,7 +117,7 @@ Template.teSerializer.events({
 
     // verbose
     'te-serialized .teSerializer'( event, instance, data ){
-        if( Editor._conf.verbosity & TE_VERBOSE_TEMSG ){
+        if( Editor._conf.verbosity & Editor.C.Verbose.TEMSG ){
             console.debug( 'pwix:editor teSerializer te-serialized', data );
         }
     }
@@ -125,7 +125,7 @@ Template.teSerializer.events({
 
 Template.teSerializer.onDestroyed( function(){
     // be verbose
-    if( Editor._conf.verbosity & TE_VERBOSE_COMPONENTS ){
+    if( Editor._conf.verbosity & Editor.C.Verbose.COMPONENTS ){
         console.debug( 'pwix:editor teSerializer onDestroyed()' );
     }
 });

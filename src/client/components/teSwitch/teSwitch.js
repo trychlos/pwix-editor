@@ -27,7 +27,7 @@ Template.teSwitch.onCreated( function(){
     const self = this;
 
     // be verbose
-    if( Editor._conf.verbosity & TE_VERBOSE_COMPONENTS || Editor._conf.verbosity & TE_VERBOSE_SWITCH ){
+    if( Editor._conf.verbosity & Editor.C.Verbose.COMPONENTS || Editor._conf.verbosity & Editor.C.Verbose.SWITCH ){
         console.debug( 'pwix:editor teSwitch onCreated()' );
     }
 
@@ -101,7 +101,7 @@ Template.teSwitch.onRendered( function(){
     const self = this;
 
     // be verbose
-    if( Editor._conf.verbosity & TE_VERBOSE_COMPONENTS || Editor._conf.verbosity & TE_VERBOSE_SWITCH ){
+    if( Editor._conf.verbosity & Editor.C.Verbose.COMPONENTS || Editor._conf.verbosity & Editor.C.Verbose.SWITCH ){
         console.debug( 'pwix:editor teSwitch onRendered()' );
     }
 
@@ -126,13 +126,13 @@ Template.teSwitch.events({
     },
 
     'te-switch-off .teSwitch'(){
-        if( Editor._conf.verbosity & TE_VERBOSE_TEMSG || Editor._conf.verbosity & TE_VERBOSE_SWITCH  ){
+        if( Editor._conf.verbosity & Editor.C.Verbose.TEMSG || Editor._conf.verbosity & Editor.C.Verbose.SWITCH  ){
             console.debug( 'pwix:editor teSwitch te-switch-off' );
         }
     },
 
     'te-switch-on .teSwitch'(){
-        if( Editor._conf.verbosity & TE_VERBOSE_TEMSG || Editor._conf.verbosity & TE_VERBOSE_SWITCH  ){
+        if( Editor._conf.verbosity & Editor.C.Verbose.TEMSG || Editor._conf.verbosity & Editor.C.Verbose.SWITCH  ){
             console.debug( 'pwix:editor teSwitch te-switch-on' );
         }
     }
@@ -143,7 +143,7 @@ Template.teSwitch.onDestroyed( function(){
     Editor.switch.used.set( false );
 
     // be verbose
-    if( Editor._conf.verbosity & TE_VERBOSE_COMPONENTS || Editor._conf.verbosity & TE_VERBOSE_SWITCH  ){
+    if( Editor._conf.verbosity & Editor.C.Verbose.COMPONENTS || Editor._conf.verbosity & Editor.C.Verbose.SWITCH  ){
         console.debug( 'pwix:editor teSwitch onDestroyed()' );
     }
 });

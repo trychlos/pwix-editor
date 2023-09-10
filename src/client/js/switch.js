@@ -12,14 +12,14 @@ Editor.switch = {
 
 Tracker.autorun(() => {
     const b = Editor.switch.used.get();
-    if( Editor._conf.verbosity & TE_VERBOSE_SWITCH  ){
+    if( Editor._conf.verbosity & Editor.C.Verbose.SWITCH  ){
         console.debug( 'pwix:editor switch.used', b );
     }
 });
 
 Tracker.autorun(() => {
     const b = Editor.switch.state.get();
-    if( Editor._conf.verbosity & TE_VERBOSE_SWITCH  ){
+    if( Editor._conf.verbosity & Editor.C.Verbose.SWITCH  ){
         console.debug( 'pwix:editor switch.state', b );
     }
 });

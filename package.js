@@ -10,19 +10,19 @@ Package.onUse( function( api ){
     configure( api );
     api.export([
         'Editor',
-        'TE_MODE_HIDDEN',
-        'TE_MODE_STANDARD',
-        'TE_MODE_PREVIEW',
-        'TE_MODE_EDITION',
-        'TE_VERBOSE_NONE',
-        'TE_VERBOSE_COLLECTIONS',
-        'TE_VERBOSE_COMPONENTS',
-        'TE_VERBOSE_CONFIGURE',
-        'TE_VERBOSE_MODE',
-        'TE_VERBOSE_SWITCH',
-        'TE_VERBOSE_TEMSG',
-        'TE_VERBOSE_TRUMBOWYG',
-        'TE_VERBOSE_UPLOAD'
+        'Editor.C.Mode.HIDDEN',
+        'Editor.C.Mode.STANDARD',
+        'Editor.C.Mode.PREVIEW',
+        'Editor.C.Mode.EDITION',
+        'Editor.C.Verbose.NONE',
+        'Editor.C.Verbose.COLLECTIONS',
+        'Editor.C.Verbose.COMPONENTS',
+        'Editor.C.Verbose.CONFIGURE',
+        'Editor.C.Verbose.MODE',
+        'Editor.C.Verbose.SWITCH',
+        'Editor.C.Verbose.TEMSG',
+        'Editor.C.Verbose.TRUMBOWYG',
+        'Editor.C.Verbose.UPLOAD'
     ]);
     api.mainModule( 'src/client/js/index.js', 'client' );
     api.mainModule( 'src/server/js/index.js', 'server' );

@@ -16,25 +16,25 @@ But it expects that these unknown and unmanaged _documents_ have two main proper
 
 `pwix:editor` is able to manage four edition modes:
 
-- `TE_MODE_HIDDEN`
+- `Editor.C.Mode.HIDDEN`
 
     Build the component, but do not display in the DOM.
 
-- `TE_MODE_STANDARD`
+- `Editor.C.Mode.STANDARD`
 
     The document's content is displayed as standard HTML: this is the default startup mode.<br />
     In this mode, all the document's content is just displayed as if they were no editor at all.
     This way, you can safely directly integrates `teScriber` component in your pages without your standard user being conscious of anything.
 
-- `TE_MODE_PREVIEW`
+- `Editor.C.Mode.PREVIEW`
 
     The document's content is displayed inside of a thin panel.<br />
     The header of this panel displays the document's name, along with two `Preview` and `Edit` buttons.
     The document's content is displayed as standard HTML.
 
-- `TE_MODE_EDITION`
+- `Editor.C.Mode.EDITION`
 
-    This mode is an extension of the `TE_MODE_PREVIEW`, where the user is able to actually edit the document's content.
+    This mode is an extension of the `Editor.C.Mode.PREVIEW`, where the user is able to actually edit the document's content.
     A buttons panel with different edition options (font size, color, etc.) along with a WYSIWYG HTML editor is available.
 
 ## Configuration
@@ -62,11 +62,11 @@ Known configuration options are:
 
     The accepted value can be any or-ed combination of following:
 
-    - `TE_VERBOSE_NONE`
+    - `Editor.C.Verbose.NONE`
 
         Do not display any trace log to the console
 
-    - `TE_VERBOSE_COLLECTIONS`
+    - `Editor.C.Verbose.COLLECTIONS`
 
         Trace collections events.
 
@@ -75,7 +75,7 @@ Known configuration options are:
         - declarations and definitions
         - methods calls and results 
 
-    - `TE_VERBOSE_COMPONENTS`
+    - `Editor.C.Verbose.COMPONENTS`
 
         Trace Blaze components life:
 
@@ -83,30 +83,30 @@ Known configuration options are:
         - rendering
         - destruction
 
-    - `TE_VERBOSE_CONFIGURE`
+    - `Editor.C.Verbose.CONFIGURE`
 
         Trace `Editor.configure()` calls and their result
 
-    - `TE_VERBOSE_MODE`
+    - `Editor.C.Verbose.MODE`
 
         Trace edition mode changes
 
-    - `TE_VERBOSE_SWITCH`
+    - `Editor.C.Verbose.SWITCH`
 
         Trace the internal behavior of the `teSwitch` component
 
-    - `TE_VERBOSE_TEMSG`
+    - `Editor.C.Verbose.TEMSG`
 
         Trace `te-xxx` messages
 
-    - `TE_VERBOSE_TRUMBOWYG`
+    - `Editor.C.Verbose.TRUMBOWYG`
 
         Trace the 'trumbowyg' editor life:
 
         - instanciation and deletion
         - internal messaging events
 
-    - `TE_VERBOSE_UPLOAD`
+    - `Editor.C.Verbose.UPLOAD`
 
         Trace upload configuration and operations
 
@@ -130,20 +130,20 @@ This global object contains:
 
 ### Constants
 
-- `TE_MODE_HIDDEN`
-- `TE_MODE_STANDARD`
-- `TE_MODE_PREVIEW`
-- `TE_MODE_EDITION`
+- `Editor.C.Mode.HIDDEN`
+- `Editor.C.Mode.STANDARD`
+- `Editor.C.Mode.PREVIEW`
+- `Editor.C.Mode.EDITION`
 
-- `TE_VERBOSE_NONE`
-- `TE_VERBOSE_COLLECTIONS`
-- `TE_VERBOSE_COMPONENTS`
-- `TE_VERBOSE_CONFIGURE`
-- `TE_VERBOSE_MODE`
-- `TE_VERBOSE_SWITCH`
-- `TE_VERBOSE_TEMSG`
-- `TE_VERBOSE_TRUMBOWYG`
-- `TE_VERBOSE_UPLOAD`
+- `Editor.C.Verbose.NONE`
+- `Editor.C.Verbose.COLLECTIONS`
+- `Editor.C.Verbose.COMPONENTS`
+- `Editor.C.Verbose.CONFIGURE`
+- `Editor.C.Verbose.MODE`
+- `Editor.C.Verbose.SWITCH`
+- `Editor.C.Verbose.TEMSG`
+- `Editor.C.Verbose.TRUMBOWYG`
+- `Editor.C.Verbose.UPLOAD`
 
 ### Blaze components
 
@@ -175,7 +175,7 @@ The component is configurable with an object passed as an argument, which may co
 
 - `mode`
 
-    The edition mode as a string, defaulting to `TE_MODE_STANDARD`.
+    The edition mode as a string, defaulting to `Editor.C.Mode.STANDARD`.
 
 - `name`
 
@@ -205,7 +205,7 @@ The `teScriber` component doesn't provide any save way. Instead, it provides two
 
 A switch which let the user toggle the edition mode.
 
-Use case: particularly in development mode, it happens that the `TE_MODE_PREVIEW` may slightly disturb the display. This switch let the editor run in `TE_MODE_STANDARD` even when the user is allowed to edit, while the toggle switch is off.
+Use case: particularly in development mode, it happens that the `Editor.C.Mode.PREVIEW` may slightly disturb the display. This switch let the editor run in `Editor.C.Mode.STANDARD` even when the user is allowed to edit, while the toggle switch is off.
 
 The component is configurable with an object passed as an argument, which may contain:
 
@@ -255,13 +255,13 @@ Informational messages are sent by the component on itself. The caller can take 
 
 - `te-content-changed`
 
-    Triggered on the `teScriber` element when the content has been changed (in `TE_MODE_EDITION` mode only).
+    Triggered on the `teScriber` element when the content has been changed (in `Editor.C.Mode.EDITION` mode only).
 
     Provides an object `{ html: <html> }` or `{ html: <html>, name: <name> }`, depending whether a `name` has been provided or not.
 
 - `te-initialized`
 
-    Triggered on the `teScriber` element when the editor has been initialized (in `TE_MODE_PREVIEW` or `TE_MODE_EDITION` modes).
+    Triggered on the `teScriber` element when the editor has been initialized (in `Editor.C.Mode.PREVIEW` or `Editor.C.Mode.EDITION` modes).
 
 - `te-serialized`
 

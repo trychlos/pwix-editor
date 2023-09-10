@@ -8,6 +8,7 @@
 
     - Remove (unused at the moment) jquery-resizable-dom dependency
     - Rename Editor as Editor (bumping candidate version number)
+    - Replace exported constants with Editor.C structure
 
 ### 1.1.1
 
