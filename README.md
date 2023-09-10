@@ -298,7 +298,7 @@ Starting with v 1.0.0, and in accordance with advices from [the Meteor Guide](ht
 
 Instead we check npm versions of installed packages at runtime, on server startup, in development environment.
 
-Dependencies as of v 1.1.0:
+Dependencies as of v 1.2.0:
 ```
     '@popperjs/core': '^2.11.6',
     'bootstrap': '^5.2.1',
@@ -330,4 +330,4 @@ This is considered a disableable functional _cookie_, and is advertised as such 
 
 ---
 P. Wieser
-- Last updated on 2023, July 1st
+- Last updated on 2023, Sept. 10th
