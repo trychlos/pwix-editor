@@ -7,6 +7,7 @@
     Release date: 
 
     - Add pwix:toggle-switch dependency
+    - Bump pwix:i18n version requirement
 
 ### 1.2.0
 
