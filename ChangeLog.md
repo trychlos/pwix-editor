@@ -9,6 +9,7 @@
     - Remove (unused at the moment) jquery-resizable-dom dependency
     - Rename Editor as Editor (bumping candidate version number)
     - Replace exported constants with Editor.C structure
+    - Bump Meteor version requirement to 2.13.2
 
 ### 1.1.1
 

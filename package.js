@@ -9,20 +9,7 @@ Package.describe({
 Package.onUse( function( api ){
     configure( api );
     api.export([
-        'Editor',
-        'Editor.C.Mode.HIDDEN',
-        'Editor.C.Mode.STANDARD',
-        'Editor.C.Mode.PREVIEW',
-        'Editor.C.Mode.EDITION',
-        'Editor.C.Verbose.NONE',
-        'Editor.C.Verbose.COLLECTIONS',
-        'Editor.C.Verbose.COMPONENTS',
-        'Editor.C.Verbose.CONFIGURE',
-        'Editor.C.Verbose.MODE',
-        'Editor.C.Verbose.SWITCH',
-        'Editor.C.Verbose.TEMSG',
-        'Editor.C.Verbose.TRUMBOWYG',
-        'Editor.C.Verbose.UPLOAD'
+        'Editor'
     ]);
     api.mainModule( 'src/client/js/index.js', 'client' );
     api.mainModule( 'src/server/js/index.js', 'server' );
@@ -36,7 +23,7 @@ Package.onTest( function( api ){
 });
 
 function configure( api ){
-    api.versionsFrom( '2.9.0' );
+    api.versionsFrom( '2.13.2' );
     api.use( 'aldeed:collection2@3.5.0' );
     api.use( 'blaze-html-templates@2.0.0', 'client' );
     api.use( 'ecmascript' );
