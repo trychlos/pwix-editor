@@ -5,10 +5,10 @@
 Editor.C = {
     // display mode
     Mode: {
-        HIDDEN:   'MODE_HIDDEN',
-        STANDARD: 'MODE_STANDARD',
-        PREVIEW:  'MODE_PREVIEW',
-        EDITION:  'MODE_EDITION'
+        HIDDEN:   'TE_MODE_HIDDEN',
+        STANDARD: 'TE_MODE_STANDARD',
+        PREVIEW:  'TE_MODE_PREVIEW',
+        EDITION:  'TE_MODE_EDITION'
     },
     // verbosity levels
     Verbose: {
