@@ -241,7 +241,9 @@ Template.teScriber.onCreated( function(){
         }
     };
 
-    //console.debug( 'teScriber data', Template.currentData());
+    self.autorun(() => {
+        //console.debug( Template.currentData());
+    });
 
     // see https://alex-d.github.io/Trumbowyg/documentation/#svg-icons
     //  actually explicitely load the icons on package startup
