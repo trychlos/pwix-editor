@@ -8,6 +8,7 @@
 
     - Add pwix:toggle-switch dependency
     - Bump pwix:i18n version requirement
+    - Fix CookieManager publication at startup
 
 ### 1.2.0
 

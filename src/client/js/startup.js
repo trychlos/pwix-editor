@@ -30,7 +30,7 @@ Meteor.startup(() => {
             responsible: COOKIE_RESPONSIBLE,
             name: COOKIE_SWITCH_STATE,
             description: pwixI18n.label( I18N, 'cookies.switch_state' ),
-            category: CookieManager.C.Category.FUNCTIONALS,
+            category: Meteor.CookieManager.C.Category.FUNCTIONALS,
             lifetime: pwixI18n.label( I18N, 'cookies.illimited' ),
             disableable: true
         });
