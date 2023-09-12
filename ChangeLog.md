@@ -10,6 +10,7 @@
     - Bump pwix:i18n version requirement
     - Fix CookieManager publication at startup
     - Restore initial constant values
+    - Back to Meteor 2.9.0
 
 ### 1.2.0
 
