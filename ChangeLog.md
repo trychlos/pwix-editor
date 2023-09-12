@@ -2,9 +2,9 @@
 
 ## ChangeLog
 
-### 1.2.1-rc
+### 1.2.1
 
-    Release date: 
+    Release date: 2023- 9-12
 
     - Add pwix:toggle-switch dependency
     - Bump pwix:i18n version requirement
@@ -52,4 +52,4 @@
 
 ---
 P. Wieser
-- Last updated on 2023, Sept. 10th
+- Last updated on 2023, Sept. 12th
