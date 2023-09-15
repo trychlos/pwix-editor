@@ -15,6 +15,7 @@ if( false ){
 checkNpmVersions({
     '@popperjs/core': '^2.11.6',
     'bootstrap': '^5.2.1',
+    'jquery-resizable': '^1.0.0',   // required by trumbowyg:Resizimg plugin
     'lodash': '^4.17.0',
     'trumbowyg': '^2.25.2',
     'uuid': '^9.0.0'

@@ -6,7 +6,7 @@
 
     Release date: 
 
-    - 
+    - Add jquery-resizable NPM dependency required by trumbowyg:resizeimg plugin
 
 ### 1.2.1
 

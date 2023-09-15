@@ -47,7 +47,9 @@ Known configuration options are:
 
     Whether the application plans to use the `teSwitch` component and wishes to record its last state.
 
-    When enabled, this option will create a _cookie_, that the user may refuse.
+    When enabled, this option will create a _cookie_.
+    
+    This _cookie_ is published to CookieManager as a functional one, and the user may refuse it.
 
     Default to `false`.
 
@@ -128,12 +130,18 @@ This global object contains:
 
     An array of allowed edition modes.
 
+### Methods
+
 ### Constants
+
+#### Edition modes
 
 - `Editor.C.Mode.HIDDEN`
 - `Editor.C.Mode.STANDARD`
 - `Editor.C.Mode.PREVIEW`
 - `Editor.C.Mode.EDITION`
+
+#### Verbosity levels
 
 - `Editor.C.Verbose.NONE`
 - `Editor.C.Verbose.COLLECTIONS`
@@ -171,7 +179,7 @@ The component is configurable with an object passed as an argument, which may co
 
     An optional input/output ReactiveVar which is expected to contain the ... document's content (by the way), interpreted as a HTML string.
 
-    It not provided, the component just displays an empty editing area.
+    It not provided, the component just displays an empty editing area, and advertises of its updates through the `te-content-changed` event.
 
 - `mode`
 
@@ -198,7 +206,9 @@ The component is configurable with an object passed as an argument, which may co
     Whether to authorize the FullScreen button, which should be reserved to edit full articles, defaulting to `true`.
 
 The `teScriber` component doesn't provide any save way. Instead, it provides two ways for the caller be informed of the changes:
+
 - the `content` ReactiveVar, if provided, is continuously updated,
+
 - a `te-content-changed` message is sent on the component on each change.
 
 #### `teSwitch`

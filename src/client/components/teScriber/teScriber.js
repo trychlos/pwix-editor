@@ -177,7 +177,20 @@ Template.teScriber.onCreated( function(){
                 if( Editor._conf.verbosity & Editor.C.Verbose.TRUMBOWYG ){
                     console.debug( 'pwix:editor teScriber editorDelete() destroying instance' );
                 }
-                const res = self.TE.editorDiv.trumbowyg( 'destroy' );
+                // workaround https://github.com/Alex-D/Trumbowyg/issues/1396 - begin
+                // introduced in 2.27.0, still present in 2.27.3 (sept. 2023)
+                const $tec = self.$( '.te-edit-content#'+self.TE.id ).detach();
+                $tec.removeClass( 'trumbowyg-editor' ).removeAttr( 'contenteditable' ).removeAttr( 'dir' );
+
+                // normal way
+                self.TE.editorDiv.trumbowyg( 'destroy' );
+
+                // workaround https://github.com/Alex-D/Trumbowyg/issues/1396 - end
+                //self.$( '.trumbowyg-box' ).trigger( 'tbwclose' );
+                self.$( '.trumbowyg-box' ).remove();
+                self.$( '.trumbowyg-editor-box' ).remove();
+                self.$( '.te-edit-container' ).append( $tec );
+
                 //console.log( 'destroy='+res );
                 self.TE.editorInitialized.set( false );
             }
@@ -429,7 +442,7 @@ Template.teScriber.events({
     },
 
     // the editor is destroyed
-    'tbwclose .te-edit-content'( event, instance ){
+    'tbwclose .te-edit-container'( event, instance ){
         if( Editor._conf.verbosity & Editor.C.Verbose.TRUMBOWYG ){
             console.debug( 'pwix:editor teScriber tbwclose' );
         }
