@@ -1061,21 +1061,19 @@ Object.defineProperty(jQuery.trumbowyg, 'defaultOptions', {
 
 			//console.log( 'trumbowyg: before t.$ed.off()' );
             t.$ed.off('dblclick', 'img');
-
-			//console.log( 'c.data', t.$c.data());
-			//console.log( 'ed.data', t.$ed.data());
-
-			//console.log( 'trumbowyg: before t.$ed.removeData()' );
             //t.$c.removeData('trumbowyg');
             t.$ed.removeData('trumbowyg');
+            t.$ed
+                .removeClass( prefix + 'editor' )
+                .removeClass( prefix + 'autogrow-on-enter' )
+                .removeAttr('contenteditable')
+                .removeAttr('dir')
 
 			console.log( 'trumbowyg: before destroyPlugins()' );
             res = t.destroyPlugins();
 
 			//console.log( 'trumbowyg: before t.$box.remove()' );
             //t.$box.remove();
-            //instead of $box.remove, try that
-			//console.log( 'trumbowyg: before t.$box.replaceWith()' );
             t.$box.replaceWith( t.$ed );
             t.$edBox.remove();
 

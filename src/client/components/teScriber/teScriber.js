@@ -192,7 +192,8 @@ Template.teScriber.onCreated( function(){
                         'div': 'div'
                     },
                     autogrowOnEnter: true,
-                    imageWidthModalEdit: true
+                    imageWidthModalEdit: true,
+                    lang: pwixI18n.language()
                 });
             }
         },
@@ -208,6 +209,7 @@ Template.teScriber.onCreated( function(){
             }
         },
 
+        /*
         // copied from trumbowyg:fontfamily plugin
         editorFontFamilyDefault(){
             return [
@@ -226,6 +228,17 @@ Template.teScriber.onCreated( function(){
                 { name: 'Verdana', family: 'Verdana, Geneva, sans-serif' }
             ];
         },
+        */
+
+        editorFontFamilyDefault(){
+            return [
+                { name: 'Arial', family: 'Arial2, Helvetica, sans-serif' },
+                { name: 'Arial Black', family: 'Arial Black, sans-serif' },
+                { name: 'Comic Sans', family: 'Comic Sans, sans-serif' },
+                { name: 'Serpentine', family: 'Serpentine, sans-serif' },
+                { name: 'Tahoma', family: 'Tahoma2, Geneva, sans-serif' }
+            ];
+        },
 
         // setup the editor plugins
         editorPlugins(){
@@ -237,8 +250,11 @@ Template.teScriber.onCreated( function(){
                     urlPropertyName: 'data.link'
                 };
             }
-            let families = _.merge( self.TE.editorFontFamilyDefault(), Template.currentData().addFontFamilyList || [] );
+            const defaults = self.TE.editorFontFamilyDefault();
+            const adds = Template.currentData().addFontFamilyList || [];
+            let families = [ ...defaults, ...adds ];
             families.sort(( a, b ) => { return self.TE.cmpStrings( a.name, b.name )});
+            console.debug( families );
             plugins.fontfamily = {
                 fontList: families
             };

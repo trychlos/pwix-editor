@@ -34,6 +34,11 @@ function configure( api ){
     api.addFiles( 'src/client/components/teSerializer/teSerializer.js', 'client' );
     api.addFiles( 'src/client/components/teScriber/teScriber.js', 'client' );
     api.addFiles( 'src/client/components/teSwitch/teSwitch.js', 'client' );
+    api.addAssets( 'src/client/third-party/arial/ARIAL.woff', 'client' );
+    api.addAssets( 'src/client/third-party/arial/arial-black.ttf', 'client' );
+    api.addAssets( 'src/client/third-party/comic/LDFComicSans.ttf', 'client' );
+    api.addAssets( 'src/client/third-party/serpentine/Serpentine-Medium.otf', 'client' );
+    api.addAssets( 'src/client/third-party/tahoma/Tahoma Regular font.ttf', 'client' );
 }
 
 // NPM dependencies are checked in /src/server/js/check_npms.js
