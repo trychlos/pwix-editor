@@ -205,6 +205,17 @@ The component is configurable with an object passed as an argument, which may co
 
     Whether to authorize the FullScreen button, which should be reserved to edit full articles, defaulting to `true`.
 
+- `addFontFamilyList`
+
+    An array of font families to be added to those already managed by the editor.
+
+    Example:
+    ```
+        [
+            { name: 'Arial', family: 'Arial, Helvetica, sans-serif' }
+        ]
+    ```
+
 The `teScriber` component doesn't provide any save way. Instead, it provides two ways for the caller be informed of the changes:
 
 - the `content` ReactiveVar, if provided, is continuously updated,

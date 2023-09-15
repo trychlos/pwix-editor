@@ -2,11 +2,13 @@
 
 ## ChangeLog
 
-### 1.2.2-rc
+### 1.3.0-rc
 
     Release date: 
 
     - Add jquery-resizable NPM dependency required by trumbowyg:resizeimg plugin
+    - Now embed a patched version of trumbowyg 2.27.3 (due to https://github.com/Alex-D/Trumbowyg/issues/1396 issue)
+    - Define addFontFamilyList as a new teScriber parameter (bumping candidate version number)
 
 ### 1.2.1
 

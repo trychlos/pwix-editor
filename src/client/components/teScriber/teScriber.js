@@ -8,22 +8,39 @@
  * - switching the 'Edit' toggle switch
  */
 
-import { pwixI18n } from 'meteor/pwix:i18n';
-
+import _ from 'lodash';
 import { v4 as uuidv4 } from 'uuid';
 
-import 'trumbowyg/dist/ui/trumbowyg.min.css';
-//import 'trumbowyg/dist/trumbowyg.min.js';
-import 'trumbowyg/dist/trumbowyg.js'; // keep this modified version until https://github.com/Alex-D/Trumbowyg/issues/1396 is fixed
+import { pwixI18n } from 'meteor/pwix:i18n';
 
-import 'trumbowyg/plugins/colors/trumbowyg.colors.js';
-import 'trumbowyg/plugins/emoji/trumbowyg.emoji.js';
-import 'trumbowyg/plugins/fontfamily/trumbowyg.fontfamily.js';
-import 'trumbowyg/plugins/fontsize/trumbowyg.fontsize.js';
-import 'trumbowyg/plugins/history/trumbowyg.history.js';
-import 'trumbowyg/plugins/pasteimage/trumbowyg.pasteimage.js';
-import 'trumbowyg/plugins/resizimg/trumbowyg.resizimg.js';
-import 'trumbowyg/plugins/upload/trumbowyg.upload.js';
+// required by trumbowyg:resizimg plugin
+import 'jquery-resizable-dom/dist/jquery-resizable.min.js';
+
+//import 'trumbowyg/dist/ui/trumbowyg.min.css';
+//import 'trumbowyg/dist/trumbowyg.min.js';
+
+//import 'trumbowyg/plugins/colors/trumbowyg.colors.js';
+//import 'trumbowyg/plugins/emoji/trumbowyg.emoji.js';
+//import 'trumbowyg/plugins/fontfamily/trumbowyg.fontfamily.js';
+//import 'trumbowyg/plugins/fontsize/trumbowyg.fontsize.js';
+//import 'trumbowyg/plugins/history/trumbowyg.history.js';
+//import 'trumbowyg/plugins/pasteimage/trumbowyg.pasteimage.js';
+//import 'trumbowyg/plugins/resizimg/trumbowyg.resizimg.js';
+//import 'trumbowyg/plugins/upload/trumbowyg.upload.js';
+
+// cf. /server/js/check_npms.js
+//  as of 2023- 9-15 use a local patched version
+import '../../third-party/trumbowyg/dist/trumbowyg.js';
+import '../../third-party/trumbowyg/dist/ui/trumbowyg.min.css';
+import '../../third-party/trumbowyg/plugins/colors/trumbowyg.colors.js';
+import '../../third-party/trumbowyg/plugins/emoji/trumbowyg.emoji.js';
+import '../../third-party/trumbowyg/plugins/fontfamily/trumbowyg.fontfamily.js';
+import '../../third-party/trumbowyg/plugins/fontsize/trumbowyg.fontsize.js';
+import '../../third-party/trumbowyg/plugins/history/trumbowyg.history.js';
+import '../../third-party/trumbowyg/plugins/pasteimage/trumbowyg.pasteimage.js';
+import '../../third-party/trumbowyg/plugins/resizimg/trumbowyg.resizimg.js';
+import '../../third-party/trumbowyg/plugins/table/trumbowyg.table.js';
+import '../../third-party/trumbowyg/plugins/upload/trumbowyg.upload.js';
 
 import '../../../common/js/index.js';
 
@@ -86,6 +103,13 @@ Template.teScriber.onCreated( function(){
                 console.debug( 'pwix:editor teScriber checkSwitch() asked='+_input, 'switchExists='+ _hasSwitch, 'switchState='+_switchState, 'returning', mode );
             }
             return mode;
+        },
+
+        // lexically compare two strings - case insensitive
+        cmpStrings( a, b ){
+            const A = a.toUpperCase();
+            const B = b.toUpperCase();
+            return A < B ? -1 : ( A > B ? 1 : 0 );
         },
 
         // re-set the html content of the editing area on mode change
@@ -166,7 +190,9 @@ Template.teScriber.onCreated( function(){
                     plugins: self.TE.editorPlugins(),
                     semantic: {
                         'div': 'div'
-                    }
+                    },
+                    autogrowOnEnter: true,
+                    imageWidthModalEdit: true
                 });
             }
         },
@@ -177,23 +203,28 @@ Template.teScriber.onCreated( function(){
                 if( Editor._conf.verbosity & Editor.C.Verbose.TRUMBOWYG ){
                     console.debug( 'pwix:editor teScriber editorDelete() destroying instance' );
                 }
-                // workaround https://github.com/Alex-D/Trumbowyg/issues/1396 - begin
-                // introduced in 2.27.0, still present in 2.27.3 (sept. 2023)
-                const $tec = self.$( '.te-edit-content#'+self.TE.id ).detach();
-                $tec.removeClass( 'trumbowyg-editor' ).removeAttr( 'contenteditable' ).removeAttr( 'dir' );
-
-                // normal way
                 self.TE.editorDiv.trumbowyg( 'destroy' );
-
-                // workaround https://github.com/Alex-D/Trumbowyg/issues/1396 - end
-                //self.$( '.trumbowyg-box' ).trigger( 'tbwclose' );
-                self.$( '.trumbowyg-box' ).remove();
-                self.$( '.trumbowyg-editor-box' ).remove();
-                self.$( '.te-edit-container' ).append( $tec );
-
-                //console.log( 'destroy='+res );
                 self.TE.editorInitialized.set( false );
             }
+        },
+
+        // copied from trumbowyg:fontfamily plugin
+        editorFontFamilyDefault(){
+            return [
+                { name: 'Arial', family: 'Arial, Helvetica, sans-serif' },
+                { name: 'Arial Black', family: 'Arial Black, Gadget, sans-serif' },
+                { name: 'Comic Sans', family: 'Comic Sans MS, Textile, cursive, sans-serif' },
+                { name: 'Courier New', family: 'Courier New, Courier, monospace' },
+                { name: 'Georgia', family: 'Georgia, serif' },
+                { name: 'Impact', family: 'Impact, Charcoal, sans-serif' },
+                { name: 'Lucida Console', family: 'Lucida Console, Monaco, monospace' },
+                { name: 'Lucida Sans', family: 'Lucida Sans Uncide, Lucida Grande, sans-serif' },
+                { name: 'Palatino', family: 'Palatino Linotype, Book Antiqua, Palatino, serif' },
+                { name: 'Tahoma', family: 'Tahoma, Geneva, sans-serif' },
+                { name: 'Times New Roman', family: 'Times New Roman, Times, serif' },
+                { name: 'Trebuchet', family: 'Trebuchet MS, Helvetica, sans-serif' },
+                { name: 'Verdana', family: 'Verdana, Geneva, sans-serif' }
+            ];
         },
 
         // setup the editor plugins
@@ -206,6 +237,11 @@ Template.teScriber.onCreated( function(){
                     urlPropertyName: 'data.link'
                 };
             }
+            let families = _.merge( self.TE.editorFontFamilyDefault(), Template.currentData().addFontFamilyList || [] );
+            families.sort(( a, b ) => { return self.TE.cmpStrings( a.name, b.name )});
+            plugins.fontfamily = {
+                fontList: families
+            };
             return plugins;
         },
 

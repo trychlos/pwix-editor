@@ -8,6 +8,7 @@ Editor._defaults = {
     collections: {
         prefix: 'te_'
     },
+    addFontFamilyList: [],
     storeSwitchState: false,
     uploadUrl: '',
     verbosity: Editor.C.Verbose.NONE
