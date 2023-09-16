@@ -1664,7 +1664,7 @@ Object.defineProperty(jQuery.trumbowyg, 'defaultOptions', {
 
             if (buildForm) {
                 // Focus in modal box
-                $(':input:first', $box).focus();
+                $(':input:first', $box).focus().select();
 
                 // Append Confirm and Cancel buttons
                 t.buildModalBtn('submit', $box);
