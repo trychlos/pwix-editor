@@ -264,6 +264,8 @@ The `teSwitch` component maintains its state through two `Editor` reaactive vari
 
     When used, the state of the `teSwitch` component
 
+### Events
+
 #### Informational messages
 
 Informational messages are sent by the component on itself. The caller can take advantage of them to be kept informed about the various changes.
@@ -313,6 +315,22 @@ Action messages are the way the caller can interact with the component during it
 
     Expects an object `{ mode: <mode> }`.
 
+### Fonts
+
+`pwix:editor` provides following fonts:
+
+- Arial
+- Arial Black
+- Comic Sans
+- Courier
+- Cousine
+- Josefin Sans
+- Open Sans
+- Orbitron
+- Serpentine
+- Tahoma
+- Ubuntu Mono.
+
 ## NPM peer dependencies
 
 Starting with v 1.0.0, and in accordance with advices from [the Meteor Guide](https://guide.meteor.com/writing-atmosphere-packages.html#npm-dependencies), we no more hardcode NPM dependencies in the `Npm.depends` clause of the `package.js`. 
@@ -347,7 +365,7 @@ The last `teSwitch` state.
 
 Allowed/disallowed through the `storeSwitchState` configuration parameter.
 
-This is considered a disableable functional _cookie_, and is advertised as such to the CookieManager if present.
+This is considered a disableable functional _cookie_, and is advertised as such to the CookieManager if it is present.
 
 ---
 P. Wieser
