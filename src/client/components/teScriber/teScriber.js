@@ -232,11 +232,17 @@ Template.teScriber.onCreated( function(){
 
         editorFontFamilyDefault(){
             return [
-                { name: 'Arial', family: 'Arial2, Helvetica, sans-serif' },
+                { name: 'Arial', family: 'Arial Helvetica, sans-serif' },
                 { name: 'Arial Black', family: 'Arial Black, sans-serif' },
                 { name: 'Comic Sans', family: 'Comic Sans, sans-serif' },
+                { name: 'Courier', family: 'Courier, sans-serif' },
+                { name: 'Cousine', family: 'Cousine, sans-serif' },
+                { name: 'Josefin Sans', family: 'Josefin Sans, sans-serif' },
+                { name: 'Open Sans', family: 'Open Sans, sans-serif' },
+                { name: 'Orbitron', family: 'Orbitron, sans-serif' },
                 { name: 'Serpentine', family: 'Serpentine, sans-serif' },
-                { name: 'Tahoma', family: 'Tahoma2, Geneva, sans-serif' }
+                { name: 'Tahoma', family: 'Tahoma, Geneva, sans-serif' },
+                { name: 'Ubuntu Mono', family: 'Ubuntu Mono, sans-serif' }
             ];
         },
 
@@ -251,7 +257,7 @@ Template.teScriber.onCreated( function(){
                 };
             }
             const defaults = self.TE.editorFontFamilyDefault();
-            const adds = Template.currentData().addFontFamilyList || [];
+            const adds = Template.currentData().fontfamilyAdds || [];
             let families = [ ...defaults, ...adds ];
             families.sort(( a, b ) => { return self.TE.cmpStrings( a.name, b.name )});
             console.debug( families );

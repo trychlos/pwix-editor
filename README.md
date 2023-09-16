@@ -205,7 +205,7 @@ The component is configurable with an object passed as an argument, which may co
 
     Whether to authorize the FullScreen button, which should be reserved to edit full articles, defaulting to `true`.
 
-- `addFontFamilyList`
+- `fontfamilyAdds`
 
     An array of font families to be added to those already managed by the editor.
 

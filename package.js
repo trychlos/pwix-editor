@@ -31,14 +31,28 @@ function configure( api ){
     api.use( 'pwix:i18n@1.5.2' );
     api.use( 'pwix:toggle-switch@0.3.1' );
     api.use( 'tmeasday:check-npm-versions@1.0.2', 'server' );
-    api.addFiles( 'src/client/components/teSerializer/teSerializer.js', 'client' );
-    api.addFiles( 'src/client/components/teScriber/teScriber.js', 'client' );
-    api.addFiles( 'src/client/components/teSwitch/teSwitch.js', 'client' );
-    api.addAssets( 'src/client/third-party/arial/ARIAL.woff', 'client' );
-    api.addAssets( 'src/client/third-party/arial/arial-black.ttf', 'client' );
-    api.addAssets( 'src/client/third-party/comic/LDFComicSans.ttf', 'client' );
-    api.addAssets( 'src/client/third-party/serpentine/Serpentine-Medium.otf', 'client' );
-    api.addAssets( 'src/client/third-party/tahoma/Tahoma Regular font.ttf', 'client' );
+    api.addFiles([
+        'src/client/components/teSerializer/teSerializer.js',
+        'src/client/components/teScriber/teScriber.js',
+        'src/client/components/teSwitch/teSwitch.js'
+    ],
+        'client'
+    );
+    api.addAssets([
+        'src/client/third-party/arial/ARIAL.woff',
+        'src/client/third-party/arial/arial-black.ttf',
+        'src/client/third-party/comic/LDFComicSans.ttf',
+        'src/client/third-party/courier/CourierPrime-Regular.ttf',
+        'src/client/third-party/cousine/Cousine-Regular.ttf',
+        'src/client/third-party/josefin/static/JosefinSans-Regular.ttf',
+        'src/client/third-party/opensans/static/OpenSans-Regular.ttf',
+        'src/client/third-party/orbitron/static/Orbitron-Regular.ttf',
+        'src/client/third-party/serpentine/Serpentine-Medium.otf',
+        'src/client/third-party/tahoma/Tahoma Regular font.ttf',
+        'src/client/third-party/ubuntu/UbuntuMono-Regular.ttf'
+    ],
+        'client'
+    );
 }
 
 // NPM dependencies are checked in /src/server/js/check_npms.js
