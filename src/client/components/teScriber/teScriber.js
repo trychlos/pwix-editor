@@ -260,7 +260,7 @@ Template.teScriber.onCreated( function(){
             const adds = Template.currentData().fontfamilyAdds || [];
             let families = [ ...defaults, ...adds ];
             families.sort(( a, b ) => { return self.TE.cmpStrings( a.name, b.name )});
-            console.debug( families );
+            //console.debug( families );
             plugins.fontfamily = {
                 fontList: families
             };

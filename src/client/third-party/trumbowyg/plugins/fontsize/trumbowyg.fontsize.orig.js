@@ -320,23 +320,6 @@
         }
     });
 
-    // idea is to improve the custom set font size dialog to propose a default value which would be the exact size of the current selection
-    // also have buttons +size and -size
-    //  so be able to get the current font size (the point where the cursor is or the current selection)
-    function getFontSize( trumbowyg ){
-        const t = trumbowyg;
-        const docSelection = t.doc.getSelection();
-        const docRange = docSelection.getRangeAt(0);
-        // doesn't care of start and end of the selection - get the commonAncestorContainer (which may be the same)
-        //  and bubble up to find the closest DOM element
-        let node = docRange.commonAncestorContainer;
-        while( node.nodeType !== 1 ){
-            node = node.parentNode;
-        }
-        let $node = $( node );
-        return $node.css( 'fontSize' );
-    }
-
     function setFontSize(trumbowyg, size) {
         trumbowyg.$ed.focus();
         trumbowyg.saveRange();
@@ -389,7 +372,7 @@
                         {
                             size: {
                                 label: trumbowyg.lang.fontCustomSize.label,
-                                value: getFontSize( trumbowyg ) || trumbowyg.lang.fontCustomSize.value
+                                value: trumbowyg.lang.fontCustomSize.value
                             }
                         },
                         function (form) {
