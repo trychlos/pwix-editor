@@ -39,17 +39,19 @@ function configure( api ){
         'client'
     );
     api.addAssets([
-        'src/client/third-party/arial/ARIAL.woff',
-        'src/client/third-party/arial/arial-black.ttf',
-        'src/client/third-party/comic/LDFComicSans.ttf',
-        'src/client/third-party/courier/CourierPrime-Regular.ttf',
-        'src/client/third-party/cousine/Cousine-Regular.ttf',
-        'src/client/third-party/josefin/static/JosefinSans-Regular.ttf',
-        'src/client/third-party/opensans/static/OpenSans-Regular.ttf',
-        'src/client/third-party/orbitron/static/Orbitron-Regular.ttf',
-        'src/client/third-party/serpentine/Serpentine-Medium.otf',
-        'src/client/third-party/tahoma/Tahoma Regular font.ttf',
-        'src/client/third-party/ubuntu/UbuntuMono-Regular.ttf'
+        'src/client/third-party/fonts/arial/ARIAL.woff',
+        'src/client/third-party/fonts/arial/arial-black.ttf',
+        'src/client/third-party/fonts/comic/LDFComicSans.ttf',
+        'src/client/third-party/fonts/courier/CourierPrime-Regular.ttf',
+        'src/client/third-party/fonts/cousine/Cousine-Regular.ttf',
+        'src/client/third-party/fonts/josefin/static/JosefinSans-Regular.ttf',
+        'src/client/third-party/fonts/opensans/static/OpenSans-Regular.ttf',
+        'src/client/third-party/fonts/orbitron/static/Orbitron-Regular.ttf',
+        'src/client/third-party/fonts/serpentine/Serpentine-Medium.otf',
+        'src/client/third-party/fonts/tahoma/Tahoma Regular font.ttf',
+        'src/client/third-party/fonts/ubuntu/UbuntuMono-Regular.ttf',
+        'src/client/third-party/js/trumbowyg/plugins/fontsize/ui/icons/fontsize-minus.svg',
+        'src/client/third-party/js/trumbowyg/plugins/fontsize/ui/icons/fontsize-plus.svg'
     ],
         'client'
     );

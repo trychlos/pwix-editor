@@ -10,6 +10,7 @@
     - Now embed a patched version of trumbowyg 2.27.3 (due to https://github.com/Alex-D/Trumbowyg/issues/1396 issue)
     - Define fontfamilyAdds as a new teScriber parameter (bumping candidate version number)
     - Replace default fonts list by our own, providing fonts in the same time
+    - Define 'Increase font size' and 'Decrease font size' buttons
 
 ### 1.2.1
 

@@ -30,17 +30,17 @@ import 'jquery-resizable-dom/dist/jquery-resizable.min.js';
 
 // cf. /server/js/check_npms.js
 //  as of 2023- 9-15 use a local patched version
-import '../../third-party/trumbowyg/dist/trumbowyg.js';
-import '../../third-party/trumbowyg/dist/ui/trumbowyg.min.css';
-import '../../third-party/trumbowyg/plugins/colors/trumbowyg.colors.js';
-import '../../third-party/trumbowyg/plugins/emoji/trumbowyg.emoji.js';
-import '../../third-party/trumbowyg/plugins/fontfamily/trumbowyg.fontfamily.js';
-import '../../third-party/trumbowyg/plugins/fontsize/trumbowyg.fontsize.js';
-import '../../third-party/trumbowyg/plugins/history/trumbowyg.history.js';
-import '../../third-party/trumbowyg/plugins/pasteimage/trumbowyg.pasteimage.js';
-import '../../third-party/trumbowyg/plugins/resizimg/trumbowyg.resizimg.js';
-import '../../third-party/trumbowyg/plugins/table/trumbowyg.table.js';
-import '../../third-party/trumbowyg/plugins/upload/trumbowyg.upload.js';
+import '../../third-party/js/trumbowyg/dist/trumbowyg.js';
+import '../../third-party/js/trumbowyg/dist/ui/trumbowyg.min.css';
+import '../../third-party/js/trumbowyg/plugins/colors/trumbowyg.colors.js';
+import '../../third-party/js/trumbowyg/plugins/emoji/trumbowyg.emoji.js';
+import '../../third-party/js/trumbowyg/plugins/fontfamily/trumbowyg.fontfamily.js';
+import '../../third-party/js/trumbowyg/plugins/fontsize/trumbowyg.fontsize.js';
+import '../../third-party/js/trumbowyg/plugins/history/trumbowyg.history.js';
+import '../../third-party/js/trumbowyg/plugins/pasteimage/trumbowyg.pasteimage.js';
+import '../../third-party/js/trumbowyg/plugins/resizimg/trumbowyg.resizimg.js';
+import '../../third-party/js/trumbowyg/plugins/table/trumbowyg.table.js';
+import '../../third-party/js/trumbowyg/plugins/upload/trumbowyg.upload.js';
 
 import '../../../common/js/index.js';
 
@@ -159,7 +159,9 @@ Template.teScriber.onCreated( function(){
                 ['historyUndo', 'historyRedo'],
                 ['formatting'],
                 ['fontfamily'],
-                ['fontsize'],
+                //['fontsize'],
+                //['fontsize_custom'],
+                ['fontsize_custom2', 'fontsize_plus', 'fontsize_minus'],
                 ['strong', 'em', 'del'],
                 ['superscript', 'subscript'],
                 ['foreColor', 'backColor'],
@@ -193,7 +195,8 @@ Template.teScriber.onCreated( function(){
                     },
                     autogrowOnEnter: true,
                     imageWidthModalEdit: true,
-                    lang: pwixI18n.language()
+                    lang: pwixI18n.language(),
+                    maxBtnPaneRows: 2
                 });
             }
         },
@@ -256,6 +259,7 @@ Template.teScriber.onCreated( function(){
                     urlPropertyName: 'data.link'
                 };
             }
+            // have our own font families
             const defaults = self.TE.editorFontFamilyDefault();
             const adds = Template.currentData().fontfamilyAdds || [];
             let families = [ ...defaults, ...adds ];
