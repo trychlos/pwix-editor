@@ -2,9 +2,9 @@
 
 ## ChangeLog
 
-### 1.3.0-rc
+### 1.3.0
 
-    Release date: 
+    Release date: 2023- 9-17
 
     - Add jquery-resizable NPM dependency required by trumbowyg:resizeimg plugin
     - Now embed a patched version of trumbowyg 2.27.3 (due to https://github.com/Alex-D/Trumbowyg/issues/1396 issue)
@@ -62,4 +62,4 @@
 
 ---
 P. Wieser
-- Last updated on 2023, Sept. 12th
+- Last updated on 2023, Sept. 17th
