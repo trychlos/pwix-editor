@@ -13,10 +13,8 @@
 |    1 | 2023- 4-20 | export all trumbowyg configuration parms to teScriber component |
 |    3 | 2023- 5- 8 | verbosity: dump component parms |
 |    4 | 2023- 5- 8 | review images upload and resizing |
-|    6 | 2023- 9-10 | configure on a per-instance basis a very short - more useable - toolbar  |
+|    6 | 2023- 9-10 | configure on a per-instance basis a very short - more useable - toolbar |
 |    7 |  |  |
-|    8 |  |  |
-|    9 |  |  |
 
 ---
 ## Done

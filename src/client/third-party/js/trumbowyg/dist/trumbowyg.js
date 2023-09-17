@@ -812,12 +812,12 @@ Object.defineProperty(jQuery.trumbowyg, 'defaultOptions', {
 
             // how many rows of buttons do we need - how many are we authorized to display ?
             if( t.o.maxBtnPaneRows > 0 ){
-                const width = t.$ed.css( 'width' );
-                const count = t.o.btns.length;
-                const perrow = parseInt( width / 35 );
-                const neededrows = parseInt( count / perrow + 0.5 );
+                const width = parseInt( t.$ed.css( 'width' ));
+                const count = t.o.btns.length; // ERR btns are buttons groups, not buttons
+                const perrow = parseInt( width / 35 );  // ERR some buttons may be wider than the stadard square of 35x35px - so this is very optimist computing
+                const neededrows = parseInt( count / perrow + 0.5 ); // ERR as buttons groups are not splitted in several rows, we may need more rows
+                //console.debug( 'width', width, 'count', count, 'perrow', perrow, 'neededrows', neededrows );
                 if( neededrows > t.o.maxBtnPaneRows ){
-                    console.debug( 'width', width, 'count', count, 'perrow', perrow, 'neededrows', neededrows );
                 }
             }
 
