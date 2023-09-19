@@ -10,10 +10,10 @@
 
 |   Id | Date       | Description and comment(s) |
 | ---: | :---       | :---                       |
-|    1 | 2023- 4-20 | export all trumbowyg configuration parms to teScriber component |
-|    3 | 2023- 5- 8 | verbosity: dump component parms |
-|    4 | 2023- 5- 8 | review images upload and resizing |
-|    6 | 2023- 9-10 | configure on a per-instance basis a very short - more useable - toolbar |
+|    1 | 2023- 4-20 | feat: export all trumbowyg configuration parms to teScriber component |
+|    3 | 2023- 5- 8 | feat: verbosity: dump component parms |
+|    4 | 2023- 5- 8 | improv: review images upload and resizing |
+|    6 | 2023- 9-10 | feat: configure on a per-instance basis a very short - more useable - toolbar |
 |    7 |  |  |
 
 ---
