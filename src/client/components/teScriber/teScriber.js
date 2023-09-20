@@ -235,16 +235,14 @@ Template.teScriber.onCreated( function(){
 
         editorFontFamilyDefault(){
             return [
-                { name: 'Arial', family: 'Arial Helvetica, sans-serif' },
+                { name: 'Arial', family: 'Arial, Helvetica, sans-serif' },
                 { name: 'Arial Black', family: 'Arial Black, sans-serif' },
                 { name: 'Comic Sans', family: 'Comic Sans, sans-serif' },
                 { name: 'Courier', family: 'Courier, sans-serif' },
                 { name: 'Cousine', family: 'Cousine, sans-serif' },
                 { name: 'Josefin Sans', family: 'Josefin Sans, sans-serif' },
-                { name: 'Open Sans', family: 'Open Sans, sans-serif' },
                 { name: 'Orbitron', family: 'Orbitron, sans-serif' },
                 { name: 'Serpentine', family: 'Serpentine, sans-serif' },
-                { name: 'Tahoma', family: 'Tahoma, Geneva, sans-serif' },
                 { name: 'Ubuntu Mono', family: 'Ubuntu Mono, sans-serif' }
             ];
         },

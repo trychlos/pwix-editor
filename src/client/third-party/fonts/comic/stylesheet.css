@@ -1,0 +1,31 @@
+@font-face {
+    font-family: 'Comic Sans';
+    src: url('/packages/pwix_editor/src/client/third-party/fonts/comic/LDFComicSans.ttf') format('truetype');
+    font-weight: 500;
+    font-style: normal;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'Comic Sans';
+    src: url('/packages/pwix_editor/src/client/third-party/fonts/comic/LDFComicSansLight.ttf') format('truetype');
+    font-weight: 300;
+    font-style: normal;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'Comic Sans';
+    src: url('/packages/pwix_editor/src/client/third-party/fonts/comic/LDFComicSansHairline.ttf') format('truetype');
+    font-weight: 500;
+    font-style: normal;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'Comic Sans';
+    src: url('/packages/pwix_editor/src/client/third-party/fonts/comic/LDFComicSansBold.ttf') format('truetype');
+    font-weight: bold;
+    font-style: normal;
+    font-display: swap;
+}

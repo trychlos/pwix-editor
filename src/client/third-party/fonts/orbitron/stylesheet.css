@@ -1,0 +1,31 @@
+@font-face {
+    font-family: 'Orbitron';
+    src: url('/packages/pwix_editor/src/client/third-party/fonts/arial/Orbitron-Black.ttf') format('truetype');
+    font-weight: 900;
+    font-style: normal;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'Orbitron';
+    src: url('/packages/pwix_editor/src/client/third-party/fonts/arial/Orbitron-Bold.ttf') format('truetype');
+    font-weight: bold;
+    font-style: normal;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'Orbitron';
+    src: url('/packages/pwix_editor/src/client/third-party/fonts/arial/Orbitron-Medium.ttf') format('truetype');
+    font-weight: 500;
+    font-style: normal;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'Orbitron';
+    src: url('/packages/pwix_editor/src/client/third-party/fonts/arial/Orbitron-Regular.ttf') format('truetype');
+    font-weight: normal;
+    font-style: normal;
+    font-display: swap;
+}

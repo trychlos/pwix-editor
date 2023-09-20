@@ -1,0 +1,15 @@
+@font-face {
+    font-family: 'Arial';
+    src: url('/packages/pwix_editor/src/client/third-party/fonts/arial/ArialMT.ttf') format('truetype');
+    font-weight: normal;
+    font-style: normal;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'Arial Black';
+    src: url('/packages/pwix_editor/src/client/third-party/fonts/arial/Arial-Black.ttf') format('truetype');
+    font-weight: 900;
+    font-style: normal;
+    font-display: swap;
+}

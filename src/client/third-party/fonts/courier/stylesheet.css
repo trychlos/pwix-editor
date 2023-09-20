@@ -1,0 +1,31 @@
+@font-face {
+    font-family: 'Courier';
+    src: url('/packages/pwix_editor/src/client/third-party/fonts/courier/CourierPrime-Bold.ttf') format('truetype');
+    font-weight: bold;
+    font-style: normal;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'Courier';
+    src: url('/packages/pwix_editor/src/client/third-party/fonts/courier/CourierPrime-BoldItalic.ttf') format('truetype');
+    font-weight: bold;
+    font-style: italic;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'Courier';
+    src: url('/packages/pwix_editor/src/client/third-party/fonts/courier/CourierPrime-Italic.ttf') format('truetype');
+    font-weight: normal;
+    font-style: italic;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'Courier';
+    src: url('/packages/pwix_editor/src/client/third-party/fonts/courier/CourierPrime-Regular.ttf') format('truetype');
+    font-weight: normal;
+    font-style: normal;
+    font-display: swap;
+}
