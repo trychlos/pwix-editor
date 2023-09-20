@@ -14,7 +14,8 @@
 |    3 | 2023- 5- 8 | feat: verbosity: dump component parms |
 |    4 | 2023- 5- 8 | improv: review images upload and resizing |
 |    6 | 2023- 9-10 | feat: configure on a per-instance basis a very short - more useable - toolbar |
-|    7 |  |  |
+|    7 | 2023- 9-19 | teEditor should record createdBy and updatedBy with contents |
+|    8 |  |  |
 
 ---
 ## Done
