@@ -6,7 +6,7 @@
 
     Release date: 
 
-    - 
+    - Replace all fonts by a converted (and hopefully sanitized) version from https://transfonter.org
  
 ### 1.3.0
 
