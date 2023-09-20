@@ -6,8 +6,7 @@
  * 
  * Parms:
  *  - name: mandatory - the content name in the database
- * 
- * Apart from 'content' and 'mode' which are managed here, other arguments passed to this component are all also passed to underlying teScriber.
+ *  - collection: the collection name to get the database content
  */
 
 import { ReactiveVar } from 'meteor/reactive-var';

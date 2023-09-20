@@ -7,6 +7,7 @@
     Release date: 
 
     - Replace all fonts by a converted (and hopefully sanitized) version from https://transfonter.org
+    - teSerializer is assessed as experimental
  
 ### 1.3.0
 

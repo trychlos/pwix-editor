@@ -155,20 +155,6 @@ This global object contains:
 
 ### Blaze components
 
-#### `teSerializer`
-
-This is an encapsulation of the Editor component, which manages serialized documents.
-
-The component is configurable with an object passed as an argument, which may contain:
-
-- `name`
-
-    The content name in the database.
-
-    This is mandatory.
-
-Because `teSerializer` is an encapsulation of `teScriber`, then `teScriber` needed arguments may also be passed through the argument object. Only `content` and `mode` are managed directly by the `teSerializer` component.
-
 #### `teScriber`
 
 The editor component itself.
@@ -221,6 +207,30 @@ The `teScriber` component doesn't provide any save way. Instead, it provides two
 - the `content` ReactiveVar, if provided, is continuously updated,
 
 - a `te-content-changed` message is sent on the component on each change.
+
+#### `teSerializer`
+
+This is an encapsulation of the Editor component, which manages serialized documents.
+
+The component is configurable with an object passed as an argument, which may contain:
+
+- `name`
+
+    The content name in the database.
+
+    Mandatory.
+
+- `collection`
+
+    The collection name.
+
+    Mandatory.
+
+    `teSerializer` expects that the collection supports `createdAt`, `createdBy`, `updatedAt`, `updatedBy` standard fields.
+
+Please note that the component is still in experimental status. Don't even know if it works. Only use at your own risk.
+
+Because `teSerializer` is an encapsulation of `teScriber`, then `teScriber` needed arguments are also passed through the argument object.
 
 #### `teSwitch`
 
@@ -325,10 +335,8 @@ Action messages are the way the caller can interact with the component during it
 - Courier
 - Cousine
 - Josefin Sans
-- Open Sans
 - Orbitron
 - Serpentine
-- Tahoma
 - Ubuntu Mono.
 
 ## NPM peer dependencies
