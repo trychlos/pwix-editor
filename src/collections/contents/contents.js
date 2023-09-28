@@ -1,17 +1,16 @@
 /*
  * pwix:editor/src/collections/contents/contents.js
  *
- * The actual collection name is prefixed, and this prefix is configurable.
- * Because the actual collection name is only known after the configuration, we cannot define here the Mongo collection,
- *  but have to define both client and server-side collections at startup time.
+ * The actual collection name is configurable.
+ * Because the actual collection name is only known at runtime, we cannot define here the Mongo collection,
+ *  but have to define both client and server-side collections at each use.
+ * 
+ * See Contents.methods and common/init/collections.js
  */
 
 import SimpleSchema from 'simpl-schema';
 
 Editor.collections.Contents = {
-
-    // name radical
-    name: 'contents',
 
     // collection schema
     schema: new SimpleSchema({
@@ -55,20 +54,5 @@ Editor.collections.Contents = {
             type: String,
             optional: true
         }
-    }),
-
-    // Deny all client-side updates
-    // cf. https://guide.meteor.com/security.html#allow-deny
-    // @locus Server
-    deny(){
-        Editor.collections.Contents.server.deny({
-            insert(){ return true; },
-            update(){ return true; },
-            remove(){ return true; },
-        });
-    },
-
-    // client and server below will host the respective Mongo collections
-    client: null,
-    server: null
+    })
 };

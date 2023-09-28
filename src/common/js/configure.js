@@ -5,10 +5,7 @@
 import _ from 'lodash';
 
 Editor._defaults = {
-    collections: {
-        prefix: 'te_'
-    },
-    addFontFamilyList: [],
+    fontfamilyAdds: [],
     storeSwitchState: false,
     uploadUrl: '',
     verbosity: Editor.C.Verbose.NONE

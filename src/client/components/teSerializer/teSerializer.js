@@ -6,7 +6,7 @@
  * 
  * Parms:
  *  - name: mandatory - the content name in the database
- *  - collection: the collection name to get the database content
+ *  - collection: the collection name to get the document content from and to write to
  */
 
 import { ReactiveVar } from 'meteor/reactive-var';
@@ -18,7 +18,8 @@ Template.teSerializer.onCreated( function(){
 
     self.TE = {
         // component parameters
-        name: new ReactiveVar( null ),
+        document_name: new ReactiveVar( null ),
+        collection_name: new ReactiveVar( 'te_contents' ),
 
         // runtime data
         docObject: null,
@@ -29,19 +30,27 @@ Template.teSerializer.onCreated( function(){
 
     //console.debug( 'teSerializer data', Template.currentData());
 
-    // get runtime parameters of the component
+    // get name parameter of the component
     self.autorun(() => {
         if( Object.keys( Template.currentData()).includes( 'name' )){
-            self.TE.name.set( Template.currentData().name );
+            self.TE.document_name.set( Template.currentData().name );
         }
-        if( !self.TE.name.get()){
+        if( !self.TE.document_name.get()){
             console.error( 'teSerializer expects a \'name\' argument, not found' );
+        }
+    });
+
+    // get collection parameter
+    self.autorun(() => {
+        if( Object.keys( Template.currentData()).includes( 'collection' )){
+            self.TE.collection_name.set( Template.currentData().collection );
+            //console.debug( 'set collection name to', Template.currentData().collection );
         }
     });
 
     // be verbose
     if( Editor._conf.verbosity & Editor.C.Verbose.COMPONENTS ){
-        console.debug( 'pwix:editor teSerializer onCreated()', self.TE.name.get());
+        console.debug( 'pwix:editor teSerializer onCreated()', self.TE.document_name.get());
     }
 });
 
@@ -55,11 +64,12 @@ Template.teSerializer.onRendered( function(){
 
     // get the editable content from the database
     self.autorun(() => {
-        const name = self.TE.name.get();
-        if( name ){
-            Meteor.call( 'te_contents.byName', name, ( err, res ) => {
+        const name = self.TE.document_name.get();
+        const collection = self.TE.collection_name.get();
+        if( collection && name ){
+            Meteor.call( 'te_contents.byName', collection, name, ( err, res ) => {
                 if( err ){
-                    console.error( 'teSerializer te_contents.byName({ name:'+name+' })', err );
+                    console.error( 'teSerializer te_contents.byName({ collection:'+collection+', name:'+name+' })', err );
                 } else {
                     //console.log( 'content.byName', name, res );
                     //console.log( 'content.byName', self.TE.name, ( res && res.content ? res.content.length : 0 ), 'char(s)' );
@@ -100,9 +110,10 @@ Template.teSerializer.events({
     // autosave on each change
     'te-content-changed .teSerializer'( event, instance, data ){
         if( data.html !== instance.TE.lastSavedContent ){
-            const name = instance.TE.name.get();
+            const name = instance.TE.document_name.get();
+            const collection = instance.TE.collection_name.get();
             if( name ){
-                Meteor.call( 'te_contents.set', name, data.html, ( err, res ) => {
+                Meteor.call( 'te_contents.set', collection, name, data.html, ( err, res ) => {
                     if( err ){
                         console.error( err );
                     } else {

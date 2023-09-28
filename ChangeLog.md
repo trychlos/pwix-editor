@@ -7,7 +7,7 @@
     Release date: 
 
     - Replace all fonts by a converted (and hopefully sanitized) version from https://transfonter.org
-    - teSerializer is assessed as experimental
+    - teSerializer now provides a default collection name
  
 ### 1.3.0
 

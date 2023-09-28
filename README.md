@@ -43,6 +43,15 @@ The package's behavior can be configured through a call to the `Editor.configure
 
 Known configuration options are:
 
+- `fontfamilyAdds`
+
+    A list of font families to be added to the default `teEditor` ones.
+
+    This is supposed to be an array of objects with following keys:
+
+    - `name`: the displayed name
+    - `family`: the font face family.
+
 - `storeSwitchState`
 
     Whether the application plans to use the `teSwitch` component and wishes to record its last state.
@@ -210,7 +219,7 @@ The `teScriber` component doesn't provide any save way. Instead, it provides two
 
 #### `teSerializer`
 
-This is an encapsulation of the Editor component, which manages serialized documents.
+This is an encapsulation of the Editor component, which manages the serialization/deserialization of the documents.
 
 The component is configurable with an object passed as an argument, which may contain:
 
@@ -222,13 +231,9 @@ The component is configurable with an object passed as an argument, which may co
 
 - `collection`
 
-    The collection name.
-
-    Mandatory.
+    The collection name, defaulting to `te_contents`.
 
     `teSerializer` expects that the collection supports `createdAt`, `createdBy`, `updatedAt`, `updatedBy` standard fields.
-
-Please note that the component is still in experimental status. Don't even know if it works. Only use at your own risk.
 
 Because `teSerializer` is an encapsulation of `teScriber`, then `teScriber` needed arguments are also passed through the argument object.
 
