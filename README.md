@@ -180,7 +180,7 @@ The component is configurable with an object passed as an argument, which may co
 
     The edition mode as a string, defaulting to `Editor.C.Mode.STANDARD`.
 
-- `name`
+- `document`
 
     The document's name as a string, defaulting to the empty string.
 
@@ -223,17 +223,17 @@ This is an encapsulation of the Editor component, which manages the serializatio
 
 The component is configurable with an object passed as an argument, which may contain:
 
-- `name`
-
-    The content name in the database.
-
-    Mandatory.
-
 - `collection`
 
     The collection name, defaulting to `te_contents`.
 
     `teSerializer` expects that the collection supports `createdAt`, `createdBy`, `updatedAt`, `updatedBy` standard fields.
+
+- `document`
+
+    The document name in the database.
+
+    Mandatory.
 
 Because `teSerializer` is an encapsulation of `teScriber`, then `teScriber` needed arguments are also passed through the argument object.
 

@@ -5,11 +5,18 @@
  * If the user is allowed to edition, then the teScriber is initialized in PREVIEW mode.
  * 
  * Parms:
- *  - name: mandatory - the content name in the database
+ *  - document: mandatory, the document name in the database
  *  - collection: the collection name to get the document content from and to write to
+ *    defaulting to 'te_contents'
  */
 
+import _ from 'lodash';
+const assert = require( 'assert' ).strict; // up to nodejs v16.x
+
+import { Mongo } from 'meteor/mongo';
 import { ReactiveVar } from 'meteor/reactive-var';
+
+import { Contents } from '../../../collections/contents/contents.js';
 
 import './teSerializer.html';
 
@@ -18,8 +25,10 @@ Template.teSerializer.onCreated( function(){
 
     self.TE = {
         // component parameters
-        document_name: new ReactiveVar( null ),
-        collection_name: new ReactiveVar( 'te_contents' ),
+        collection: null,
+        handle: null,
+        document: null,
+        initialized: false,
 
         // runtime data
         docObject: null,
@@ -28,30 +37,23 @@ Template.teSerializer.onCreated( function(){
         exists: false,
     };
 
-    //console.debug( 'teSerializer data', Template.currentData());
-
-    // get name parameter of the component
+    // Template.currentData() is a reactive data source
+    //  so subscribe to the ad-hoc publication each time collection name or document name change
     self.autorun(() => {
-        if( Object.keys( Template.currentData()).includes( 'name' )){
-            self.TE.document_name.set( Template.currentData().name );
+        //console.debug( 'teSerializer data', Template.currentData());
+        self.TE.collection = Template.currentData().collection || 'te_contents';
+        assert( self.TE.collection && _.isString( self.TE.collection ) && self.TE.collection.length > 0, 'teSerializer expects a collection name, found', self.TE.collection );
+        self.TE.document = Template.currentData().document;
+        assert( self.TE.document && _.isString( self.TE.document ) && self.TE.document.length > 0, 'teSerializer expects a document name, found', self.TE.document );
+        // be verbose
+        if( Editor._conf.verbosity & Editor.C.Verbose.COMPONENTS ){
+            console.debug( 'pwix:editor teSerializer onCreated() collection='+self.TE.collection, 'document='+self.TE.document );
         }
-        if( !self.TE.document_name.get()){
-            console.error( 'teSerializer expects a \'name\' argument, not found' );
-        }
+        // subscribe to a publication to get this document
+        console.debug( 'subscribe to te_contents.getByName with', self.TE.collection+'+'+self.TE.document );
+        self.TE.handle = self.subscribe( 'te_contents.getByName', self.TE.collection, self.TE.document );
+        self.TE.initialized = false;
     });
-
-    // get collection parameter
-    self.autorun(() => {
-        if( Object.keys( Template.currentData()).includes( 'collection' )){
-            self.TE.collection_name.set( Template.currentData().collection );
-            //console.debug( 'set collection name to', Template.currentData().collection );
-        }
-    });
-
-    // be verbose
-    if( Editor._conf.verbosity & Editor.C.Verbose.COMPONENTS ){
-        console.debug( 'pwix:editor teSerializer onCreated()', self.TE.document_name.get());
-    }
 });
 
 Template.teSerializer.onRendered( function(){
@@ -63,28 +65,22 @@ Template.teSerializer.onRendered( function(){
     }
 
     // get the editable content from the database
+    // each time we modify a document, the publication is refreshed - only initialize it the first time
     self.autorun(() => {
-        const name = self.TE.document_name.get();
-        const collection = self.TE.collection_name.get();
-        if( collection && name ){
-            Meteor.call( 'te_contents.byName', collection, name, ( err, res ) => {
-                if( err ){
-                    console.error( 'teSerializer te_contents.byName({ collection:'+collection+', name:'+name+' })', err );
-                } else {
-                    //console.log( 'content.byName', name, res );
-                    //console.log( 'content.byName', self.TE.name, ( res && res.content ? res.content.length : 0 ), 'char(s)' );
-                    if( res ){
-                        self.TE.docObject = res;
-                        self.TE.lastSavedContent = res.content;
-                        self.TE.docContent.set( res.content );
-                    } else {
-                        self.TE.docObject = { name: name, content: '' };
-                        self.TE.lastSavedContent = '';
-                        self.TE.docContent.set( '' );
-                    }
-                    self.$( '.teScriber' ).trigger( 'te-content-reset' );
-                }
-            });
+        if( self.TE.handle.ready() && !self.TE.initialized ){
+            const collection = Editor.collections.get( self.TE.collection, Editor.collections.Contents.schema );
+            const doc = collection.findOne({ name: self.TE.document });
+            if( doc ){
+                self.TE.docObject = doc;
+                self.TE.lastSavedContent = doc.content;
+                self.TE.docContent.set( doc.content );
+            } else {
+                self.TE.docObject = { name: self.TE.document, content: '' };
+                self.TE.lastSavedContent = '';
+                self.TE.docContent.set( '' );
+            }
+            self.$( '.teScriber' ).trigger( 'te-content-reset' );
+            self.TE.initialized = true;
         }
     });
 });
@@ -94,8 +90,6 @@ Template.teSerializer.helpers({
     editParms(){
         const TE = Template.instance().TE;
         let o = Template.currentData();
-        //o.mode = TE.updateAllowed.get() ? Editor.C.Mode.PREVIEW : ( TE.readAllowed.get() ? Editor.C.Mode.STANDARD : Editor.C.Mode.NONE );
-        //o.mode = Editor.C.Mode.PREVIEW;
         o.mode = o.mode || Editor.C.Mode.PREVIEW;
         if( Editor._conf.verbosity & Editor.C.Verbose.MODE ){
             //console.debug( 'pwix:editor teSerializer editParms readAllowed='+TE.readAllowed.get(), 'updateAllowed='+ TE.updateAllowed.get(), 'asking for', o.mode );
@@ -110,10 +104,10 @@ Template.teSerializer.events({
     // autosave on each change
     'te-content-changed .teSerializer'( event, instance, data ){
         if( data.html !== instance.TE.lastSavedContent ){
-            const name = instance.TE.document_name.get();
-            const collection = instance.TE.collection_name.get();
-            if( name ){
-                Meteor.call( 'te_contents.set', collection, name, data.html, ( err, res ) => {
+            const collection = instance.TE.collection;
+            const document = instance.TE.document;
+            if( document ){
+                Meteor.call( 'te_contents.set', collection, document, data.html, ( err, res ) => {
                     if( err ){
                         console.error( err );
                     } else {
@@ -121,6 +115,8 @@ Template.teSerializer.events({
                         instance.$( '.teSerializer' ).trigger( 'te-serialized', { result: res });
                     }
                 });
+            } else {
+                console.warn( 'teSerializer should have a document name here' );
             }
         }
     },

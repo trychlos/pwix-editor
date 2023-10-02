@@ -10,6 +10,8 @@
 
 import SimpleSchema from 'simpl-schema';
 
+import '../../common/js/index.js';
+
 Editor.collections.Contents = {
 
     // collection schema
