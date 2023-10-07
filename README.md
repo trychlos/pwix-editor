@@ -235,6 +235,12 @@ The component is configurable with an object passed as an argument, which may co
 
     Mandatory.
 
+- `mode`
+
+    The desired edition mode, defaulting to `Editor.C.Mode.STANDARD`
+
+    Mandatory.
+
 Because `teSerializer` is an encapsulation of `teScriber`, then `teScriber` needed arguments are also passed through the argument object.
 
 #### `teSwitch`

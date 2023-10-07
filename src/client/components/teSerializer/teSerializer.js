@@ -2,12 +2,11 @@
  * /src/client/components/teSerializer/teSerializer.js
  *
  * Get the named content from the database and let it be displayed/edited.
- * If the user is allowed to edition, then the teScriber is initialized in PREVIEW mode.
  * 
  * Parms:
  *  - document: mandatory, the document name in the database
  *  - collection: the collection name to get the document content from and to write to, defaulting to 'te_contents'
- *  - mode: the edition mode, defaulting to PREVIEW
+ *  - mode: the edition mode, defaulting to STANDARD
  */
 
 import _ from 'lodash';
@@ -87,9 +86,8 @@ Template.teSerializer.helpers({
     editParms(){
         const TE = Template.instance().TE;
         let o = Template.currentData();
-        o.mode = o.mode || Editor.C.Mode.PREVIEW;
+        o.mode = o.mode || Editor.C.Mode.STANDARD;
         if( Editor._conf.verbosity & Editor.C.Verbose.MODE ){
-            //console.debug( 'pwix:editor teSerializer editParms readAllowed='+TE.readAllowed.get(), 'updateAllowed='+ TE.updateAllowed.get(), 'asking for', o.mode );
             console.debug( 'pwix:editor teSerializer editParms asks for', o.mode );
         }
         o.content = TE.docContent;
