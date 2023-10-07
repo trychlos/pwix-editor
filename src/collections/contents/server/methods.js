@@ -66,9 +66,8 @@ Meteor.methods({
         const collection = Editor.collections.get( collection_name, Editor.collections.Contents.schema );
         let orig = collection.findOne({ name: document_name });
         //console.log( 'content.set orig=', orig );
-        let o = {
-            content: content
-        };
+        let o = orig || {};
+        o.content = content;
         if( orig ){
             //console.log( 'content.set setting updatedAt' );
             o.updatedAt = new Date();
