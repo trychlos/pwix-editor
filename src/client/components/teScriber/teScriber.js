@@ -6,6 +6,16 @@
  * - the 'mode' argument passed in by the caller (parent) component
  * - clicking on 'view'/'edit' buttons
  * - switching the 'Edit' toggle switch
+ * 
+ * Parms:
+ * - content: a ReactiveVar which contains the document to be edited
+ * - mode: the edition mode, defaulting to STANDARD
+ * - document: the document name, defaulting to 'unnamed'
+ * - displayName: whether to display the document name, defaulting to true
+ * - withNamePanel: whether to display the name panel, defaulting to true
+ * - withHTMLBtn: whether to display the HTML button, defaulting to true
+ * - withFullScreenBtn: whether to display the FullScreen button, defaulting to true
+ * - fontfamilyAdds: an array of font families to be added, defaulting to empty
  */
 
 import _ from 'lodash';
@@ -327,7 +337,7 @@ Template.teScriber.onCreated( function(){
     });
 
     // parm
-    //  name, defaults to ''
+    //  document, defaults to ''
     self.autorun(() => {
         const name = Template.currentData().document;
         if( name ){

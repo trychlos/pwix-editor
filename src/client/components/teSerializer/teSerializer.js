@@ -6,17 +6,14 @@
  * 
  * Parms:
  *  - document: mandatory, the document name in the database
- *  - collection: the collection name to get the document content from and to write to
- *    defaulting to 'te_contents'
+ *  - collection: the collection name to get the document content from and to write to, defaulting to 'te_contents'
+ *  - mode: the edition mode, defaulting to PREVIEW
  */
 
 import _ from 'lodash';
 const assert = require( 'assert' ).strict; // up to nodejs v16.x
 
-import { Mongo } from 'meteor/mongo';
 import { ReactiveVar } from 'meteor/reactive-var';
-
-import { Contents } from '../../../collections/contents/contents.js';
 
 import './teSerializer.html';
 

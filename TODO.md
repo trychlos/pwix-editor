@@ -15,7 +15,8 @@
 |    4 | 2023- 5- 8 | improv: review images upload and resizing |
 |    6 | 2023- 9-10 | feat: configure on a per-instance basis a very short - more useable - toolbar |
 |      | 2023- 9-19 | idea is to have a dropdown button which provides all less used actions |
-|    8 |  |  |
+|    8 | 2023-10- 3 | have an option to prevent link to include 'target="self"' which is not compatible with SPA applications |
+|    9 |  |  |
 
 ---
 ## Done
