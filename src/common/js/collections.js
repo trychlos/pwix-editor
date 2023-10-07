@@ -13,16 +13,20 @@ import '../../collections/contents/contents.js';
  */
 Editor.collections.get = function( name, schema ){
     if( !Object.keys( Editor.collections.byName ).includes( name )){
-        const collection = new Mongo.Collection( name );
-        if( schema ){
-            collection.attachSchema( schema );
-        }
-        if( Meteor.isServer ){
-            collection.deny({
-                insert(){ return true; },
-                update(){ return true; },
-                remove(){ return true; },
-            });
+        // thanks to dburles:mongo-collection-instances
+        let collection = Mongo.Collection.get( name );
+        if( !collection ){
+            collection = new Mongo.Collection( name );
+            if( schema ){
+                collection.attachSchema( schema );
+            }
+            if( Meteor.isServer ){
+                collection.deny({
+                    insert(){ return true; },
+                    update(){ return true; },
+                    remove(){ return true; },
+                });
+            }
         }
         Editor.collections.byName[name] = collection;
     }

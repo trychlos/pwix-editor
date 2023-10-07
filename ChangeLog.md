@@ -11,6 +11,7 @@
     - Change the document parameter in teSerializer from name to document (bumpring candidate version number)
     - Change the default edition mode in teSerializer from PREVIEW to STANDARD
     - Publish the accessed document rather that using a method to take advantage of Meteor reactivity
+    - Uses dburles:mongo-collection-instances package to not try to redeclare existing Mongo collections
  
 ### 1.3.0
 

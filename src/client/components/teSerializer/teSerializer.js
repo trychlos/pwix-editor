@@ -46,8 +46,8 @@ Template.teSerializer.onCreated( function(){
             console.debug( 'pwix:editor teSerializer onCreated() collection='+self.TE.collection, 'document='+self.TE.document );
         }
         // subscribe to a publication to get this document
-        console.debug( 'subscribe to te_contents.getByName with', self.TE.collection+'+'+self.TE.document );
-        self.TE.handle = self.subscribe( 'te_contents.getByName', self.TE.collection, self.TE.document );
+        //console.debug( 'subscribe to teContent.byName with', self.TE.collection+'+'+self.TE.document );
+        self.TE.handle = self.subscribe( 'teContent.byName', self.TE.collection, self.TE.document );
         self.TE.initialized = false;
     });
 });
@@ -64,6 +64,7 @@ Template.teSerializer.onRendered( function(){
     // each time we modify a document, the publication is refreshed - only initialize it the first time
     self.autorun(() => {
         if( self.TE.handle.ready() && !self.TE.initialized ){
+            console.debug( 'handle ready' );
             const collection = Editor.collections.get( self.TE.collection, Editor.collections.Contents.schema );
             const doc = collection.findOne({ name: self.TE.document });
             if( doc ){

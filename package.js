@@ -27,6 +27,7 @@ function configure( api ){
     api.use( 'aldeed:collection2@3.5.0' );
     api.use( 'blaze-html-templates@2.0.0', 'client' );
     api.use( 'ecmascript' );
+    api.use( 'dburles:mongo-collection-instances' );
     api.use( 'less@4.0.0', 'client' );
     api.use( 'mongo' );
     api.use( 'pwix:i18n@1.5.2' );
