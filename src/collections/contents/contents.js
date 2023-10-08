@@ -33,8 +33,7 @@ Editor.collections.Contents = {
         },
         // creation author
         createdBy: {
-            type: String,
-            optional: true
+            type: String
         },
         // last update timestamp
         updatedAt: {

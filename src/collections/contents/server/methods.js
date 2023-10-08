@@ -69,7 +69,10 @@ Meteor.methods({
             //console.debug( 'content.set setting updatedAt' );
             o.updatedAt = new Date();
             o.updatedBy = this.userId;
-            // make sure we have a createdBy data after schema modification
+            // make sure we have createdAt/createdBy datas after schema modification
+            if( !o.createdAt ){
+                o.createdAt = new Date();
+            }
             if( !o.createdBy ){
                 o.createdBy = this.userId;
             }

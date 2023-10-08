@@ -13,7 +13,7 @@
     - Publish the accessed document rather that using a method to take advantage of Meteor reactivity
     - Uses dburles:mongo-collection-instances package to not try to redeclare existing Mongo collections
     - Prevent a form to be submitted when hitting Enter during edition
-    - Make sure we have a createdBy data after schema modification
+    - Make sure we have a createdAt/createdBy data after schema modification
  
 ### 1.3.0
 
