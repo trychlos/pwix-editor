@@ -64,19 +64,23 @@ Meteor.methods({
             console.debug( 'pwix:editor te_contents.set() call with collection='+collection_name, 'document='+document_name, 'content=', content );
         }
         const collection = Editor.collections.get( collection_name, Editor.collections.Contents.schema );
-        let orig = collection.findOne({ name: document_name });
-        //console.log( 'content.set orig=', orig );
-        let o = orig || {};
-        o.content = content;
-        if( orig ){
-            //console.log( 'content.set setting updatedAt' );
+        let o = collection.findOne({ name: document_name }) || {};
+        if( o._id ){
+            //console.debug( 'content.set setting updatedAt' );
             o.updatedAt = new Date();
             o.updatedBy = this.userId;
+            // make sure we have a createdBy data after schema modification
+            if( !o.createdBy ){
+                o.createdBy = this.userId;
+            }
         } else {
-            //console.log( 'content.set setting createdAt' );
+            //console.debug( 'content.set setting createdAt' );
             o.createdAt = new Date();
             o.createdBy = this.userId;
         }
+        o.content = content;
+        //console.debug( 'orig', orig );
+        //console.debug( 'o', o );
         let res = collection.upsert({ name: document_name }, { $set: o });
         if( res.numberAffected > 0 ){
             res.written = collection.findOne({ name: document_name });
