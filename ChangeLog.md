@@ -14,6 +14,7 @@
     - Uses dburles:mongo-collection-instances package to not try to redeclare existing Mongo collections
     - Prevent a form to be submitted when hitting Enter during edition
     - Make sure we have a createdAt/createdBy data after schema modification
+    - Provide a full publication of the contents collection
  
 ### 1.3.0
 

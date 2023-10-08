@@ -8,11 +8,36 @@ const assert = require( 'assert' ).strict; // up to nodejs v16.x
 import { Contents } from '../contents.js';
 
 // returns the list of known contents
+//  have the full content for each document + add a length data
 
 Meteor.publish( 'teContent.listAll', function( collection_name ){
     assert( collection_name && _.isString( collection_name ) && collection_name.length, 'teContent.listAll expects collection_name a non-empty string, found', collection_name );
     const collection = Editor.collections.get( collection_name, Editor.collections.Contents.schema );
-    return collection.find();
+    const self = this;
+
+    const f_transform = function( item ){
+        item.length = item.content ? item.content.length : 0;
+        delete item.content;
+        return item;
+    }
+
+    const observer = collection.find({}, { sort: { name: 1 }}).observe({
+        added: function( doc){
+            self.added( 'contents', doc._id, f_transform( doc ));
+        },
+        changed: function( newDoc, oldDoc ){
+            self.changed( 'contents', newDoc._id, f_transform( newDoc ));
+        },
+        removed: function( oldDoc ){
+            self.removed( 'contents', oldDoc._id );
+        }
+    });
+
+    self.onStop( function(){
+        observer.stop();
+    });
+
+    self.ready();
 });
 
 // returns a document by its name
