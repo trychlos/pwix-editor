@@ -164,6 +164,20 @@ This global object contains:
 
 ### Blaze components
 
+#### `teManager`
+
+A panel which let the application manage its documents.
+
+The component is configurable with an object passed as an argument, which may contain:
+
+- `collection`
+
+    The collection name, defaulting to `te_contents`.
+
+- `plusButton`
+
+    Whether the manager should exhibit a 'plus' button, defaulting to `true`.
+
 #### `teScriber`
 
 The editor component itself.
@@ -227,7 +241,9 @@ The component is configurable with an object passed as an argument, which may co
 
     The collection name, defaulting to `te_contents`.
 
-    `teSerializer` expects that the collection supports `createdAt`, `createdBy`, `updatedAt`, `updatedBy` standard fields.
+    `teSerializer` expects that the collection supports `name`, `content`, `createdAt`, `createdBy`, `updatedAt` and `updatedBy` standard fields.
+
+    The `Editor.collections.Contents.schema` schema can be used as a to-be-extended base schema by the application.
 
 - `document`
 
@@ -239,15 +255,13 @@ The component is configurable with an object passed as an argument, which may co
 
     The desired edition mode, defaulting to `Editor.C.Mode.STANDARD`
 
-    Mandatory.
-
-Because `teSerializer` is an encapsulation of `teScriber`, then `teScriber` needed arguments are also passed through the argument object.
+Because `teSerializer` is an encapsulation of `teScriber`, then `teScriber` needed arguments can also be passed through the argument object.
 
 #### `teSwitch`
 
 A switch which let the user toggle the edition mode.
 
-Use case: particularly in development mode, it happens that the `Editor.C.Mode.PREVIEW` may slightly disturb the display. This switch let the editor run in `Editor.C.Mode.STANDARD` even when the user is allowed to edit, while the toggle switch is off.
+Use case: particularly in development mode, it happens that the `Editor.C.Mode.PREVIEW` may slightly disturb the display. This switch, when toggled to `off`, let the editor run in `Editor.C.Mode.STANDARD` even when the user is allowed to edit.
 
 The component is configurable with an object passed as an argument, which may contain:
 
@@ -271,19 +285,23 @@ The component is configurable with an object passed as an argument, which may co
  
     A string label as the button title, defaulting to none
 
- - `initialState`
+ - `state`
  
-    Whether the switch is initially on or off, defaulting to off
+    Whether the switch is initially `on` or `off`, defaulting to `off`
+
+ - `enabled`
+ 
+    Whether the switch is initially enabled, defaulting to `true`
 
 The `teSwitch` component maintains its state through two `Editor` reaactive variables:
 
 - `Editor.switch.used`
 
-    Whether the application makes use of the `teSwitch` component
+    Whether the application makes use of the `teSwitch` component. The variable is set to `true` when the component is created, set to `false` on destruction.
 
 - `Editor.switch.state`
 
-    When used, the state of the `teSwitch` component
+    When used, the state of the `teSwitch` component, as `true` for `on`, `false` for `off`.
 
 ### Events
 

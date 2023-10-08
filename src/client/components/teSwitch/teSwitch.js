@@ -12,7 +12,7 @@
  * - labelBottom: a (HTML) string to be displayed below the switch, defaulting to none
  * - labelLeft: a (HTML) string to be displayed on the left of the switch, defaulting to none
  * - title: a label as the button title, defaulting to none
- * - state: whether the switch is initially on or off, defaulting to on
+ * - state: whether the switch is initially on or off, defaulting to off
  * - enabled: whether the switch is enabled, defaulting to on
  * 
  * The state of the button is available via the Editor.switch.state reactive var, whose value is true for switch on (false else).
@@ -33,7 +33,7 @@ Template.teSwitch.onCreated( function(){
 
     self.TE = {
         // arguments dealt with here
-        state: new ReactiveVar( true ),
+        state: new ReactiveVar( false ),
 
         // get a bool arg if present
         argBool( name ){
