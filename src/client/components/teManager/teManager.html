@@ -1,0 +1,59 @@
+<template name="teManager">
+    <div class="teManager">
+
+        {{#if havePlusButton }}
+            <div class="manager-plus">
+                {{> plusButton (parmsPlusButton) }}
+            </div>
+        {{/if}}
+
+        <div class="container-fluid">
+            <table class="js-igrid">
+                <thead>
+                    <tr>
+                        <th data-column-name="checkbox" class=""><input class="js-checkall" type="checkbox" disabled /></th>
+                        <th data-column-name="name" class="x-w100 igrid-border igrid-sortable">{{ i18n key="manager.name_header" }}</th>
+                        <th data-column-name="count" class="igrid-border igrid-sortable x-right">{{ i18n key="manager.length_header" }}</th>
+                        <th data-column-name="buttons" class="buttons">
+                            <div class="transparent">
+                                <button class="btn btn-sm"><span class="fa-solid fa-fw fa-minus"></span></button>
+                                <button class="btn btn-sm"><span class="fa-solid fa-fw fa-minus"></span></button>
+                                <button class="btn btn-sm"><span class="fa-solid fa-fw fa-minus"></span></button>
+                            </div>
+                        </th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {{#each it in contentsList }}
+                        <tr data-row-id="{{ it._id }}">
+                            <td><input type="checkbox" class="js-checkit" /></td>
+                            <td class="x-ellipsize"><p>{{ it.name }}</p></td>
+                            <td class="x-ellipsize x-right"><p>{{ it.length }}</p></td>
+                            <td>
+                                <div class="mgr-buttons">
+                                    {{> miButton (parmsModalInfo it) }}
+                                    <button class="btn btn-sm btn-primary js-edit" data-app-id="{{ it._id }}" title="{{ editTitle it }}">
+                                        <span class="fa-solid fa-fw fa-pen-to-square"></span>
+                                    </button>
+                                    <button class="btn btn-sm btn-primary js-delete" data-app-id="{{ it._id }}" title="{{ deleteTitle it }}">
+                                        <span class="fa-solid fa-fw fa-trash"></span>
+                                    </button>
+                                </div>
+                            </td>
+                        </tr>
+                    {{/each}}
+                </tbody>
+            </table>
+        </div>
+
+        <div class="total">
+            {{{ contentsCount }}}
+        </div>
+
+        <div class="actions">
+            <button type="button" class="btn btn-primary js-import" disabled>{{ i18n key="manager.import_btn" }}</button>
+            <button type="button" class="btn btn-primary js-export" disabled>{{ i18n key="manager.export_btn" }}</button>
+        </div>
+
+    </div>
+</template>

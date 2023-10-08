@@ -64,7 +64,7 @@ Template.teSerializer.onRendered( function(){
     // each time we modify a document, the publication is refreshed - only initialize it the first time
     self.autorun(() => {
         if( self.TE.handle.ready() && !self.TE.initialized ){
-            console.debug( 'handle ready' );
+            //console.debug( 'handle ready' );
             const collection = Editor.collections.get( self.TE.collection, Editor.collections.Contents.schema );
             const doc = collection.findOne({ name: self.TE.document });
             if( doc ){

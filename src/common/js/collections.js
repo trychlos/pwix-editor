@@ -8,6 +8,7 @@ import '../../collections/contents/contents.js';
 
 /**
  * @summary Common getter and initialization code to dynamically define a Contents collection
+ * @locaus Anywhere
  * @param {String} name the collection name
  * @param {Object} schema the schema to be attached to the newly defined collection
  */

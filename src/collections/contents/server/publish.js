@@ -7,7 +7,7 @@ const assert = require( 'assert' ).strict; // up to nodejs v16.x
 
 import { Contents } from '../contents.js';
 
-// returns the list of known contents
+// publishes the list of known contents
 //  have the full content for each document + add a length data
 
 Meteor.publish( 'teContent.listAll', function( collection_name ){
@@ -17,19 +17,18 @@ Meteor.publish( 'teContent.listAll', function( collection_name ){
 
     const f_transform = function( item ){
         item.length = item.content ? item.content.length : 0;
-        delete item.content;
         return item;
     }
 
     const observer = collection.find({}, { sort: { name: 1 }}).observe({
         added: function( doc){
-            self.added( 'contents', doc._id, f_transform( doc ));
+            self.added( collection_name, doc._id, f_transform( doc ));
         },
         changed: function( newDoc, oldDoc ){
-            self.changed( 'contents', newDoc._id, f_transform( newDoc ));
+            self.changed( collection_name, newDoc._id, f_transform( newDoc ));
         },
         removed: function( oldDoc ){
-            self.removed( 'contents', oldDoc._id );
+            self.removed( collection_name, oldDoc._id );
         }
     });
 
@@ -40,7 +39,7 @@ Meteor.publish( 'teContent.listAll', function( collection_name ){
     self.ready();
 });
 
-// returns a document by its name
+// publishes a document by its name
 Meteor.publish( 'teContent.byName', function( collection_name, document_name ){
     assert( collection_name && _.isString( collection_name ) && collection_name.length, 'teContent.byName expects collection_name be a non-empty string, found', collection_name );
     assert( document_name && _.isString( document_name ) && document_name.length, 'teContent.byName expects document_name be a non-empty string, found', document_name );
