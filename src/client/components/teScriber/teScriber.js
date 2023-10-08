@@ -443,6 +443,20 @@ Template.teScriber.helpers({
 });
 
 Template.teScriber.events({
+
+    // the Enter key in editor mode should be used to add a new line rather than submitting any form
+    //  as we do not know how to provide the correct behavior without letting the event bubble up
+    //  just provide a flag to say to Modal or others to not submit
+    'keydown .te-edit-container.TE_MODE_EDITION'( event, instance ){
+        if( event.keyCode === 13 ){
+            // original event is shared among all event handlers
+            event.originalEvent['pwix:modal'] = {
+                submitable: false,
+                origin: 'pwix:editor'
+            };
+        }
+    },
+
     // change the edition mode
     'click .te-edit-btn'( event, instance ){
         instance.TE.mode( Editor.C.Mode.EDITION );
