@@ -1,0 +1,61 @@
+.itfx-igrid-table {
+    /* positionning */
+    white-space: nowrap;
+    width: 100%;
+    line-height: 2em;
+    td.x-wmin {
+        width: 1%;
+    }
+    thead {
+        font-size: 1em;
+        font-weight: normal;
+        .itfx-igrid-name {
+            flex-grow: 1;
+        }
+        .igrid-border {
+            border: 1px solid;
+        }
+        .itfx-igrid-sort-btn {
+            cursor: pointer;
+            margin-left: 0.5em;
+        }
+    }
+    tbody:before {
+        content: "-";
+        display: block;
+        line-height: 1px;
+        color: transparent;
+    }
+    tbody {
+        font-size: 1em;
+        font-weight: normal;
+        .btn-actions {
+            display: flex;
+            flex-direction: row;
+            flex-wrap: nowrap;
+            justify-content: flex-start;
+            align-items: center;
+        }
+    }
+    th, td {
+        padding: 0 0.25rem;
+    }
+    /* colors */
+    thead {
+        .igrid-border {
+            border-color: gray;
+        }
+        .itfx-igrid-sort-btn {
+            color: gray;
+        }
+
+    }
+    tbody {
+        tr:nth-child(2n+1){
+            background-color: lighten( black, 90% );
+        }
+        tr:hover {
+            background-color: lighten( black, 75% );
+        }
+    }
+}
