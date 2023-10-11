@@ -2,9 +2,9 @@
 
 ## ChangeLog
 
-### 1.4.0-rc
+### 1.4.0
 
-    Release date: 
+    Release date: 2023-10-11
 
     - Replace all fonts by a converted (and hopefully sanitized) version from https://transfonter.org
     - teSerializer now provides a default collection name
@@ -77,4 +77,4 @@
 
 ---
 P. Wieser
-- Last updated on 2023, Sept. 17th
+- Last updated on 2023, Oct. 11th
