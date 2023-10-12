@@ -1,8 +1,7 @@
 /*
- * /imports/server/init/webapp.js
+ * pwix:editor/src/server/js/webapp.js
  *
- * Make sure loading the fonts happens from the canonic url
- * (Meteor bug workaround)
+ * Meteor #12524 workaround: make sure assets load happen from the canonic url
  */
 
 import url from 'url';
