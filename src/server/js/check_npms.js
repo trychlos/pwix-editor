@@ -7,7 +7,7 @@ import { checkNpmVersions } from 'meteor/tmeasday:check-npm-versions';
 if( false ){
     // whitelist packages which are included via a subfolder
     require( 'jquery-resizable-dom/package.json' );
-    //require( 'uuid/package.json' );
+    require( 'uuid/package.json' );
 }
 
 checkNpmVersions({
