@@ -19,6 +19,7 @@
 |    9 | 2023-10-11 | when the collection/document change (e.g. the language), reinit the mode |
 |   10 | 2023-10-11 | in edition mode, the first entered key leads to a back to begin of the text. Why? |
 |   11 | 2023-11-12 | on collection/document change, the content is not reset if document doesn't exist |
+|   12 | 2024- 5-24 | Trumbowyg 2.28.0 is released so upgrade to last version |
 |   12 |  |  |
 
 ---

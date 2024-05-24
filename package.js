@@ -23,17 +23,17 @@ Package.onTest( function( api ){
 });
 
 function configure( api ){
-    api.versionsFrom( '2.9.0' );
-    api.use( 'aldeed:collection2@3.5.0' );
-    api.use( 'blaze-html-templates@2.0.0', 'client' );
+    api.versionsFrom([ '2.9.0', '3.0-rc.0' ]);
+    api.use( 'aldeed:collection2@3.5.0 || 4.0.1' );
+    api.use( 'blaze-html-templates@2.0.0 || 3.0.0-alpha300.0', 'client' );
     api.use( 'ecmascript' );
-    api.use( 'dburles:mongo-collection-instances@0.3.6' );
+    api.use( 'dburles:mongo-collection-instances@0.3.6 || 1.0.0-beta300.0' );
     api.use( 'less@4.0.0', 'client' );
     api.use( 'mongo' );
-    api.use( 'pwix:i18n@1.5.2' );
-    api.use( 'pwix:plus-button@0.11.0' );
-    api.use( 'pwix:toggle-switch@0.3.1' );
-    api.use( 'tmeasday:check-npm-versions@1.0.2', 'server' );
+    api.use( 'pwix:i18n@1.5.7' );
+    api.use( 'pwix:plus-button@0.11.2' );
+    api.use( 'pwix:toggle-switch@0.3.3' );
+    api.use( 'tmeasday:check-npm-versions@1.0.2 || 2.0.0-beta.0', 'server' );
     api.addFiles([
         'src/client/components/teManager/teManager.js',
         'src/client/components/teSerializer/teSerializer.js',

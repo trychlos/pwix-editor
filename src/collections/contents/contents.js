@@ -8,9 +8,13 @@
  * See Contents.methods and common/init/collections.js
  */
 
-import SimpleSchema from 'simpl-schema';
-
 import '../../common/js/index.js';
+
+import SimpleSchema from 'meteor/aldeed:simple-schema';
+
+import 'meteor/aldeed:collection2/dynamic';
+
+Collection2.load();
 
 Editor.collections.Contents = {
 
