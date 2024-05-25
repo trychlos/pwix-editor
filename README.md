@@ -404,4 +404,4 @@ This is considered a disableable functional _cookie_, and is advertised as such 
 
 ---
 P. Wieser
-- Last updated on 2024, May. 24th
+- Last updated on 2024, May. 25th

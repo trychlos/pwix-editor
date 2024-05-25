@@ -2,9 +2,9 @@
 
 ## ChangeLog
 
-### 1.4.2-rc
+### 1.4.2
 
-    Release date: 
+    Release date: 2024- 5-25
 
     - Replace the sync calls by their Async version (todo #13)
 
@@ -89,4 +89,4 @@
 
 ---
 P. Wieser
-- Last updated on 2024, May. 24th
+- Last updated on 2024, May. 25th
