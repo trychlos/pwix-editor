@@ -6,13 +6,13 @@
 
     Release date: 
 
-    - 
+    - Replace the sync calls by their Async version (todo #13)
 
 ### 1.4.1
 
     Release date: 2024- 5-24
 
-    - 
+    - Meteor 3.0 ready
 
 ### 1.4.0
 
