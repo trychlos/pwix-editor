@@ -6,7 +6,7 @@
 
     Release date: 
 
-    - 
+    - Update pwix:plus-button dependency
 
 ### 1.4.2
 
