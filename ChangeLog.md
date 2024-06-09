@@ -7,6 +7,7 @@
     Release date: 
 
     - Update pwix:plus-button dependency
+    - Use pwix:ui-bootstrap5 to provide missing bootstrap dependency
 
 ### 1.4.2
 
@@ -26,7 +27,7 @@
 
     - Replace all fonts by a converted (and hopefully sanitized) version from https://transfonter.org
     - teSerializer now provides a default collection name
-    - Change the document parameter in teSerializer from name to document (bumpring candidate version number)
+    - Change the document parameter in teSerializer from name to document (bumping candidate version number)
     - Change the default edition mode in teSerializer from PREVIEW to STANDARD
     - Publish the accessed document rather that using a method to take advantage of Meteor reactivity
     - Uses dburles:mongo-collection-instances package to not try to redeclare existing Mongo collections

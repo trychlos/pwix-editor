@@ -33,6 +33,7 @@ function configure( api ){
     api.use( 'pwix:i18n@1.5.7' );
     api.use( 'pwix:plus-button@0.11.2 || 1.0.0-rc' );
     api.use( 'pwix:toggle-switch@0.3.3' );
+    api.use( 'pwix:ui-bootstrap5@2.0.0' );
     api.use( 'tmeasday:check-npm-versions@1.0.2 || 2.0.0-beta.0', 'server' );
     api.addFiles([
         'src/client/components/teManager/teManager.js',
