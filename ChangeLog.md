@@ -2,9 +2,9 @@
 
 ## ChangeLog
 
-### 1.4.3-rc
+### 1.4.3
 
-    Release date: 
+    Release date: 2024- 6- 9
 
     - Update pwix:plus-button dependency
     - Use pwix:ui-bootstrap5 to provide missing bootstrap dependency
@@ -96,4 +96,4 @@
 
 ---
 P. Wieser
-- Last updated on 2024, May. 25th
+- Last updated on 2024, Jun. 9th
