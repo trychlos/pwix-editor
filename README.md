@@ -378,7 +378,7 @@ Dependencies as of v 1.4.0:
 ```
     'jquery-resizable-dom': '^0.35.0',
     'lodash': '^4.17.0',
-    'uuid': '^9.0.0'
+    'uuid': '^9.0.0 || ^10.0.0'
 ```
 
 Each of these dependencies should be installed at application level:
@@ -404,4 +404,4 @@ This is considered a disableable functional _cookie_, and is advertised as such 
 
 ---
 P. Wieser
-- Last updated on 2024, Jun. 9th
+- Last updated on 2024, Sep. 20th

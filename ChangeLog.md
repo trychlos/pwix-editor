@@ -2,9 +2,9 @@
 
 ## ChangeLog
 
-### 1.4.4-rc
+### 1.4.4
 
-    Release date: 
+    Release date: 2024- 9-20
 
     - Accept uuid v10
 
@@ -102,4 +102,4 @@
 
 ---
 P. Wieser
-- Last updated on 2024, Jun. 9th
+- Last updated on 2024, Sep. 20th
