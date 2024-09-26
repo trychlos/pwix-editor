@@ -31,6 +31,7 @@ function configure( api ){
     api.use( 'less@4.0.0', 'client' );
     api.use( 'mongo' );
     api.use( 'pwix:i18n@1.5.7' );
+    api.use( 'pwix:modal-info@1.5.0' );
     api.use( 'pwix:plus-button@0.11.2 || 1.0.0-rc' );
     api.use( 'pwix:toggle-switch@0.3.3' );
     api.use( 'pwix:ui-bootstrap5@2.0.0' );

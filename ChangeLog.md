@@ -6,7 +6,7 @@
 
     Release date: 
 
-    - 
+    - Add missing pwix:modal-info dependency
 
 ### 1.4.4
 
