@@ -2,9 +2,9 @@
 
 ## ChangeLog
 
-### 1.4.5-rc
+### 1.4.5
 
-    Release date: 
+    Release date: 2024-10- 4
 
     - Add missing pwix:modal-info dependency
 
@@ -108,4 +108,4 @@
 
 ---
 P. Wieser
-- Last updated on 2024, Sep. 20th
+- Last updated on 2024, Oct. 4th
