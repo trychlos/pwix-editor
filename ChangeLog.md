@@ -2,11 +2,11 @@
 
 ## ChangeLog
 
-### 1.4.6-rc
+### 1.5.0-rc
 
     Release date: 
 
-    - 
+    - Extend uuid dependency to v11.0.0, thus bumping minor candidate version number
 
 ### 1.4.5
 
