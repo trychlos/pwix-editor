@@ -6,11 +6,13 @@ import { checkNpmVersions } from 'meteor/tmeasday:check-npm-versions';
 
 if( false ){
     // whitelist packages which are included via a subfolder
+    require( 'ellipsize/package.json' );
     require( 'jquery-resizable-dom/package.json' );
     require( 'uuid/package.json' );
 }
 
 checkNpmVersions({
+    'ellipsize': '^0.5.1',
     'jquery-resizable-dom': '^0.35.0',   // required by trumbowyg:resizimg plugin
     'lodash': '^4.17.0',
     // as of 2023- 9-15 we embed a (buggy) version 2.27.3

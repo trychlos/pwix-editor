@@ -1,11 +1,9 @@
 /*
- * pwix:editor/src/collections/contents/server/publish.js
+ * pwix:editor/src/common/collections/contents/server/publish.js
  */
 
 import _ from 'lodash';
 const assert = require( 'assert' ).strict; // up to nodejs v16.x
-
-import { Contents } from '../contents.js';
 
 // publishes the list of known contents
 //  have the full content for each document + add a length data

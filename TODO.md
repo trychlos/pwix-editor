@@ -14,12 +14,13 @@
 |    3 | 2023- 5- 8 | feat: verbosity: dump component parms |
 |    4 | 2023- 5- 8 | improv: review images upload and resizing |
 |    6 | 2023- 9-10 | feat: configure on a per-instance basis a very short - more useable - toolbar |
-|      | 2023- 9-19 | idea is to have a dropdown button which provides all less used actions |
+|      | 2023- 9-19 | idea is to have a dropdown button which provides all other - less used - actions |
 |    8 | 2023-10- 3 | have an option to prevent link to include 'target="self"' which is not compatible with SPA applications |
 |    9 | 2023-10-11 | when the collection/document change (e.g. the language), reinit the mode |
 |   10 | 2023-10-11 | in edition mode, the first entered key leads to a back to begin of the text. Why? |
 |   11 | 2023-11-12 | on collection/document change, the content is not reset if document doesn't exist |
 |   12 | 2024- 5-24 | Trumbowyg 2.28.0 is released so upgrade to last version |
+|      | 2025- 7- 7 | Trumbowyg 2.31.0 is available |
 |   14 |  |  |
 
 ---

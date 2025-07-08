@@ -4,7 +4,7 @@
 
 import { Mongo } from 'meteor/mongo';
 
-import '../../collections/contents/contents.js';
+import '../collections/contents/index.js';
 
 /**
  * @summary Common getter and initialization code to dynamically define a Contents collection
@@ -17,9 +17,13 @@ Editor.collections.get = function( name, schema ){
         // thanks to dburles:mongo-collection-instances
         let collection = Mongo.Collection.get( name );
         if( !collection ){
+            if( Editor.configure().verbosity & Editor.C.Verbose.COLLECTIONS ){
+                console.debug( 'pwix:editor instanciating Mongo.Collection', name );
+            }
             collection = new Mongo.Collection( name );
             if( schema ){
                 collection.attachSchema( schema );
+                collection.attachBehaviour( 'timestampable' );
             }
             if( Meteor.isServer ){
                 collection.deny({

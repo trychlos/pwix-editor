@@ -1,11 +1,9 @@
 /*
- * pwix:editor/src/collections/contents/server/methods.js
+ * pwix:editor/src/common/collections/contents/server/methods.js
  */
 
 import _ from 'lodash';
 const assert = require( 'assert' ).strict; // up to nodejs v16.x
-
-import { Contents } from '../contents.js';
 
 Meteor.methods({
     // empty the collection
@@ -100,5 +98,13 @@ Meteor.methods({
                     console.debug( 'pwix:editor te_contents.set() returns with', res );
                 }
             });
+    },
+
+    // instanciates Tabular.Table for tabular display
+    // note that we must not return the instance itself as it would lead to a circular references which makes Meteor crashes when trying to ijsonable it
+    // (more we do not care of the server instance when called from by the client, just want know that is is defined)
+    async 'te_contents.tabular'( collection_name ){
+        const tabular = await Editor.collections.Contents.getTabular( collection_name );
+        return Boolean( tabular );
     }
 });

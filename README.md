@@ -1,6 +1,6 @@
 # pwix:editor
 
-This is an encapsulation of 'trumbowyg' Javascript editor for Meteor, so a client-only package.
+This is an encapsulation of 'trumbowyg' Javascript editor for Meteor, so mainly a client package, plus some server code to manage serialization.
 
 ## A bit of taxonomy
 
@@ -10,7 +10,7 @@ This is an encapsulation of 'trumbowyg' Javascript editor for Meteor, so a clien
 But it expects that these unknown and unmanaged _documents_ have two main properties:
 
 - a HTML content, said _document's content_ here
-- an optional name which identifies the document, said _document's name_ here.
+- a name which identifies the document, said _document's name_ here.
 
 ### Edition mode
 
@@ -36,94 +36,6 @@ But it expects that these unknown and unmanaged _documents_ have two main proper
 
     This mode is an extension of the `Editor.C.Mode.PREVIEW`, where the user is able to actually edit the document's content.
     A buttons panel with different edition options (font size, color, etc.) along with a WYSIWYG HTML editor is available.
-
-## Configuration
-
-The package's behavior can be configured through a call to the `Editor.configure()` method, with just a single javascript object argument, which itself should only contains the options you want override.
-
-Known configuration options are:
-
-- `fontfamilyAdds`
-
-    A list of font families to be added to the default `teEditor` ones.
-
-    This is supposed to be an array of objects with following keys:
-
-    - `name`: the displayed name
-    - `family`: the font face family.
-
-- `storeSwitchState`
-
-    Whether the application plans to use the `teSwitch` component and wishes to record its last state.
-
-    When enabled, this option will create a _cookie_.
-    
-    This _cookie_ is published to CookieManager as a functional one, and the user may refuse it.
-
-    Default to `false`.
-
-- `uploadUrl`
-
-    The URL to which the images should be uploaded.<br />
-    No default.
-
-- `verbosity`
-
-    Define the expected verbosity level.
-
-    The accepted value can be any or-ed combination of following:
-
-    - `Editor.C.Verbose.NONE`
-
-        Do not display any trace log to the console
-
-    - `Editor.C.Verbose.COLLECTIONS`
-
-        Trace collections events.
-
-        This includes on each and every collection:
-
-        - declarations and definitions
-        - methods calls and results 
-
-    - `Editor.C.Verbose.COMPONENTS`
-
-        Trace Blaze components life:
-
-        - creation
-        - rendering
-        - destruction
-
-    - `Editor.C.Verbose.CONFIGURE`
-
-        Trace `Editor.configure()` calls and their result
-
-    - `Editor.C.Verbose.MODE`
-
-        Trace edition mode changes
-
-    - `Editor.C.Verbose.SWITCH`
-
-        Trace the internal behavior of the `teSwitch` component
-
-    - `Editor.C.Verbose.TEMSG`
-
-        Trace `te-xxx` messages
-
-    - `Editor.C.Verbose.TRUMBOWYG`
-
-        Trace the 'trumbowyg' editor life:
-
-        - instanciation and deletion
-        - internal messaging events
-
-    - `Editor.C.Verbose.UPLOAD`
-
-        Trace upload configuration and operations
-
-Please note that `Editor.configure()` methmethod should be called in the same terms both in client and server sides.
-
-Also note, as an explicit reminder for the fools, that, because the Meteor packages are instanciated at application level, they can be configured once at most, and only once at most. Each addtionnal call to `Editor.configure()` will just override the previous one. You have been warned: **only the application should configure a package**.
 
 ## Provides
 
@@ -177,6 +89,16 @@ The component is configurable with an object passed as an argument, which may co
 - `plusButton`
 
     Whether the manager should exhibit a 'plus' button, defaulting to `true`.
+
+#### `teManagerExt`
+
+A tabular display (aka 'datatable'-based) of the documents.
+
+The component is configurable with an object passed as an argument, which may contain:
+
+- `collection`
+
+    The collection name, defaulting to `te_contents`.
 
 #### `teScriber`
 
@@ -367,6 +289,94 @@ Action messages are the way the caller can interact with the component during it
 - Orbitron
 - Serpentine
 - Ubuntu Mono.
+
+## Configuration
+
+The package's behavior can be configured through a call to the `Editor.configure()` method, with just a single javascript object argument, which itself should only contains the options you want override.
+
+Known configuration options are:
+
+- `fontfamilyAdds`
+
+    A list of font families to be added to the default `teEditor` ones.
+
+    This is supposed to be an array of objects with following keys:
+
+    - `name`: the displayed name
+    - `family`: the font face family.
+
+- `storeSwitchState`
+
+    Whether the application plans to use the `teSwitch` component and wishes to record its last state.
+
+    When enabled, this option will create a _cookie_.
+    
+    This _cookie_ is published to CookieManager as a functional one, and the user may refuse it.
+
+    Default to `false`.
+
+- `uploadUrl`
+
+    The URL to which the images should be uploaded.<br />
+    No default.
+
+- `verbosity`
+
+    Define the expected verbosity level.
+
+    The accepted value can be any or-ed combination of following:
+
+    - `Editor.C.Verbose.NONE`
+
+        Do not display any trace log to the console
+
+    - `Editor.C.Verbose.COLLECTIONS`
+
+        Trace collections events.
+
+        This includes on each and every collection:
+
+        - declarations and definitions
+        - methods calls and results 
+
+    - `Editor.C.Verbose.COMPONENTS`
+
+        Trace Blaze components life:
+
+        - creation
+        - rendering
+        - destruction
+
+    - `Editor.C.Verbose.CONFIGURE`
+
+        Trace `Editor.configure()` calls and their result
+
+    - `Editor.C.Verbose.MODE`
+
+        Trace edition mode changes
+
+    - `Editor.C.Verbose.SWITCH`
+
+        Trace the internal behavior of the `teSwitch` component
+
+    - `Editor.C.Verbose.TEMSG`
+
+        Trace `te-xxx` messages
+
+    - `Editor.C.Verbose.TRUMBOWYG`
+
+        Trace the 'trumbowyg' editor life:
+
+        - instanciation and deletion
+        - internal messaging events
+
+    - `Editor.C.Verbose.UPLOAD`
+
+        Trace upload configuration and operations
+
+Please note that `Editor.configure()` methmethod should be called in the same terms both in client and server sides.
+
+Also note, as an explicit reminder for the fools, that, because the Meteor packages are instanciated at application level, they can be configured once at most, and only once at most. Each addtionnal call to `Editor.configure()` will just override the previous one. You have been warned: **only the application should configure a package**.
 
 ## NPM peer dependencies
 

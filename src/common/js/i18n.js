@@ -8,6 +8,20 @@ Editor.i18n = {
             illimited: 'Illimited',
             switch_state: 'Record last state of the edit toggle switch'
         },
+        list: {
+            buttons: {
+                edit_title: 'Edit the "%s" document',
+                info_modal: 'Informations about the "%s" document',
+                info_title: 'Informations about the "%s" document'
+            },
+            headers: {
+                content_th: 'Content',
+                length_th: 'Length',
+                name_th: 'Name',
+                updatedat_th: 'Last updated at',
+                updatedby_th: 'Last updated by'
+            }
+        },
         manager: {
             count_label: '%s registered document(s)',
             delete_label: 'Delete "%s"',
@@ -24,6 +38,20 @@ Editor.i18n = {
         cookies: {
             illimited: 'Illimitée',
             switch_state: 'Enregistre l\'état du bouton d\'édition'
+        },
+        list: {
+            buttons: {
+                edit_title: 'Edit le document "%s"',
+                info_modal: 'Informations sur le document "%s"',
+                info_title: 'Informations sur le document "%s"'
+            },
+            headers: {
+                content_th: 'Contenu',
+                length_th: 'Taille',
+                name_th: 'Nom',
+                updatedat_th: 'Dernière mise à jour le',
+                updatedby_th: 'Dernière mise à jour par'
+            }
         },
         manager: {
             count_label: '%s document(s) enregistré(s)',
