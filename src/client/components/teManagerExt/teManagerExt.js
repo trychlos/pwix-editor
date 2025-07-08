@@ -68,8 +68,8 @@ Template.teManagerExt.events({
     // edit a document
     //  the buttons from tabular provide the entity document
     'tabular-edit-event .teManagerExt'( event, instance, { item, table }){
-        console.debug( 'item', item );
-        console.debug( 'table', table );
+        //console.debug( 'item', item );
+        //console.debug( 'table', table );
         Modal.run({
             ...this,
             mdBody: 'teSerializer',

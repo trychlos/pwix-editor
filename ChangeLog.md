@@ -8,6 +8,7 @@
 
     - Extend uuid dependency to v11.0.0, thus bumping minor candidate version number
     - Define new teManagerExt component to provide a tabular (datatables-based) display
+    - Let the content width be configured
 
 ### 1.4.5
 

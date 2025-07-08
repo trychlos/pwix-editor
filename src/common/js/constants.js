@@ -21,7 +21,10 @@ Editor.C = {
         COLLECTIONS: 0x01 <<  5,
         COMPONENTS:  0x01 <<  6,
         SWITCH:      0x01 <<  7
-    }
+    },
+
+    // minimal width of the content rendered in tabular display
+    MinWidth: 20
 };
 
 Editor.Modes = [];

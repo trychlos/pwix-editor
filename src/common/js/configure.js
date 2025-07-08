@@ -7,6 +7,7 @@ import _ from 'lodash';
 Editor._defaults = {
     fontfamilyAdds: [],
     storeSwitchState: false,
+    tabularContentWidth: 200,
     uploadUrl: '',
     verbosity: Editor.C.Verbose.NONE
 };

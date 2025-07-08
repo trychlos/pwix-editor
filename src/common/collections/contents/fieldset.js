@@ -32,7 +32,11 @@ const _defaultFieldSet = function( conf ){
             dt_title: pwixI18n.label( I18N, 'list.headers.content_th' ),
             dt_render( data, type, rowData, meta ){
                 if( type === 'display' ){
-                    return ellipsize( data, 250 );
+                    const width = Editor.configure().tabularContentWidth;
+                    if( width < Editor.C.MinWidth ){
+                        width = Editor._defaults.tabularContentWidth;
+                    }
+                    return ellipsize( data, width );
                 }
                 return data;
             }

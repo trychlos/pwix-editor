@@ -315,6 +315,14 @@ Known configuration options are:
 
     Default to `false`.
 
+- `tabularContentWidth`
+
+    The width to ellipsize the content when rendered in tabular display.
+
+    Defaults to 200.
+
+    Anything set less than 20 which be reset to the default.
+
 - `uploadUrl`
 
     The URL to which the images should be uploaded.<br />
