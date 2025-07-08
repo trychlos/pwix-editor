@@ -14,6 +14,9 @@ Editor.i18n = {
                 info_modal: 'Informations about the "%s" document',
                 info_title: 'Informations about the "%s" document'
             },
+            edit: {
+                title: 'Editing "%s"'
+            },
             headers: {
                 content_th: 'Content',
                 length_th: 'Length',
@@ -44,6 +47,9 @@ Editor.i18n = {
                 edit_title: 'Edit le document "%s"',
                 info_modal: 'Informations sur le document "%s"',
                 info_title: 'Informations sur le document "%s"'
+            },
+            edit: {
+                title: 'Editer "%s"'
             },
             headers: {
                 content_th: 'Contenu',

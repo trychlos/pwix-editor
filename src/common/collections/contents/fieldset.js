@@ -32,7 +32,7 @@ const _defaultFieldSet = function( conf ){
             dt_title: pwixI18n.label( I18N, 'list.headers.content_th' ),
             dt_render( data, type, rowData, meta ){
                 if( type === 'display' ){
-                    return ellipsize( data, 500 );
+                    return ellipsize( data, 250 );
                 }
                 return data;
             }

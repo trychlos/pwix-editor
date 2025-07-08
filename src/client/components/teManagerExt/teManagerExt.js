@@ -67,19 +67,19 @@ Template.teManagerExt.helpers({
 Template.teManagerExt.events({
     // edit a document
     //  the buttons from tabular provide the entity document
-    'tabular-edit-event .teManagerExt'( event, instance, data ){
-        /*
-        const tenant = Editor.list.byEntity( data.item._id );
+    'tabular-edit-event .teManagerExt'( event, instance, { item, table }){
+        console.debug( 'item', item );
+        console.debug( 'table', table );
         Modal.run({
             ...this,
-            mdBody: 'TenantEditPanel',
-            mdButtons: [ Modal.C.Button.CANCEL, Modal.C.Button.OK ],
+            mdBody: 'teSerializer',
+            mdButtons: [ Modal.C.Button.CLOSE ],
             mdClasses: this.mdClasses || 'modal-xl',
-            mdClassesContent: Editor.configure().classes,
-            mdTitle: pwixI18n.label( I18N, 'edit.modal_title', tenant.DYN.closest.label ),
-            item: tenant
+            mdTitle: pwixI18n.label( I18N, 'list.edit.title', item.name ),
+            collection: table.name,
+            document: item.name,
+            mode: Editor.C.Mode.EDITION
         });
         return false;
-        */
     }
 });
