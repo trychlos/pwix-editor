@@ -2,9 +2,9 @@
 
 ## ChangeLog
 
-### 1.5.0-rc
+### 1.5.0
 
-    Release date: 
+    Release date: 2025- 7- 8
 
     - Extend uuid dependency to v11.0.0, thus bumping minor candidate version number
     - Define new teManagerExt component to provide a tabular (datatables-based) display
@@ -116,4 +116,4 @@
 
 ---
 P. Wieser
-- Last updated on 2024, Oct. 4th
+- Last updated on 2025, Jul. 8th
