@@ -11,12 +11,12 @@ Meteor.methods({
     'te_contents.empty'( collection_name ){
         assert( collection_name && _.isString( collection_name ) && collection_name.length, 'te_contents.empty expects collection_name be a non-empty string' );
 
-        if( Editor._conf.verbosity & Editor.C.Verbose.COLLECTIONS ){
+        if( Editor.configure().verbosity & Editor.C.Verbose.COLLECTIONS ){
             console.debug( 'pwix:editor te_contents.empty() call with collection='+collection_name );
         }
         const collection = Editor.collections.get( collection_name, Editor.collections.Contents.schema );
         const res = collection.removeAsync({});
-        if( Editor._conf.verbosity & Editor.C.Verbose.COLLECTIONS ){
+        if( Editor.configure().verbosity & Editor.C.Verbose.COLLECTIONS ){
             console.debug( 'pwix:editor te_contents.empty() returns with', res );
         }
         return res;
@@ -28,12 +28,12 @@ Meteor.methods({
         assert( collection_name && _.isString( collection_name ) && collection_name.length, 'te_contents.byName expects collection_name be a non-empty string' );
         assert( document_name && _.isString( document_name ) && document_name.length, 'te_contents.byName expects document_name be a non-empty string' );
 
-        if( Editor._conf.verbosity & Editor.C.Verbose.COLLECTIONS ){
+        if( Editor.configure().verbosity & Editor.C.Verbose.COLLECTIONS ){
             console.debug( 'pwix:editor te_contents.byName() call with collection='+collection_name, 'document='+document_name );
         }
         const collection = Editor.collections.get( collection_name, Editor.collections.Contents.schema );
         const res = collection.findOneAsync({ name: document_name });
-        if( Editor._conf.verbosity & Editor.C.Verbose.COLLECTIONS ){
+        if( Editor.configure().verbosity & Editor.C.Verbose.COLLECTIONS ){
             console.debug( 'pwix:editor te_contents.byName() returns with', res );
         }
         return res;
@@ -44,12 +44,12 @@ Meteor.methods({
     'te_contents.import'( collection_name, elt ){
         assert( collection_name && _.isString( collection_name ) && collection_name.length, 'te_contents.import expects collection_name be a non-empty string' );
 
-        if( Editor._conf.verbosity & Editor.C.Verbose.COLLECTIONS ){
+        if( Editor.configure().verbosity & Editor.C.Verbose.COLLECTIONS ){
             console.debug( 'pwix:editor te_contents.import() call with elt=', elt );
         }
         const collection = Editor.collections.get( collection_name, Editor.collections.Contents.schema );
         const res = collection.insertAsync( elt );
-        if( Editor._conf.verbosity & Editor.C.Verbose.COLLECTIONS ){
+        if( Editor.configure().verbosity & Editor.C.Verbose.COLLECTIONS ){
             console.debug( 'pwix:editor te_contents.import() returns with', res );
         }
         return res;
@@ -62,7 +62,7 @@ Meteor.methods({
         assert( collection_name && _.isString( collection_name ) && collection_name.length, 'te_contents.byName expects collection_name be a non-empty string' );
         assert( document_name && _.isString( document_name ) && document_name.length, 'te_contents.byName expects document_name be a non-empty string' );
 
-        if( Editor._conf.verbosity & Editor.C.Verbose.COLLECTIONS ){
+        if( Editor.configure().verbosity & Editor.C.Verbose.COLLECTIONS ){
             console.debug( 'pwix:editor te_contents.set() call with collection='+collection_name, 'document='+document_name, 'content=', content );
         }
         const collection = Editor.collections.get( collection_name, Editor.collections.Contents.schema );
@@ -94,7 +94,7 @@ Meteor.methods({
                 return res.numberAffected > 0 ? collection.findOneAsync({ name: document_name }) : res;
             })
             .then(( res ) => {
-                if( Editor._conf.verbosity & Editor.C.Verbose.COLLECTIONS ){
+                if( Editor.configure().verbosity & Editor.C.Verbose.COLLECTIONS ){
                     console.debug( 'pwix:editor te_contents.set() returns with', res );
                 }
             });

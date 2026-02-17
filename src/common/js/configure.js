@@ -4,6 +4,11 @@
 
 import _ from 'lodash';
 
+import { ReactiveVar } from 'meteor/reactive-var';
+
+let _conf = {};
+Editor._conf = new ReactiveVar( _conf );
+
 Editor._defaults = {
     fontfamilyAdds: [],
     storeSwitchState: false,
@@ -21,13 +26,26 @@ Editor._defaults = {
  */
 Editor.configure = function( o ){
     if( o && _.isObject( o )){
-        _.merge( Editor._conf, Editor._defaults, o );
-    }
-    if( Editor._conf.verbosity & Editor.C.Verbose.CONFIGURE ){
-        console.debug( 'pwix:editor configure() with', o, 'building', Editor._conf );
+        // check that keys exist
+        let built_conf = {};
+        Object.keys( o ).forEach(( it ) => {
+            if( Object.keys( Editor._defaults ).includes( it )){
+                built_conf[it] = o[it];
+            } else {
+                console.warn( 'pwix:editor configure() ignore unmanaged key \''+it+'\'' );
+            }
+        });
+        if( Object.keys( built_conf ).length ){
+            _conf = _.merge( Editor._defaults, _conf, built_conf );
+            Editor._conf.set( _conf );
+            if( _conf.verbosity & Editor.C.Verbose.CONFIGURE ){
+                console.debug( 'pwix:editor configure() with', built_conf );
+            }
+        }
     }
     // also acts as a getter
-    return Editor._conf
+    return Editor._conf.get();
 };
 
-_.merge( Editor._conf, Editor._defaults );
+_conf = _.merge( {}, Editor._defaults );
+Editor._conf.set( _conf );

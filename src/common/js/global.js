@@ -7,8 +7,5 @@ Editor = {
     // collections
     collections: {
         byName: {}
-    },
-
-    // configuration
-    _conf: {}
+    }
 };

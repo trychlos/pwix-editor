@@ -21,7 +21,8 @@
 |   11 | 2023-11-12 | on collection/document change, the content is not reset if document doesn't exist |
 |   12 | 2024- 5-24 | Trumbowyg 2.28.0 is released so upgrade to last version |
 |      | 2025- 7- 7 | Trumbowyg 2.31.0 is available |
-|   14 |  |  |
+|   14 | 2026- 2-12 | Move exported assets to /resources directory |
+|   15 |  |  |
 
 ---
 ## Done

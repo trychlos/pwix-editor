@@ -393,18 +393,17 @@ Starting with v 1.0.0, and in accordance with advices from [the Meteor Guide](ht
 Instead we check npm versions of installed packages at runtime, on server startup, in development environment.
 
 Dependencies as of v 1.5.0:
-```
+
+```js
     'ellipsize': '^0.5.1',
     'jquery-resizable-dom': '^0.35.0',   
     'lodash': '^4.17.0',
-    
-    
-    
     'uuid': '^9.0.0 || ^10.0.0 || ^11.0.0'
 ```
 
 Each of these dependencies should be installed at application level:
-```
+
+```sh
     meteor npm install <package> --save
 ```
 

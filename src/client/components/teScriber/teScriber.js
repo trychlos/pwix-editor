@@ -109,7 +109,7 @@ Template.teScriber.onCreated( function(){
                 }
 
             }
-            if( Editor._conf.verbosity & Editor.C.Verbose.MODE ){
+            if( Editor.configure().verbosity & Editor.C.Verbose.MODE ){
                 console.debug( 'pwix:editor teScriber checkSwitch() asked='+_input, 'switchExists='+ _hasSwitch, 'switchState='+_switchState, 'returning', mode );
             }
             return mode;
@@ -193,7 +193,7 @@ Template.teScriber.onCreated( function(){
         //  this code run the creation; the initialization itself is made on tbwinit message
         editorCreate(){
             if( self.view.isRendered && !self.TE.editorInitialized.get()){
-                if( Editor._conf.verbosity & Editor.C.Verbose.TRUMBOWYG ){
+                if( Editor.configure().verbosity & Editor.C.Verbose.TRUMBOWYG ){
                     console.debug( 'pwi:editor teScriber editorCreate() instanciating...' );
                 }
                 self.TE.editorDiv.trumbowyg({
@@ -214,7 +214,7 @@ Template.teScriber.onCreated( function(){
         // delete the Trumbowyg edtor (quitting the EDITION mode)
         editorDelete(){
             if( self.TE.editorInitialized.get()){
-                if( Editor._conf.verbosity & Editor.C.Verbose.TRUMBOWYG ){
+                if( Editor.configure().verbosity & Editor.C.Verbose.TRUMBOWYG ){
                     console.debug( 'pwix:editor teScriber editorDelete() destroying instance' );
                 }
                 self.TE.editorDiv.trumbowyg( 'destroy' );
@@ -266,14 +266,14 @@ Template.teScriber.onCreated( function(){
         // get/set the edit mode
         mode( mode=null ){
             if( mode ){
-                if( Editor._conf.verbosity & Editor.C.Verbose.MODE ){
+                if( Editor.configure().verbosity & Editor.C.Verbose.MODE ){
                     console.debug( 'pwix:editor teScriber mode() asked='+mode );
                 }
                 self.TE.mode_asked = mode;
                 if( Editor.Modes.includes( mode )){
                     mode = self.TE.checkSwitch( mode );
                     const prev = self.TE.currentMode.get();
-                    if( Editor._conf.verbosity & Editor.C.Verbose.MODE ){
+                    if( Editor.configure().verbosity & Editor.C.Verbose.MODE ){
                         console.debug( 'pwix:editor teScriber mode() previous was', prev );
                     }
                     if( prev !== mode ){
@@ -281,7 +281,7 @@ Template.teScriber.onCreated( function(){
                             self.$( '.teScriber' ).trigger( 'te-mode-changed', { prev: prev, new: mode });
                         }
                         self.TE.currentMode.set( mode );
-                    } else if( Editor._conf.verbosity & Editor.C.Verbose.MODE ){
+                    } else if( Editor.configure().verbosity & Editor.C.Verbose.MODE ){
                         console.debug( 'pwix:editor teScriber mode() mode is unchanged' );
                     }
                 } else {
@@ -309,7 +309,7 @@ Template.teScriber.onCreated( function(){
 
     // see https://alex-d.github.io/Trumbowyg/documentation/#svg-icons
     //  actually explicitely load the icons on package startup
-    //$.trumbowyg.svgPath = Editor._conf.svgPath;
+    //$.trumbowyg.svgPath = Editor.configure().svgPath;
     //$.trumbowyg.svgPath = '/packages/pwi_editor/icons.svg';
     //$.trumbowyg.svgPsvgAbsoluteUsePath = true;
 
@@ -328,7 +328,7 @@ Template.teScriber.onCreated( function(){
     self.autorun(() => {
         const mode = Template.currentData().mode;
         if( mode !== self.TE.mode_parm ){
-            if( Editor._conf.verbosity & Editor.C.Verbose.MODE ){
+            if( Editor.configure().verbosity & Editor.C.Verbose.MODE ){
                 console.debug( 'pwix:editor teScriber currentData() asking mode='+mode );
             }
             self.TE.mode_parm = mode;
@@ -358,8 +358,8 @@ Template.teScriber.onCreated( function(){
 
     // upload url for the images
     self.autorun(() => {
-        self.TE.uploadUrl = Editor._conf.uploadUrl;
-        if( Editor._conf.verbosity & Editor.C.Verbose.UPLOAD ){
+        self.TE.uploadUrl = Editor.configure().uploadUrl;
+        if( Editor.configure().verbosity & Editor.C.Verbose.UPLOAD ){
             console.debug( 'pwix:editor teScriber uploadUrl', self.TE.uploadUrl );
         }
     });
@@ -370,7 +370,7 @@ Template.teScriber.onCreated( function(){
         const _hasSwitch = Editor.switch.used.get();
         if( _hasSwitch ){
             const _state = Editor.switch.state.get();
-            if( Editor._conf.verbosity & Editor.C.Verbose.MODE ){
+            if( Editor.configure().verbosity & Editor.C.Verbose.MODE ){
                 console.debug( 'pwix:editor teScriber auto follow teSwitch for', self.TE.mode_asked );
             }
             self.TE.mode( self.TE.mode_asked );
@@ -378,7 +378,7 @@ Template.teScriber.onCreated( function(){
     });
 
     // be verbose
-    if( Editor._conf.verbosity & Editor.C.Verbose.COMPONENTS ){
+    if( Editor.configure().verbosity & Editor.C.Verbose.COMPONENTS ){
         console.debug( 'pwix:editor teScriber onCreated()', self.TE.name );
     }
 });
@@ -387,7 +387,7 @@ Template.teScriber.onRendered( function(){
     const self = this;
 
     // be verbose
-    if( Editor._conf.verbosity & Editor.C.Verbose.COMPONENTS ){
+    if( Editor.configure().verbosity & Editor.C.Verbose.COMPONENTS ){
         console.debug( 'pwix:editor teScriber onRendered()' );
     }
 
@@ -404,7 +404,7 @@ Template.teScriber.onRendered( function(){
     // honor the ask mode
     self.autorun(() => {
         const mode = self.TE.mode();
-        if( Editor._conf.verbosity & Editor.C.Verbose.MODE ){
+        if( Editor.configure().verbosity & Editor.C.Verbose.MODE ){
             console.debug( 'pwix:editor teScriber autorun() honoring', mode );
         }
         self.$( '.te-edit-container' ).removeClass().addClass( 'te-edit-container '+mode );
@@ -475,7 +475,7 @@ Template.teScriber.events({
         const editorInitialized = instance.TE.editorInitialized.get();
         const tbwchange_update = instance.TE.tbwchange_update;
         const tbwchange_sendmsg = instance.TE.tbwchange_sendmsg;
-        if( Editor._conf.verbosity & Editor.C.Verbose.TRUMBOWYG ){
+        if( Editor.configure().verbosity & Editor.C.Verbose.TRUMBOWYG ){
             console.debug( 'pwix:editor teScriber tbwchange editorInitialized='+editorInitialized, 'tbwchange_update='+tbwchange_update, 'tbwchange_sendmsg='+tbwchange_sendmsg );
         }
         if( editorInitialized ){
@@ -488,17 +488,17 @@ Template.teScriber.events({
                         o.name = Template.currentData().name;
                     }
                     instance.$( '.teScriber' ).trigger( 'te-content-changed', o );
-                } else if( Editor._conf.verbosity & Editor.C.Verbose.TRUMBOWYG ){
+                } else if( Editor.configure().verbosity & Editor.C.Verbose.TRUMBOWYG ){
                     console.debug( 'pwix:editor teScriber tbwchange tbwchange_sendmsg is false' );
                 }
                 // update the input/output ReactiveVar if allowed to
                 if( tbwchange_update && instance.TE.content ){
                     instance.TE.content.set( html );
-                } else if( Editor._conf.verbosity & Editor.C.Verbose.TRUMBOWYG ){
+                } else if( Editor.configure().verbosity & Editor.C.Verbose.TRUMBOWYG ){
                     console.debug( 'pwix:editor teScriber tbwchange tbwchange_update is false' );
                 }
                 instance.TE.tbwchange_last = html;
-            } else if( Editor._conf.verbosity & Editor.C.Verbose.TRUMBOWYG ){
+            } else if( Editor.configure().verbosity & Editor.C.Verbose.TRUMBOWYG ){
                 console.debug( 'pwix:editor teScriber tbwchange html is unchanged' );
             }
         }
@@ -506,14 +506,14 @@ Template.teScriber.events({
 
     // the editor is destroyed
     'tbwclose .te-edit-container'( event, instance ){
-        if( Editor._conf.verbosity & Editor.C.Verbose.TRUMBOWYG ){
+        if( Editor.configure().verbosity & Editor.C.Verbose.TRUMBOWYG ){
             console.debug( 'pwix:editor teScriber tbwclose' );
         }
     },
 
     // the editor is initialized
     'tbwinit .te-edit-content'( event, instance ){
-        if( Editor._conf.verbosity & Editor.C.Verbose.TRUMBOWYG ){
+        if( Editor.configure().verbosity & Editor.C.Verbose.TRUMBOWYG ){
             console.debug( 'pwix:editor teScriber tbwinit' );
         }
         instance.TE.editorInitialized.set( true );
@@ -530,14 +530,14 @@ Template.teScriber.events({
 
     // html content has changed
     'te-content-changed .teScriber'( event, instance, data ){
-        if( Editor._conf.verbosity & Editor.C.Verbose.TEMSG ){
+        if( Editor.configure().verbosity & Editor.C.Verbose.TEMSG ){
             console.debug( 'pwix:editor teScriber te-content-changed', data );
         }
     },
 
     // re-set the html content of the editing area
     'te-content-reset .teScriber'( event, instance ){
-        if( Editor._conf.verbosity & Editor.C.Verbose.TEMSG ){
+        if( Editor.configure().verbosity & Editor.C.Verbose.TEMSG ){
             console.debug( 'pwix:editor teScriber te-content-reset' );
         }
         instance.TE.contentReset();
@@ -547,14 +547,14 @@ Template.teScriber.events({
     // debug the te-initialized message
     //  let event bubble up
     'te-initialized .teScriber'( event, instance ){
-        if( Editor._conf.verbosity & Editor.C.Verbose.TEMSG ){
+        if( Editor.configure().verbosity & Editor.C.Verbose.TEMSG ){
             console.debug( 'pwix:editor teScriber te-initialized' );
         }
     },
 
     // request to change the edition mode
     'te-mode-set .teScriber'( event, instance, data ){
-        if( Editor._conf.verbosity & Editor.C.Verbose.TEMSG ){
+        if( Editor.configure().verbosity & Editor.C.Verbose.TEMSG ){
             console.debug( 'pwix:editor teScriber te-mode-set', data );
         }
         instance.TE.mode( data.mode );
@@ -564,7 +564,7 @@ Template.teScriber.events({
     // the edition mode has changed
     //  let the event bubble up
     'te-mode-changed .teScriber'( event, instance, data ){
-        if( Editor._conf.verbosity & Editor.C.Verbose.TEMSG ){
+        if( Editor.configure().verbosity & Editor.C.Verbose.TEMSG ){
             console.debug( 'pwix:editor teScriber te-mode-changed', data );
         }
     }
@@ -574,7 +574,7 @@ Template.teScriber.onDestroyed( function(){
     this.TE.editorDelete();
 
     // be verbose
-    if( Editor._conf.verbosity & Editor.C.Verbose.COMPONENTS ){
+    if( Editor.configure().verbosity & Editor.C.Verbose.COMPONENTS ){
         console.debug( 'pwix:editor teScriber onDestroyed()' );
     }
 });

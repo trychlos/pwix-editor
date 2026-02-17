@@ -42,7 +42,7 @@ Template.teSerializer.onCreated( function(){
         self.TE.document = Template.currentData().document;
         assert( self.TE.document && _.isString( self.TE.document ) && self.TE.document.length > 0, 'teSerializer expects a document name, found', self.TE.document );
         // be verbose
-        if( Editor._conf.verbosity & Editor.C.Verbose.COMPONENTS ){
+        if( Editor.configure().verbosity & Editor.C.Verbose.COMPONENTS ){
             console.debug( 'pwix:editor teSerializer onCreated() collection='+self.TE.collection, 'document='+self.TE.document );
         }
         // subscribe to a publication to get this document
@@ -56,7 +56,7 @@ Template.teSerializer.onRendered( function(){
     const self = this;
 
     // be verbose
-    if( Editor._conf.verbosity & Editor.C.Verbose.COMPONENTS ){
+    if( Editor.configure().verbosity & Editor.C.Verbose.COMPONENTS ){
         console.debug( 'pwix:editor teSerializer onRendered()' );
     }
 
@@ -88,7 +88,7 @@ Template.teSerializer.helpers({
         const TE = Template.instance().TE;
         let o = Template.currentData();
         o.mode = o.mode || Editor.C.Mode.STANDARD;
-        if( Editor._conf.verbosity & Editor.C.Verbose.MODE ){
+        if( Editor.configure().verbosity & Editor.C.Verbose.MODE ){
             console.debug( 'pwix:editor teSerializer editParms asks for', o.mode );
         }
         o.content = TE.docContent;
@@ -119,7 +119,7 @@ Template.teSerializer.events({
 
     // verbose
     'te-serialized .teSerializer'( event, instance, data ){
-        if( Editor._conf.verbosity & Editor.C.Verbose.TEMSG ){
+        if( Editor.configure().verbosity & Editor.C.Verbose.TEMSG ){
             console.debug( 'pwix:editor teSerializer te-serialized', data );
         }
     }
@@ -127,7 +127,7 @@ Template.teSerializer.events({
 
 Template.teSerializer.onDestroyed( function(){
     // be verbose
-    if( Editor._conf.verbosity & Editor.C.Verbose.COMPONENTS ){
+    if( Editor.configure().verbosity & Editor.C.Verbose.COMPONENTS ){
         console.debug( 'pwix:editor teSerializer onDestroyed()' );
     }
 });
