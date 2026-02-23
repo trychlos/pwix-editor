@@ -325,7 +325,8 @@ Known configuration options are:
 
 - `uploadUrl`
 
-    The URL to which the images should be uploaded.<br />
+    The URL to which the images should be uploaded.
+
     No default.
 
 - `verbosity`
@@ -357,7 +358,9 @@ Known configuration options are:
 
     - `Editor.C.Verbose.CONFIGURE`
 
-        Trace `Editor.configure()` calls and their result
+        Trace `Editor.configure()` calls and their result.
+
+        This is the default value.
 
     - `Editor.C.Verbose.MODE`
 
@@ -382,7 +385,7 @@ Known configuration options are:
 
         Trace upload configuration and operations
 
-Please note that `Editor.configure()` methmethod should be called in the same terms both in client and server sides.
+Please note that `Editor.configure()` method should be called in the same terms both in client and server sides.
 
 Also note, as an explicit reminder for the fools, that, because the Meteor packages are instanciated at application level, they can be configured once at most, and only once at most. Each addtionnal call to `Editor.configure()` will just override the previous one. You have been warned: **only the application should configure a package**.
 

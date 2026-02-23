@@ -7,6 +7,7 @@
     Release date: 
 
     - configure() now warns for unmanaged keys
+    - Change default verbosity to Editor.C.Verbose.CONFIGURE
 
 ### 1.5.0
 

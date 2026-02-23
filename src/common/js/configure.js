@@ -14,7 +14,7 @@ Editor._defaults = {
     storeSwitchState: false,
     tabularContentWidth: 200,
     uploadUrl: '',
-    verbosity: Editor.C.Verbose.NONE
+    verbosity: Editor.C.Verbose.CONFIGURE
 };
 
 /**
