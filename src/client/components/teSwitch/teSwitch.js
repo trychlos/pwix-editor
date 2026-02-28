@@ -19,17 +19,18 @@
  * The switches are advertised via te-switch-on / te-switch-off events.
  */
 
+import { Logger } from 'meteor/pwix:logger';
 import { ReactiveVar } from 'meteor/reactive-var';
 
 import './teSwitch.html';
+
+const logger = Logger.get();
 
 Template.teSwitch.onCreated( function(){
     const self = this;
 
     // be verbose
-    if( Editor.configure().verbosity & Editor.C.Verbose.COMPONENTS || Editor.configure().verbosity & Editor.C.Verbose.SWITCH ){
-        console.debug( 'pwix:editor teSwitch onCreated()' );
-    }
+    logger.verbose({ verbosity: Editor.configure().verbosity, against: Editor.C.Verbose.COMPONENTS | Editor.C.Verbose.SWITCH }, 'teSwitch onCreated()' );
 
     self.TE = {
         // arguments dealt with here
@@ -42,7 +43,7 @@ Template.teSwitch.onCreated( function(){
                 if( b === true || b === false ){
                     self.TE[name].set( b );
                 } else {
-                    console.warn( 'teSwitch expects \''+name+'\' be a boolean, found', b );
+                    logger.warn( 'teSwitch expects \''+name+'\' be a boolean, found', b );
                 }
             }
         },
@@ -52,10 +53,10 @@ Template.teSwitch.onCreated( function(){
         //  - if this has not been disabled by the user if a cookieMaager is present
         storeGet(){
             let _state = self.TE.state.get();
-            //console.log( 'init state', _state );
+            //logger.log( 'init state', _state );
             if( self.TE.useStore()){
                 _state = localStorage.getItem( COOKIE_SWITCH_STATE_IDENTIFIER );
-                //console.log( 'got state', _state );
+                //logger.log( 'got state', _state );
             }
             return _state;
         },
@@ -72,7 +73,7 @@ Template.teSwitch.onCreated( function(){
             if( use && Meteor.CookieManager ){
                 use = Meteor.CookieManager.isEnabled( COOKIE_SWITCH_STATE_IDENTIFIER );
             }
-            //console.log( 'useStore', use );
+            //logger.log( 'useStore', use );
             return use;
         }
     };
@@ -98,9 +99,7 @@ Template.teSwitch.onRendered( function(){
     const self = this;
 
     // be verbose
-    if( Editor.configure().verbosity & Editor.C.Verbose.COMPONENTS || Editor.configure().verbosity & Editor.C.Verbose.SWITCH ){
-        console.debug( 'pwix:editor teSwitch onRendered()' );
-    }
+    logger.verbose({ verbosity: Editor.configure().verbosity, against: Editor.C.Verbose.COMPONENTS | Editor.C.Verbose.SWITCH }, 'teSwitch onRendered()' );
 
     // store the switch state (if asked for)
     self.autorun(() => {
@@ -123,15 +122,11 @@ Template.teSwitch.events({
     },
 
     'te-switch-off .teSwitch'(){
-        if( Editor.configure().verbosity & Editor.C.Verbose.TEMSG || Editor.configure().verbosity & Editor.C.Verbose.SWITCH  ){
-            console.debug( 'pwix:editor teSwitch te-switch-off' );
-        }
+        logger.verbose({ verbosity: Editor.configure().verbosity, against: Editor.C.Verbose.TEMSG | Editor.C.Verbose.SWITCH }, 'te-switch-off' );
     },
 
     'te-switch-on .teSwitch'(){
-        if( Editor.configure().verbosity & Editor.C.Verbose.TEMSG || Editor.configure().verbosity & Editor.C.Verbose.SWITCH  ){
-            console.debug( 'pwix:editor teSwitch te-switch-on' );
-        }
+        logger.verbose({ verbosity: Editor.configure().verbosity, against: Editor.C.Verbose.TEMSG | Editor.C.Verbose.SWITCH }, 'te-switch-on' );
     }
 });
 
@@ -140,7 +135,5 @@ Template.teSwitch.onDestroyed( function(){
     Editor.switch.used.set( false );
 
     // be verbose
-    if( Editor.configure().verbosity & Editor.C.Verbose.COMPONENTS || Editor.configure().verbosity & Editor.C.Verbose.SWITCH  ){
-        console.debug( 'pwix:editor teSwitch onDestroyed()' );
-    }
+    logger.verbose({ verbosity: Editor.configure().verbosity, against: Editor.C.Verbose.COMPONENTS | Editor.C.Verbose.SWITCH }, 'teSwitch onDestroyed()' );
 });

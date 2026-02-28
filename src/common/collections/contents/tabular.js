@@ -22,7 +22,6 @@ Editor.collections.Contents.getTabular = async function( name ){
         const collection = Editor.collections.get( name, Editor.collections.Contents.schema );
         const columns = fieldSet.toTabular();
         if( fieldSet && collection && columns ){
-            //console.debug( 'instanciating Tabular.Table', name );
             tabular = new Tabular.Table({
                 name: name,
                 collection: collection,

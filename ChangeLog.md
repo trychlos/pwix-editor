@@ -2,12 +2,13 @@
 
 ## ChangeLog
 
-### 1.5.1-rc
+### 1.6.0-rc
 
     Release date: 
 
     - configure() now warns for unmanaged keys
     - Change default verbosity to Editor.C.Verbose.CONFIGURE
+    - Use pwix:logger universal logger, thus bumping minor candidate version number
 
 ### 1.5.0
 

@@ -29,7 +29,6 @@ Template.teManager.onCreated( function(){
         // count the checked items
         checked(){
             const checkedBtns = self.$( '.js-checkit:checked' );
-            //console.debug( checkedBtns );
             self.$( 'button.js-export' ).prop( 'disabled', !window.showSaveFilePicker || checkedBtns.length === 0 );
         },
 

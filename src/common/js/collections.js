@@ -2,9 +2,12 @@
  * pwix:editor/src/common/js/collections.js
  */
 
+import { Logger } from 'meteor/pwix:logger';
 import { Mongo } from 'meteor/mongo';
 
 import '../collections/contents/index.js';
+
+const logger = Logger.get();
 
 /**
  * @summary Common getter and initialization code to dynamically define a Contents collection
@@ -17,9 +20,8 @@ Editor.collections.get = function( name, schema ){
         // thanks to dburles:mongo-collection-instances
         let collection = Mongo.Collection.get( name );
         if( !collection ){
-            if( Editor.configure().verbosity & Editor.C.Verbose.COLLECTIONS ){
-                console.debug( 'pwix:editor instanciating Mongo.Collection', name );
-            }
+            logger.verbose({ verbosity: Editor.configure().verbosity, against: Editor.C.Verbose.COLLECTIONS }, 'instanciating Mongo.Collection', name );
+
             collection = new Mongo.Collection( name );
             if( schema ){
                 collection.attachSchema( schema );

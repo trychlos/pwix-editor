@@ -2,8 +2,11 @@
  * pwix:editor/src/client/js/switch.js
  */
 
+import { Logger } from 'meteor/pwix:logger';
 import { ReactiveVar } from 'meteor/reactive-var';
 import { Tracker } from 'meteor/tracker';
+
+const logger = Logger.get();
 
 Editor.switch = {
     used: new ReactiveVar( false ),
@@ -12,14 +15,10 @@ Editor.switch = {
 
 Tracker.autorun(() => {
     const b = Editor.switch.used.get();
-    if( Editor.configure().verbosity & Editor.C.Verbose.SWITCH  ){
-        console.debug( 'pwix:editor switch.used', b );
-    }
+    logger.verbose({ verbosity: Editor.configure().verbosity, against: Editor.C.Verbose.SWITCH }, 'switch.used', b );
 });
 
 Tracker.autorun(() => {
     const b = Editor.switch.state.get();
-    if( Editor.configure().verbosity & Editor.C.Verbose.SWITCH  ){
-        console.debug( 'pwix:editor switch.state', b );
-    }
+    logger.verbose({ verbosity: Editor.configure().verbosity, against: Editor.C.Verbose.SWITCH }, 'switch.state', b );
 });

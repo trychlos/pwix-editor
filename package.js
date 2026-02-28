@@ -1,6 +1,6 @@
 Package.describe({
     name: 'pwix:editor',
-    version: '1.5.1-rc',
+    version: '1.6.0-rc',
     summary: 'An encapsulation of "trumbowyg" for Meteor',
     git: 'https://github.com/trychlos/pwix-editor',
     documentation: 'README.md'
@@ -34,6 +34,7 @@ function configure( api ){
     api.use( 'pwix:collection-timestampable@2.0.0' );
     api.use( 'pwix:field@1.0.0-rc' );
     api.use( 'pwix:i18n@1.5.7' );
+    api.use( 'pwix:logger@1.0.0-rc' );
     api.use( 'pwix:modal-info@1.5.0' );
     api.use( 'pwix:plus-button@0.11.2 || 1.0.0-rc' );
     api.use( 'pwix:tabular@1.0.0-rc' );

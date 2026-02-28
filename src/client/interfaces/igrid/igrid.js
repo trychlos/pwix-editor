@@ -40,6 +40,10 @@
  *  Boilerplate from https://github.com/jquery-boilerplate/jquery-boilerplate/blob/master/src/jquery.boilerplate.js
  */
 
+import { Logger } from 'meteor/pwix:logger';
+
+const logger = Logger.get();
+
 ;( function( $, window, document ){
     "use strict";
     const pluginName = "IGrid";
@@ -57,7 +61,7 @@
     // Avoid MyPlugin.prototype conflicts
     $.extend( myPlugin.prototype, {
         _init(){
-            //console.log( this );
+            //logger.log( this );
             // this = {
             //      dom         DOM callee element (not jQuery)
             //      args = {
@@ -197,19 +201,19 @@
     });
 
     $.fn[pluginName] = function(){
-        //console.log( this );  // this is the jQuery element on which the interface is called
+        //logger.log( this );  // this is the jQuery element on which the interface is called
         const opts = Array.prototype.slice.call( arguments );
-        //console.log( opts );
+        //logger.log( opts );
         this.each( function(){
-            //console.log( this ); // this is the particular DOM element on which the interface will be applied
+            //logger.log( this ); // this is the particular DOM element on which the interface will be applied
             // may or may not already been initialized
             const plugin = $( this ).data( pluginName );
             if( plugin ){
-                //console.log( 'reusing already initialized plugin' );
-                //console.log( opts );
+                //logger.log( 'reusing already initialized plugin' );
+                //logger.log( opts );
                 myPlugin.prototype._init.apply( plugin, opts );
             } else {
-                //console.log( 'allocating new plugin instance' );
+                //logger.log( 'allocating new plugin instance' );
                 $( this ).data( pluginName, new myPlugin( this, opts[0] ));
             }
         });

@@ -12,9 +12,12 @@
 import _ from 'lodash';
 const assert = require( 'assert' ).strict; // up to nodejs v16.x
 
+import { Logger } from 'meteor/pwix:logger';
 import { ReactiveVar } from 'meteor/reactive-var';
 
 import './teSerializer.html';
+
+const logger = Logger.get();
 
 Template.teSerializer.onCreated( function(){
     const self = this;
@@ -36,17 +39,15 @@ Template.teSerializer.onCreated( function(){
     // Template.currentData() is a reactive data source
     //  so subscribe to the ad-hoc publication each time collection name or document name change
     self.autorun(() => {
-        //console.debug( 'teSerializer data', Template.currentData());
+        //logger.debug( 'teSerializer data', Template.currentData());
         self.TE.collection = Template.currentData().collection || 'te_contents';
         assert( self.TE.collection && _.isString( self.TE.collection ) && self.TE.collection.length > 0, 'teSerializer expects a collection name, found', self.TE.collection );
         self.TE.document = Template.currentData().document;
         assert( self.TE.document && _.isString( self.TE.document ) && self.TE.document.length > 0, 'teSerializer expects a document name, found', self.TE.document );
         // be verbose
-        if( Editor.configure().verbosity & Editor.C.Verbose.COMPONENTS ){
-            console.debug( 'pwix:editor teSerializer onCreated() collection='+self.TE.collection, 'document='+self.TE.document );
-        }
+        logger.verbose({ verbosity: Editor.configure().verbosity, against: Editor.C.Verbose.COMPONENTS }, 'teSerializer onCreated() collection='+self.TE.collection, 'document='+self.TE.document );
         // subscribe to a publication to get this document
-        //console.debug( 'subscribe to teContent.byName with', self.TE.collection+'+'+self.TE.document );
+        //logger.debug( 'subscribe to teContent.byName with', self.TE.collection+'+'+self.TE.document );
         self.TE.handle = self.subscribe( 'teContent.byName', self.TE.collection, self.TE.document );
         self.TE.initialized = false;
     });
@@ -56,15 +57,13 @@ Template.teSerializer.onRendered( function(){
     const self = this;
 
     // be verbose
-    if( Editor.configure().verbosity & Editor.C.Verbose.COMPONENTS ){
-        console.debug( 'pwix:editor teSerializer onRendered()' );
-    }
+    logger.verbose({ verbosity: Editor.configure().verbosity, against: Editor.C.Verbose.COMPONENTS }, 'teSerializer onRendered()' );
 
     // get the editable content from the database
     // each time we modify a document, the publication is refreshed - only initialize it the first time
     self.autorun(() => {
         if( self.TE.handle.ready() && !self.TE.initialized ){
-            //console.debug( 'handle ready' );
+            //logger.debug( 'handle ready' );
             const collection = Editor.collections.get( self.TE.collection, Editor.collections.Contents.schema );
             const doc = collection.findOne({ name: self.TE.document });
             if( doc ){
@@ -88,9 +87,7 @@ Template.teSerializer.helpers({
         const TE = Template.instance().TE;
         let o = Template.currentData();
         o.mode = o.mode || Editor.C.Mode.STANDARD;
-        if( Editor.configure().verbosity & Editor.C.Verbose.MODE ){
-            console.debug( 'pwix:editor teSerializer editParms asks for', o.mode );
-        }
+        logger.verbose({ verbosity: Editor.configure().verbosity, against: Editor.C.Verbose.MODE }, 'editParms asks for', o.mode );
         o.content = TE.docContent;
         return o;
     }
@@ -105,29 +102,25 @@ Template.teSerializer.events({
             if( document ){
                 Meteor.call( 'te_contents.set', collection, document, data.html, ( err, res ) => {
                     if( err ){
-                        console.error( err );
+                        logger.error( err );
                     } else {
                         instance.TE.lastSavedContent = data.html;
                         instance.$( '.teSerializer' ).trigger( 'te-serialized', { result: res });
                     }
                 });
             } else {
-                console.warn( 'teSerializer should have a document name here' );
+                logger.warn( 'teSerializer should have a document name here' );
             }
         }
     },
 
     // verbose
     'te-serialized .teSerializer'( event, instance, data ){
-        if( Editor.configure().verbosity & Editor.C.Verbose.TEMSG ){
-            console.debug( 'pwix:editor teSerializer te-serialized', data );
-        }
+        logger.verbose({ verbosity: Editor.configure().verbosity, against: Editor.C.Verbose.TEMSG }, 'te-serialized', data );
     }
 });
 
 Template.teSerializer.onDestroyed( function(){
     // be verbose
-    if( Editor.configure().verbosity & Editor.C.Verbose.COMPONENTS ){
-        console.debug( 'pwix:editor teSerializer onDestroyed()' );
-    }
+    logger.verbose({ verbosity: Editor.configure().verbosity, against: Editor.C.Verbose.COMPONENTS }, 'teSerializer onDestroyed()' );
 });
