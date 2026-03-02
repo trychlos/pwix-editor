@@ -9,6 +9,7 @@
     - configure() now warns for unmanaged keys
     - Change default verbosity to Editor.C.Verbose.CONFIGURE
     - Use pwix:logger universal logger, thus bumping minor candidate version number
+    - Fix array concatenation of Content fieldset
 
 ### 1.5.0
 

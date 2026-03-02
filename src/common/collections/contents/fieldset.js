@@ -41,7 +41,6 @@ const _defaultFieldSet = function( conf ){
                 return data;
             }
         },
-        Timestampable.fieldDef(),
         {
             schema: false,
             dt_title: pwixI18n.label( I18N, 'list.headers.length_th' ),
@@ -68,6 +67,7 @@ const _defaultFieldSet = function( conf ){
             }
         }
     ];
+    columns = columns.concat( Timestampable.fieldDef());
     return columns;
 };
 
