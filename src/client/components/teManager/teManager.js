@@ -6,7 +6,7 @@
  * 
  * Parms:
  *  - collection: the collection name which stores the documents, defaulting to 'te_contents',
- *  - plusButton: whether we have a plus button, defaulting to true
+ *  - PlusButton: whether we have a plus button, defaulting to true
  */
 
 import { pwixI18n } from 'meteor/pwix:i18n';
@@ -53,7 +53,7 @@ Template.teManager.onCreated( function(){
     // subscribe to the publication
     self.autorun(() => {
         self.TE.collection = Template.currentData().collection || 'te_contents';
-        self.TE.handle = self.subscribe( 'teContent.listAll', self.TE.collection );
+        self.TE.handle = self.subscribe( 'pwix.Editor.p.listAll', self.TE.collection );
     });
 
     // count the published documents
@@ -124,7 +124,7 @@ Template.teManager.helpers({
 
     // whether we have a plus button
     havePlusButton(){
-        return ( this.plusButton === true || this.plusButton === false ) ? this.plusButton : true;
+        return ( this.PlusButton === true || this.PlusButton === false ) ? this.PlusButton : true;
     },
 
     // string translation
@@ -140,7 +140,7 @@ Template.teManager.helpers({
         }
     },
 
-    // parms to plusButton
+    // parms to PlusButton
     parmsPlusButton(){
         return {
         };

@@ -47,8 +47,8 @@ Template.teSerializer.onCreated( function(){
         // be verbose
         logger.verbose({ verbosity: Editor.configure().verbosity, against: Editor.C.Verbose.COMPONENTS }, 'teSerializer onCreated() collection='+self.TE.collection, 'document='+self.TE.document );
         // subscribe to a publication to get this document
-        //logger.debug( 'subscribe to teContent.byName with', self.TE.collection+'+'+self.TE.document );
-        self.TE.handle = self.subscribe( 'teContent.byName', self.TE.collection, self.TE.document );
+        //logger.debug( 'subscribe to pwix.Editor.p.byName with', self.TE.collection+'+'+self.TE.document );
+        self.TE.handle = self.subscribe( 'pwix.Editor.p.byName', self.TE.collection, self.TE.document );
         self.TE.initialized = false;
     });
 });
@@ -100,7 +100,7 @@ Template.teSerializer.events({
             const collection = instance.TE.collection;
             const document = instance.TE.document;
             if( document ){
-                Meteor.call( 'te_contents.set', collection, document, data.html, ( err, res ) => {
+                Meteor.call( 'pwix.Editor.m.set', collection, document, data.html, ( err, res ) => {
                     if( err ){
                         logger.error( err );
                     } else {

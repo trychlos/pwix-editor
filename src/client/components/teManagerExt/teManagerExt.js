@@ -36,7 +36,7 @@ Template.teManagerExt.onCreated( function(){
         if( !tabular ){
             const collection = Template.currentData().collection || 'te_contents';
             // make sure Tabular.Table is instanciated on the server
-            Meteor.callAsync( 'te_contents.tabular', collection )
+            Meteor.callAsync( 'pwix.Editor.m.hasTabular', collection )
                 .then(( tabular_server ) => {
                     // if ok, then same on the client
                     if( tabular_server ){

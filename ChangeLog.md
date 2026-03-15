@@ -10,6 +10,7 @@
     - Change default verbosity to Editor.C.Verbose.CONFIGURE
     - Use pwix:logger universal logger, thus bumping minor candidate version number
     - Fix array concatenation of Content fieldset
+    - Make sure methods and publications are prefixed with a full namespace
 
 ### 1.5.0
 

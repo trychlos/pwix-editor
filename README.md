@@ -86,7 +86,7 @@ The component is configurable with an object passed as an argument, which may co
 
     The collection name, defaulting to `te_contents`.
 
-- `plusButton`
+- `PlusButton`
 
     Whether the manager should exhibit a 'plus' button, defaulting to `true`.
 
