@@ -15,7 +15,6 @@ checkNpmVersions({
     'ellipsize': '^0.5.1',
     'jquery-resizable-dom': '^0.35.0',   // required by trumbowyg:resizimg plugin
     'lodash': '^4.17.0',
-    'simpl-schema': '^3.4.7',
     // as of 2023- 9-15 we embed a (buggy) version 2.27.3
     //  keep this patched version until https://github.com/Alex-D/Trumbowyg/issues/1396 is fixed
     //'trumbowyg': '^2.25.2',

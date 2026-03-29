@@ -11,7 +11,6 @@
     - Use pwix:logger universal logger, thus bumping minor candidate version number
     - Fix array concatenation of Content fieldset
     - Make sure methods and publications are prefixed with a full namespace
-    - Replace aldeed:simple-schema dependency with npm simpl-schema
 
 ### 1.5.0
 
