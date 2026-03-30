@@ -30,7 +30,7 @@ function configure( api ){
     api.use( 'dburles:mongo-collection-instances@0.3.6 || 1.0.0-beta300.0' );
     api.use( 'less@4.0.0', 'client' );
     api.use( 'mongo' );
-    api.use( 'pwix:accounts-core@1.1.0' );
+    api.use( 'pwix:accounts-core@1.1.0 || 2.0.0-rc.0' );
     api.use( 'pwix:collection-timestampable@2.0.0' );
     api.use( 'pwix:field@1.0.0-rc' );
     api.use( 'pwix:i18n@1.5.7' );

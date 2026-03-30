@@ -11,6 +11,7 @@
     - Use pwix:logger universal logger, thus bumping minor candidate version number
     - Fix array concatenation of Content fieldset
     - Make sure methods and publications are prefixed with a full namespace
+    - Rename pwix:accounts-hub dependency to pwix:accounts-core, upgrading it to 2.0.0-rc.0
 
 ### 1.5.0
 

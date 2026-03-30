@@ -58,11 +58,11 @@ const _defaultFieldSet = function( conf ){
         {
             schema: false,
             dt_title: pwixI18n.label( I18N, 'list.headers.updatedby_th' ),
-            dt_template: Meteor.isClient && Template.ahPreferredLabel,
+            dt_template: Meteor.isClient && Template.acPreferredLabel,
             dt_templateContext( rowData ){
                 return {
-                    ahName: 'users',
-                    ahUserId: rowData.updatedBy || rowData.createdBy
+                    acName: 'users',
+                    acUserId: rowData.updatedBy || rowData.createdBy
                 };
             }
         }
