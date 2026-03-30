@@ -42,7 +42,7 @@ function configure( api ){
     api.use( 'pwix:ui-bootstrap5@2.0.0' );
     api.use( 'pwix:ui-utils@1.3.0' );
     api.use( 'reactive-var' );
-    api.use( 'tmeasday:check-npm-versions@1.0.2 || 2.0.0-beta.0', 'server' );
+    api.use( 'tmeasday:check-npm-versions@2.1.0', 'server' );
     api.addFiles([
         'src/client/components/teManager/teManager.js',
         'src/client/components/teManagerExt/teManagerExt.js',
