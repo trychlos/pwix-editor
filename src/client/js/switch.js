@@ -20,5 +20,6 @@ Tracker.autorun(() => {
 
 Tracker.autorun(() => {
     const b = Editor.switch.state.get();
+    Editor._store.set( COOKIE_SWITCH_STATE, b );
     logger.verbose({ verbosity: Editor.configure().verbosity, against: Editor.C.Verbose.SWITCH }, 'switch.state', b );
 });

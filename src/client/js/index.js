@@ -5,5 +5,5 @@
 import '../../common/js/index.js';
 
 import './icons.js';
-import './startup.js';
+import './store.js';
 import './switch.js';

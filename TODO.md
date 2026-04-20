@@ -22,7 +22,7 @@
 |   12 | 2024- 5-24 | Trumbowyg 2.28.0 is released so upgrade to last version |
 |      | 2025- 7- 7 | Trumbowyg 2.31.0 is available |
 |   14 | 2026- 2-12 | Move exported assets to /resources directory |
-|   15 |  |  |
+|   16 |  |  |
 
 ---
 ## Done
@@ -37,6 +37,8 @@
 |      | 2023- 9-28 | this is the teSerializer's job |
 |   13 | 2024- 5-24 | review server code to replace sync calls with async/await |
 |      | 2024- 5-25 | done (contents collection) |
+|   15 | 2026- 4-20 | cookie name should be dash-separated |
+|      | 2026- 4-20 | done |
 
 ---
 P. Wieser

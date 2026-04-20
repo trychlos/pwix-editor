@@ -46,40 +46,11 @@ Template.teSwitch.onCreated( function(){
                     logger.warn( 'teSwitch expects \''+name+'\' be a boolean, found', b );
                 }
             }
-        },
-
-        // get the last switch state from local store
-        //  - if feature has been asked for in the configuration
-        //  - if this has not been disabled by the user if a cookieMaager is present
-        storeGet(){
-            let _state = self.TE.state.get();
-            //logger.log( 'init state', _state );
-            if( self.TE.useStore()){
-                _state = localStorage.getItem( COOKIE_SWITCH_STATE_IDENTIFIER );
-                //logger.log( 'got state', _state );
-            }
-            return _state;
-        },
-
-        storeSet(){
-            if( self.TE.useStore()){
-                localStorage.setItem( COOKIE_SWITCH_STATE_IDENTIFIER, Editor.switch.state.get());
-            }
-        },
-
-        // whether to use the local store
-        useStore(){
-            let use = Editor.configure().storeSwitchState;
-            if( use && Meteor.CookieManager ){
-                use = Meteor.CookieManager.isEnabled( COOKIE_SWITCH_STATE_IDENTIFIER );
-            }
-            //logger.log( 'useStore', use );
-            return use;
         }
     };
 
     // maybe get last state from local store before following autorun
-    self.TE.state.set( self.TE.storeGet());
+    self.TE.state.set( Editor._store.get( COOKIE_SWITCH_STATE ));
 
     // get arguments
     self.autorun(() => {
@@ -100,11 +71,6 @@ Template.teSwitch.onRendered( function(){
 
     // be verbose
     logger.verbose({ verbosity: Editor.configure().verbosity, against: Editor.C.Verbose.COMPONENTS | Editor.C.Verbose.SWITCH }, 'teSwitch onRendered()' );
-
-    // store the switch state (if asked for)
-    self.autorun(() => {
-        self.TE.storeSet();
-    });
 });
 
 Template.teSwitch.helpers({

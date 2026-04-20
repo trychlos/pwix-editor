@@ -6,7 +6,7 @@
 
     Release date: 
 
-    - 
+    - Cookie name is dash-separated for consistency reason (todo #15) and is able to use CookieManager when present
 
 ### 1.6.0
 
