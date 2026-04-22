@@ -2,9 +2,9 @@
 
 ## ChangeLog
 
-### 1.6.1-rc.0
+### 1.6.1
 
-    Release date: 
+    Release date: 2026- 4-22
 
     - Cookie name is dash-separated for consistency reason (todo #15) and is able to use CookieManager when present
 
@@ -133,4 +133,4 @@
 
 ---
 P. Wieser
-- Last updated on 2026, Apr. 2nd
+- Last updated on 2026, Apr. 22nd
