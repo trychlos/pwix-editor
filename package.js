@@ -24,7 +24,7 @@ Package.onTest( function( api ){
 
 function configure( api ){
     api.versionsFrom([ '2.9.0', '3.0-rc.0' ]);
-    api.use( 'aldeed:collection2@3.5.0 || 4.0.1' );
+    api.use( 'aldeed:collection2@3.5.0 || 4.0.1 || 5.0.0' );
     api.use( 'blaze-html-templates@2.0.0 || 3.0.0-alpha300.0', 'client' );
     api.use( 'ecmascript' );
     api.use( 'dburles:mongo-collection-instances@0.3.6 || 1.0.0-beta300.0' );
