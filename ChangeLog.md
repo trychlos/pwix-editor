@@ -2,9 +2,9 @@
 
 ## ChangeLog
 
-### 1.6.2-rc.0
+### 1.6.2
 
-    Release date: 
+    Release date: 2026-10-24
 
     - Upgrade aldeed:collection2 to v5.0.0
 
@@ -139,4 +139,4 @@
 
 ---
 P. Wieser
-- Last updated on 2026, Apr. 22nd
+- Last updated on 2026, Oct. 24th
